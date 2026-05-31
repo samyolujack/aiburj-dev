@@ -1,59 +1,56 @@
-/*
-Copyright (C) 2023-2026 QuantumNous
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-For commercial licensing, please contact support@quantumnous.com
-*/
 import { Link } from '@tanstack/react-router'
-import { useTranslation } from 'react-i18next'
 import { useSystemConfig } from '@/hooks/use-system-config'
 import { Skeleton } from '@/components/ui/skeleton'
 
-type AuthLayoutProps = {
-  children: React.ReactNode
-}
+type AuthLayoutProps = { children: React.ReactNode }
 
 export function AuthLayout({ children }: AuthLayoutProps) {
-  const { t } = useTranslation()
   const { systemName, logo, loading } = useSystemConfig()
 
   return (
-    <div className='relative grid h-svh max-w-none'>
-      <Link
-        to='/'
-        className='absolute top-4 left-4 z-10 flex items-center gap-2 transition-opacity hover:opacity-80 sm:top-8 sm:left-8'
-      >
-        <div className='relative h-8 w-8'>
-          {loading ? (
-            <Skeleton className='absolute inset-0 rounded-full' />
-          ) : (
-            <img
-              src={logo}
-              alt={t('Logo')}
-              className='h-8 w-8 rounded-full object-cover'
-            />
-          )}
+    <div style={{
+      display: 'flex', minHeight: '100vh', background: '#F5F6FA',
+      fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
+    }}>
+      {/* Left: Brand Panel */}
+      <div style={{
+        flex: '0 0 480px', display: 'flex', flexDirection: 'column', justifyContent: 'center',
+        padding: '80px 64px',
+        background: 'linear-gradient(160deg, #6E29F6 0%, #8B5CF6 50%, #A78BFA 100%)',
+        position: 'relative', overflow: 'hidden', color: '#fff'
+      }}>
+        {/* Decorative circles */}
+        <div style={{ position: 'absolute', top: -100, right: -100, width: 300, height: 300, borderRadius: '50%', background: 'rgba(255,255,255,0.05)' }} />
+        <div style={{ position: 'absolute', bottom: -60, left: -60, width: 200, height: 200, borderRadius: '50%', background: 'rgba(255,255,255,0.04)' }} />
+
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 48, textDecoration: 'none' }}>
+            {loading ? <Skeleton className="h-10 w-10 rounded-xl" /> : (
+              <img src={logo} alt="aiburj" style={{ width: 40, height: 40, borderRadius: 10 }} />
+            )}
+            {loading ? <Skeleton className="h-7 w-20" /> : (
+              <span style={{ fontSize: 22, fontWeight: 700, color: '#fff' }}>{systemName || 'aiburj'}</span>
+            )}
+          </Link>
+
+          <h1 style={{ fontSize: 40, fontWeight: 800, lineHeight: 1.2, marginBottom: 16 }}>
+            一站式<br/>国产大模型 API 平台
+          </h1>
+          <p style={{ fontSize: 16, opacity: 0.8, lineHeight: 1.7, maxWidth: 340 }}>
+            OpenAI 兼容格式，统一接入 DeepSeek、通义千问、GLM 等国内主流大模型，按量计费，即刻开始。
+          </p>
         </div>
-        {loading ? (
-          <Skeleton className='h-6 w-24' />
-        ) : (
-          <h1 className='text-xl font-medium'>{systemName}</h1>
-        )}
-      </Link>
-      <div className='container flex items-center pt-16 sm:pt-0'>
-        <div className='mx-auto flex w-full flex-col justify-center space-y-2 px-4 py-8 sm:w-[480px] sm:p-8'>
+      </div>
+
+      {/* Right: Form Card */}
+      <div style={{
+        flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 40
+      }}>
+        <div style={{
+          width: '100%', maxWidth: 420, background: '#fff', borderRadius: 20,
+          padding: '48px 40px', boxShadow: '0 4px 24px rgba(0,0,0,0.04)',
+          border: '1px solid #E5E7EB'
+        }}>
           {children}
         </div>
       </div>

@@ -1,0 +1,104 @@
+# ============================================
+# aiburj Docker Compose — 生产级配置
+# ============================================
+# 启动: docker compose -f docker-compose.prod.yml up -d
+# 停止: docker compose -f docker-compose.prod.yml down
+# 查看日志: docker compose -f docker-compose.prod.yml logs -f
+# ============================================
+
+version: '3.8'
+
+services:
+  aiburj:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        TARGETOS: linux
+        TARGETARCH: amd64
+    image: aiburj:latest
+    container_name: aiburj
+    restart: always
+    command: --log-dir /app/logs
+    ports:
+      - "3000:3000"
+    volumes:
+      - aiburj_data:/data
+      - aiburj_logs:/app/logs
+    env_file:
+      - .env.docker
+    environment:
+      - SQL_DSN=postgresql://${DB_USER:-aiburj}:${DB_PASSWORD}@postgres:5432/aiburj
+      - REDIS_CONN_STRING=redis://:${REDIS_PASSWORD}@redis:6379
+      - SESSION_SECRET=${SESSION_SECRET}
+      - TZ=Asia/Shanghai
+      - ERROR_LOG_ENABLED=true
+      - BATCH_UPDATE_ENABLED=true
+      - NODE_NAME=aiburj-prod-1
+      - STREAMING_TIMEOUT=300
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - aiburj-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://localhost:3000/api/status | grep -o '\"success\":\\s*true' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: aiburj-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-aiburj}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: aiburj
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - aiburj-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-aiburj} -d aiburj"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "3"
+
+  redis:
+    image: redis:7-alpine
+    container_name: aiburj-redis
+    restart: always
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}", "--appendonly", "yes", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    volumes:
+      - redis_data:/data
+    networks:
+      - aiburj-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "3"
+
+volumes:
+  aiburj_data:
+  aiburj_logs:
+  pg_data:
+  redis_data:
+
+networks:
+  aiburj-network:
+    driver: bridge
