@@ -26,7 +26,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
         <div style={{ position: 'relative', zIndex: 1 }}>
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 48, textDecoration: 'none' }}>
             {loading ? <Skeleton className="h-10 w-10 rounded-xl" /> : (
-              <img src={logo} alt="aiburj" style={{ width: 40, height: 40, borderRadius: 10 }} />
+              <img src={logo} alt="aiburj" style={{ width: 56, height: 56, borderRadius: 12 }} />
             )}
             {loading ? <Skeleton className="h-7 w-20" /> : (
               <span style={{ fontSize: 22, fontWeight: 700, color: '#fff' }}>{systemName || 'aiburj'}</span>

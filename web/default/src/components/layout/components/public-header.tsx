@@ -188,22 +188,23 @@ export function PublicHeader(props: PublicHeaderProps) {
           right: 0,
           zIndex: 50,
           height: 60,
-          background: '#ffffff',
-          borderBottom: '1px solid #E5E7EB',
+          background: 'rgba(255,255,255,0.85)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderBottom: '1px solid rgba(0,0,0,0.06)',
           display: 'flex',
           alignItems: 'center',
         }}
       >
-        <div className='mx-auto flex w-full max-w-7xl items-center justify-between px-6'>
+        <div className='mx-auto flex w-full max-w-[1400px] items-center justify-between px-6'>
           <nav className='flex w-full items-center justify-between'>
             {/* Logo */}
             <Link
               to={homeUrl}
               className='group flex shrink-0 items-center gap-2.5'
             >
-              <div className='flex size-7 shrink-0 items-center justify-center transition-all duration-300 group-hover:scale-105'>
                 {loading ? (
-                  <Skeleton className='size-full rounded-lg' />
+                  <Skeleton className='h-8 w-8 rounded-lg' />
                 ) : customLogo ? (
                   customLogo
                 ) : (
@@ -211,17 +212,16 @@ export function PublicHeader(props: PublicHeaderProps) {
                     src={systemLogo}
                     loading={loading}
                     logoLoaded={logoLoaded}
-                    className='size-full rounded-lg object-contain'
+                    className='h-8 w-auto rounded object-contain'
                   />
                 )}
-              </div>
-              <span className='text-sm font-semibold tracking-tight'>
+              <span className='text-[15px] font-semibold tracking-tight'>
                 {loading ? <Skeleton className='h-4 w-16' /> : displaySiteName}
               </span>
             </Link>
 
             {/* Desktop nav */}
-            <div className='hidden items-center gap-0.5 sm:flex'>
+            <div className='hidden items-center gap-1 sm:flex'>
               {links.map((link, i) => {
                 const isActive = pathname === link.href
                 if (link.external) {
