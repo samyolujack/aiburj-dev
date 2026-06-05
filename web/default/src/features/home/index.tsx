@@ -281,7 +281,13 @@ export function Home() {
       </section>
 
       {/* ═══ SECTION 7 — 合作伙伴 ═══ */}
-      <section style={{ background: '#F4F8FC', padding: '88px 0 0', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg, #F4F8FC 0%, #E8F0FA 40%, #DCE8F8 70%, #F4F8FC 100%)', padding: '88px 0 0' }}>
+        {/* 装饰光晕 */}
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: '-20%', left: '-10%', width: '50%', height: '60%', background: 'radial-gradient(ellipse, rgba(0,74,143,0.06) 0%, transparent 70%)' }} />
+          <div style={{ position: 'absolute', bottom: '-10%', right: '-5%', width: '40%', height: '50%', background: 'radial-gradient(ellipse, rgba(0,128,192,0.04) 0%, transparent 70%)' }} />
+        </div>
+        <div style={{ position: 'relative', zIndex: 1 }}>
         <h2 style={{ fontSize: 48, fontWeight: 700, color: '#252736', textAlign: 'center', marginBottom: 66, letterSpacing: '-0.02em' }}>典型客户与合作伙伴</h2>
         {[{ logos: marqueeLogos1, base: LOGO_BASE1, anim: 'marquee-left 60s' }, { logos: marqueeLogos2, base: LOGO_BASE2, anim: 'marquee-right 60s' }, { logos: marqueeLogos3, base: LOGO_BASE3, anim: 'marquee-left 80s' }].map((row, ri) => (
           <div key={ri} style={{ height: 80, overflow: 'hidden', position: 'relative', marginBottom: 40 }}>
@@ -298,9 +304,8 @@ export function Home() {
             onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
           >立即体验</a>
         </div>
+        </div>
       </section>
-
-      {/* ═══ SECTION 8 — 代码示例 ═══ */}
       <section style={{ background: '#fff', padding: '100px 24px 80px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <SectionHeader icon={Code} badge="快速开始" title="三步接入，零门槛" desc="获取 API Key → 选择模型 → 复制代码，OpenAI SDK 直接兼容" />
