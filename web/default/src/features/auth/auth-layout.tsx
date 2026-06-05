@@ -33,8 +33,12 @@ export function AuthLayout({ children }: AuthLayoutProps) {
         <Link to="/" style={{
           position: 'absolute', left: 56, top: 56, zIndex: 2
         }}>
-          {loading ? <Skeleton style={{ width: 200, height: 42, borderRadius: 8 }} /> : (
-            <img src={logo} alt="aiburj" style={{ height: 42, width: 'auto', objectFit: 'contain' }} />
+          {loading ? <Skeleton style={{ width: 220, height: 36, borderRadius: 8 }} /> : (
+            <img src={logo} alt="aiburj" style={{
+              height: 42, width: 'auto', objectFit: 'contain',
+              filter: 'brightness(0) invert(1)',
+              opacity: 0.95,
+            }} />
           )}
         </Link>
 
