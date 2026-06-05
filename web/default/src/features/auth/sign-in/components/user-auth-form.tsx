@@ -382,10 +382,11 @@ export function UserAuthForm({
             <Button
               type='submit'
               className='mt-2 w-full justify-center gap-2'
+              style={{ background: '#004A8F', color: '#fff' }}
               disabled={isLoading || (requiresLegalConsent && !agreedToLegal)}
             >
               {isLoading ? <Loader2 className='animate-spin' /> : <LogIn />}
-              {t('Sign in')}
+              登录
             </Button>
 
             {/* Turnstile */}

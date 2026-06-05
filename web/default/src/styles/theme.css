@@ -101,14 +101,14 @@ For commercial licensing, please contact support@quantumnous.com
   --card-foreground: oklch(0.18 0.01 270);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0.01 270);
-  --primary: oklch(0.47 0.26 293);       /* #6E29F6 purple */
+  --primary: oklch(0.40 0.16 255);       /* #004A8F aiburj blue */
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.955 0.01 293);
-  --secondary-foreground: oklch(0.47 0.26 293);
+  --secondary: oklch(0.94 0.02 255);
+  --secondary-foreground: oklch(0.40 0.16 255);
   --muted: oklch(0.95 0.005 270);
   --muted-foreground: oklch(0.42 0.02 270); /* #57627F */
-  --accent: oklch(0.935 0.02 293);
-  --accent-foreground: oklch(0.47 0.26 293);
+  --accent: oklch(0.92 0.03 255);
+  --accent-foreground: oklch(0.40 0.16 255);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
   --success: oklch(0.596 0.145 163.225);
@@ -121,15 +121,15 @@ For commercial licensing, please contact support@quantumnous.com
   --neutral-foreground: oklch(0.145 0 0);
   --border: oklch(0.91 0.01 270);        /* #D5D6EA / #E5E7EB */
   --input: oklch(0.91 0.01 270);
-  --ring: oklch(0.47 0.26 293);
-  --chart-1: oklch(0.47 0.26 293);
+  --ring: oklch(0.40 0.16 255);
+  --chart-1: oklch(0.40 0.16 255);
   --chart-2: oklch(0.596 0.145 163.225);
   --chart-3: oklch(0.588 0.158 241.966);
   --chart-4: oklch(0.681 0.162 75.834);
   --chart-5: oklch(0.577 0.245 27.325);
   --sidebar: oklch(0.965 0.005 270);
   --sidebar-foreground: oklch(0.18 0.01 270);
-  --sidebar-primary: oklch(0.47 0.26 293);
+  --sidebar-primary: oklch(0.40 0.16 255);
   --sidebar-primary-foreground: oklch(1 0 0);
   --sidebar-accent: oklch(0.935 0.02 293);
   --sidebar-accent-foreground: oklch(0.18 0.01 270);
@@ -183,4 +183,22 @@ For commercial licensing, please contact support@quantumnous.com
   --sidebar-ring: oklch(0.68 0 0);
   --skeleton-base: oklch(0.285 0 0);
   --skeleton-highlight: oklch(0.39 0 0);
+}
+
+/* Hero gradient title */
+.hero-gradient-title {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Marquee animations — siliconflow partner logos */
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(50%); }
 }

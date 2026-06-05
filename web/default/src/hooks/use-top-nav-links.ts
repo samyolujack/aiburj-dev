@@ -28,6 +28,7 @@ export type TopNavLink = {
   disabled?: boolean
   requiresAuth?: boolean
   external?: boolean
+  children?: TopNavLink[]
 }
 
 /**
@@ -87,16 +88,26 @@ export function useTopNavLinks(): TopNavLink[] {
 
   // Docs (supports external links)
   if (modules?.docs !== false) {
-    if (docsLink) {
-      links.push({ title: t('Docs'), href: docsLink, external: true })
+    const isExternalDocs = docsLink && (docsLink.startsWith('http://') || docsLink.startsWith('https://'))
+    if (isExternalDocs) {
+      links.push({ title: t('Docs'), href: docsLink!, external: true })
     } else {
-      links.push({ title: t('Docs'), href: '/docs' })
+      links.push({ title: t('Docs'), href: '/docs', children: [
+        { title: t('快速入门'), href: '/docs' },
+        { title: t('API 手册'), href: '/docs/api' },
+        { title: t('模型列表'), href: '/pricing' },
+        { title: t('常见问题'), href: '/docs/faq' },
+      ]})
     }
   }
 
   // About
   if (modules?.about !== false) {
-    links.push({ title: t('About'), href: '/about' })
+    links.push({ title: t('About'), href: '/about', children: [
+      { title: t('公司介绍'), href: '/about' },
+      { title: t('品牌理念'), href: '/about/brand' },
+      { title: t('资讯动态'), href: '/about/news' },
+    ]})
   }
 
   return links

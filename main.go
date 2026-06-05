@@ -56,7 +56,7 @@ func main() {
 		return
 	}
 
-	common.SysLog("aiburj " + common.Version + " started")
+	common.SysLog("aiburg " + common.Version + " started")
 	if os.Getenv("GIN_MODE") != "debug" {
 		gin.SetMode(gin.ReleaseMode)
 	}

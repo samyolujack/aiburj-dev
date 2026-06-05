@@ -20,8 +20,12 @@ import { Route as PricingIndexRouteImport } from './routes/pricing/index'
 import { Route as DocsIndexRouteImport } from './routes/docs/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as OauthProviderRouteImport } from './routes/oauth/$provider'
+import { Route as DocsFaqRouteImport } from './routes/docs/faq'
+import { Route as DocsApiRouteImport } from './routes/docs/api'
 import { Route as ConsoleTopupRouteImport } from './routes/console/topup'
 import { Route as ConsoleLogRouteImport } from './routes/console/log'
+import { Route as AboutNewsRouteImport } from './routes/about/news'
+import { Route as AboutBrandRouteImport } from './routes/about/brand'
 import { Route as AuthenticatedChat2linkRouteImport } from './routes/_authenticated/chat2link'
 import { Route as errors503RouteImport } from './routes/(errors)/503'
 import { Route as errors500RouteImport } from './routes/(errors)/500'
@@ -123,6 +127,16 @@ const OauthProviderRoute = OauthProviderRouteImport.update({
   path: '/oauth/$provider',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocsFaqRoute = DocsFaqRouteImport.update({
+  id: '/docs/faq',
+  path: '/docs/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsApiRoute = DocsApiRouteImport.update({
+  id: '/docs/api',
+  path: '/docs/api',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConsoleTopupRoute = ConsoleTopupRouteImport.update({
   id: '/console/topup',
   path: '/console/topup',
@@ -131,6 +145,16 @@ const ConsoleTopupRoute = ConsoleTopupRouteImport.update({
 const ConsoleLogRoute = ConsoleLogRouteImport.update({
   id: '/console/log',
   path: '/console/log',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutNewsRoute = AboutNewsRouteImport.update({
+  id: '/about/news',
+  path: '/about/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutBrandRoute = AboutBrandRouteImport.update({
+  id: '/about/brand',
+  path: '/about/brand',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedChat2linkRoute = AuthenticatedChat2linkRouteImport.update({
@@ -416,8 +440,12 @@ export interface FileRoutesByFullPath {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/chat2link': typeof AuthenticatedChat2linkRoute
+  '/about/brand': typeof AboutBrandRoute
+  '/about/news': typeof AboutNewsRoute
   '/console/log': typeof ConsoleLogRoute
   '/console/topup': typeof ConsoleTopupRoute
+  '/docs/api': typeof DocsApiRoute
+  '/docs/faq': typeof DocsFaqRoute
   '/oauth/$provider': typeof OauthProviderRoute
   '/about/': typeof AboutIndexRoute
   '/docs/': typeof DocsIndexRoute
@@ -475,8 +503,12 @@ export interface FileRoutesByTo {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/chat2link': typeof AuthenticatedChat2linkRoute
+  '/about/brand': typeof AboutBrandRoute
+  '/about/news': typeof AboutNewsRoute
   '/console/log': typeof ConsoleLogRoute
   '/console/topup': typeof ConsoleTopupRoute
+  '/docs/api': typeof DocsApiRoute
+  '/docs/faq': typeof DocsFaqRoute
   '/oauth/$provider': typeof OauthProviderRoute
   '/about': typeof AboutIndexRoute
   '/docs': typeof DocsIndexRoute
@@ -538,8 +570,12 @@ export interface FileRoutesById {
   '/(errors)/500': typeof errors500Route
   '/(errors)/503': typeof errors503Route
   '/_authenticated/chat2link': typeof AuthenticatedChat2linkRoute
+  '/about/brand': typeof AboutBrandRoute
+  '/about/news': typeof AboutNewsRoute
   '/console/log': typeof ConsoleLogRoute
   '/console/topup': typeof ConsoleTopupRoute
+  '/docs/api': typeof DocsApiRoute
+  '/docs/faq': typeof DocsFaqRoute
   '/oauth/$provider': typeof OauthProviderRoute
   '/about/': typeof AboutIndexRoute
   '/docs/': typeof DocsIndexRoute
@@ -600,8 +636,12 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/chat2link'
+    | '/about/brand'
+    | '/about/news'
     | '/console/log'
     | '/console/topup'
+    | '/docs/api'
+    | '/docs/faq'
     | '/oauth/$provider'
     | '/about/'
     | '/docs/'
@@ -659,8 +699,12 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/chat2link'
+    | '/about/brand'
+    | '/about/news'
     | '/console/log'
     | '/console/topup'
+    | '/docs/api'
+    | '/docs/faq'
     | '/oauth/$provider'
     | '/about'
     | '/docs'
@@ -721,8 +765,12 @@ export interface FileRouteTypes {
     | '/(errors)/500'
     | '/(errors)/503'
     | '/_authenticated/chat2link'
+    | '/about/brand'
+    | '/about/news'
     | '/console/log'
     | '/console/topup'
+    | '/docs/api'
+    | '/docs/faq'
     | '/oauth/$provider'
     | '/about/'
     | '/docs/'
@@ -775,8 +823,12 @@ export interface RootRouteChildren {
   errors404Route: typeof errors404Route
   errors500Route: typeof errors500Route
   errors503Route: typeof errors503Route
+  AboutBrandRoute: typeof AboutBrandRoute
+  AboutNewsRoute: typeof AboutNewsRoute
   ConsoleLogRoute: typeof ConsoleLogRoute
   ConsoleTopupRoute: typeof ConsoleTopupRoute
+  DocsApiRoute: typeof DocsApiRoute
+  DocsFaqRoute: typeof DocsFaqRoute
   OauthProviderRoute: typeof OauthProviderRoute
   AboutIndexRoute: typeof AboutIndexRoute
   DocsIndexRoute: typeof DocsIndexRoute
@@ -865,6 +917,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OauthProviderRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/docs/faq': {
+      id: '/docs/faq'
+      path: '/docs/faq'
+      fullPath: '/docs/faq'
+      preLoaderRoute: typeof DocsFaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs/api': {
+      id: '/docs/api'
+      path: '/docs/api'
+      fullPath: '/docs/api'
+      preLoaderRoute: typeof DocsApiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/console/topup': {
       id: '/console/topup'
       path: '/console/topup'
@@ -877,6 +943,20 @@ declare module '@tanstack/react-router' {
       path: '/console/log'
       fullPath: '/console/log'
       preLoaderRoute: typeof ConsoleLogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about/news': {
+      id: '/about/news'
+      path: '/about/news'
+      fullPath: '/about/news'
+      preLoaderRoute: typeof AboutNewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about/brand': {
+      id: '/about/brand'
+      path: '/about/brand'
+      fullPath: '/about/brand'
+      preLoaderRoute: typeof AboutBrandRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/chat2link': {
@@ -1352,8 +1432,12 @@ const rootRouteChildren: RootRouteChildren = {
   errors404Route: errors404Route,
   errors500Route: errors500Route,
   errors503Route: errors503Route,
+  AboutBrandRoute: AboutBrandRoute,
+  AboutNewsRoute: AboutNewsRoute,
   ConsoleLogRoute: ConsoleLogRoute,
   ConsoleTopupRoute: ConsoleTopupRoute,
+  DocsApiRoute: DocsApiRoute,
+  DocsFaqRoute: DocsFaqRoute,
   OauthProviderRoute: OauthProviderRoute,
   AboutIndexRoute: AboutIndexRoute,
   DocsIndexRoute: DocsIndexRoute,

@@ -28,6 +28,17 @@ import { type TopNavLink } from '../types'
  * If you need fallback links, add them here.
  */
 export const defaultTopNavLinks: TopNavLink[] = [
-  { title: '模型', href: '/pricing' },
-  { title: '文档', href: '/docs' },
+  { title: '模型广场', href: '/pricing' },
+  { title: '价格', href: '/pricing' },
+  { title: '文档', href: '/docs', children: [
+    { title: '快速入门', href: '/docs' },
+    { title: 'API 手册', href: '/docs/api' },
+    { title: '模型列表', href: '/pricing' },
+    { title: '常见问题', href: '/docs/faq' },
+  ]},
+  { title: '关于', href: '/about', children: [
+    { title: '公司介绍', href: '/about' },
+    { title: '品牌理念', href: '/about/brand' },
+    { title: '资讯动态', href: '/about/news' },
+  ]},
 ]

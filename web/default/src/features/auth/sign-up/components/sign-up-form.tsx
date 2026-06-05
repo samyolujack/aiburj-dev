@@ -362,6 +362,7 @@ export function SignUpForm({
         <Button
           type='submit'
           className='mt-2 w-full justify-center gap-2'
+          style={{ background: '#004A8F', color: '#fff' }}
           disabled={
             isLoading ||
             (requiresLegalConsent && !agreedToLegal) ||
@@ -369,7 +370,7 @@ export function SignUpForm({
           }
         >
           {isLoading ? <Loader2 className='h-4 w-4 animate-spin' /> : null}
-          {t('Create account')}
+          注册
         </Button>
 
         {oauthRegisterEnabled && (

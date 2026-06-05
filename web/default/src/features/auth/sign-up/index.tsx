@@ -9,15 +9,21 @@ export function SignUp() {
 
   return (
     <AuthLayout>
-      <div style={{ marginBottom: 32 }}>
-        <h2 style={{ fontSize: 24, fontWeight: 700, color: '#161722', marginBottom: 8 }}>注册</h2>
-        <p style={{ fontSize: 14, color: '#57627F' }}>
-          已有账号？
-          <Link to="/sign-in" style={{ color: '#6E29F6', fontWeight: 500, marginLeft: 4 }}>立即登录</Link>
-        </p>
-      </div>
+      <h2 style={{
+        fontSize: 24, fontWeight: 700, color: '#0F172A',
+        marginBottom: 6, marginTop: 0,
+      }}>
+        欢迎注册 aiburj
+      </h2>
+      <p style={{
+        fontSize: 14, color: '#64748B', marginBottom: 32, marginTop: 0,
+      }}>
+        已有账号？<Link to="/sign-in" style={{ color: '#004A8F', fontWeight: 600, marginLeft: 4, textDecoration: 'none' }}>立即登录</Link>
+      </p>
       <SignUpForm />
-      <TermsFooter variant="sign-up" status={status} className="text-center" />
+      <TermsFooter variant="sign-up" status={status} style={{
+        textAlign: 'center', marginTop: 20, fontSize: 13, color: '#94A3B8',
+      }} />
     </AuthLayout>
   )
 }

@@ -40,7 +40,7 @@ import { ProfileDropdown } from '@/components/profile-dropdown'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { defaultTopNavLinks } from '../config/top-nav.config'
 import type { TopNavLink } from '../types'
-import { HeaderLogo } from './header-logo'
+
 
 const AUTH_PROMPT_SECONDS = 5
 
@@ -91,7 +91,6 @@ export function PublicHeader(props: PublicHeaderProps) {
     systemName,
     logo: systemLogo,
     loading,
-    logoLoaded,
   } = useSystemConfig()
   const dynamicLinks = useTopNavLinks()
   const notifications = useNotifications()
@@ -187,43 +186,88 @@ export function PublicHeader(props: PublicHeaderProps) {
           left: 0,
           right: 0,
           zIndex: 50,
-          height: 60,
-          background: 'rgba(255,255,255,0.85)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          borderBottom: '1px solid rgba(0,0,0,0.06)',
+          height: 78,
+          background: 'rgba(255,255,255,0.72)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          boxShadow: '0 8px 30px rgba(15,23,42,0.06)',
+          transition: 'background 0.3s ease',
           display: 'flex',
           alignItems: 'center',
+          padding: '0 32px',
         }}
       >
-        <div className='mx-auto flex w-full max-w-[1400px] items-center justify-between px-6'>
-          <nav className='flex w-full items-center justify-between'>
-            {/* Logo */}
-            <Link
-              to={homeUrl}
-              className='group flex shrink-0 items-center gap-2.5'
-            >
-                {loading ? (
-                  <Skeleton className='h-8 w-8 rounded-lg' />
-                ) : customLogo ? (
-                  customLogo
-                ) : (
-                  <HeaderLogo
-                    src={systemLogo}
-                    loading={loading}
-                    logoLoaded={logoLoaded}
-                    className='h-8 w-auto rounded object-contain'
-                  />
-                )}
-              <span className='text-[15px] font-semibold tracking-tight'>
-                {loading ? <Skeleton className='h-4 w-16' /> : displaySiteName}
-              </span>
-            </Link>
+        <nav className='flex w-full items-center'>
+          {/* Logo — 左上角，仅图片无文字 */}
+          <Link to={homeUrl} className='group flex shrink-0 items-center'>
+            {loading ? (
+              <Skeleton className='h-16 w-[110px] rounded-xl' />
+            ) : customLogo ? (
+              customLogo
+            ) : (
+              <img
+                src={systemLogo}
+                alt={displaySiteName || 'aiburj'}
+                style={{ height: 64, width: 'auto', objectFit: 'contain' }}
+                onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
+              />
+            )}
+          </Link>
 
-            {/* Desktop nav */}
-            <div className='hidden items-center gap-1 sm:flex'>
+          {/* Desktop nav links — 80px from logo, siliconflow style */}
+          <div className='hidden items-center gap-9 pl-[80px] sm:flex'>
               {links.map((link, i) => {
-                const isActive = pathname === link.href
+                const isActive = pathname === link.href || (link.children?.some(c => pathname === c.href))
+                // Render dropdown for items with children
+                if (link.children && link.children.length > 0) {
+                  return (
+                    <div key={i} style={{ position: 'relative' }}
+                      onMouseEnter={e => { (e.currentTarget.querySelector('[data-dropdown]') as HTMLElement).style.opacity = '1'; (e.currentTarget.querySelector('[data-dropdown]') as HTMLElement).style.pointerEvents = 'auto' }}
+                      onMouseLeave={e => { (e.currentTarget.querySelector('[data-dropdown]') as HTMLElement).style.opacity = '0'; (e.currentTarget.querySelector('[data-dropdown]') as HTMLElement).style.pointerEvents = 'none' }}
+                    >
+                      <button
+                        style={{
+                          background: 'none', border: 'none', cursor: 'pointer',
+                          fontSize: 16, fontWeight: 'normal', color: isActive ? '#004A8F' : '#1e293b',
+                          padding: '2px 4px', display: 'flex', alignItems: 'center', gap: 4,
+                          transition: 'color 0.2s',
+                        }}
+                        className='hover:text-[#0080C0]'
+                      >
+                        {t(link.title)}
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ opacity: 0.5 }}>
+                          <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </button>
+                      <div data-dropdown style={{
+                        position: 'absolute', top: '100%', left: -16,
+                        background: '#fff', borderRadius: 12,
+                        boxShadow: '0 16px 48px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04)',
+                        border: '1px solid #E8ECF2',
+                        padding: '8px 0', minWidth: 160,
+                        opacity: 0, pointerEvents: 'none',
+                        transition: 'opacity 0.2s',
+                        zIndex: 60,
+                      }}>
+                        {link.children.map((child, j) => (
+                          <Link
+                            key={j}
+                            to={child.href}
+                            style={{
+                              display: 'block', padding: '10px 20px',
+                              fontSize: 15, color: pathname === child.href ? '#004A8F' : '#334155',
+                              textDecoration: 'none', fontWeight: pathname === child.href ? 600 : 400,
+                              transition: 'background 0.15s',
+                            }}
+                            className='hover:bg-[#F4F8FC]'
+                          >
+                            {t(child.title)}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )
+                }
                 if (link.external) {
                   return (
                     <a
@@ -235,7 +279,8 @@ export function PublicHeader(props: PublicHeaderProps) {
                       tabIndex={link.disabled ? -1 : undefined}
                       onClick={(event) => handleNavLinkClick(event, link)}
                       className={cn(
-                        'text-muted-foreground hover:text-foreground rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors duration-200',
+                        'px-1 py-1.5 text-[16px] font-normal transition-colors duration-200',
+                        'text-[#1e293b] hover:text-[#0080C0]',
                         link.disabled && 'pointer-events-none opacity-50'
                       )}
                     >
@@ -250,10 +295,10 @@ export function PublicHeader(props: PublicHeaderProps) {
                     disabled={link.disabled}
                     onClick={(event) => handleNavLinkClick(event, link)}
                     className={cn(
-                      'rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors duration-200',
+                      'px-1 py-1.5 text-[16px] font-normal transition-colors duration-200',
                       isActive
-                        ? 'text-foreground'
-                        : 'text-muted-foreground hover:text-foreground',
+                        ? 'text-[#004A8F]'
+                        : 'text-[#1e293b] hover:text-[#0080C0]',
                       link.disabled && 'pointer-events-none opacity-50'
                     )}
                   >
@@ -261,7 +306,10 @@ export function PublicHeader(props: PublicHeaderProps) {
                   </Link>
                 )
               })}
+            </div>
 
+            {/* Right side: actions — pushed to far right */}
+            <div className='ml-auto flex items-center gap-1'>
               {(showLanguageSwitcher ||
                 showThemeSwitch ||
                 showNotifications) && (
@@ -293,7 +341,8 @@ export function PublicHeader(props: PublicHeaderProps) {
                   ) : (
                     <Button
                       size='sm'
-                      className='h-8 rounded-lg px-3.5 text-xs font-medium'
+                      className='h-9 rounded-full px-5 text-[16px] font-normal'
+                      style={{ background: '#004A8F', color: '#fff' }}
                       render={<Link to='/sign-in' />}
                     >
                       {t('Sign in')}
@@ -340,7 +389,6 @@ export function PublicHeader(props: PublicHeaderProps) {
               </Button>
             </div>
           </nav>
-        </div>
       </header>
 
       {/* Mobile full-screen overlay */}

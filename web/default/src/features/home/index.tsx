@@ -65,28 +65,37 @@ export function Home() {
       </section>
 
       {/* 产品矩阵 */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '100px 24px' }}>
-        <h2 style={{ textAlign: 'center', fontSize: 36, fontWeight: 800, color: '#161722', marginBottom: 12 }}>全场景产品矩阵</h2>
-        <p style={{ textAlign: 'center', fontSize: 16, color: '#57627F', marginBottom: 56, maxWidth: 500, margin: '0 auto 56px' }}>助力用户一站式实现 AI 能力与应用的快速对接</p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: 24 }}>
-          {[
-            { title: '开箱即用的大模型 API', desc: '覆盖语言、语音、图片、视频等场景，一站式提供大模型 API 服务，按量计费，助力应用快速上线。', link: '立即体验', svg: <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="14" fill="#F0EBFF"/><path d="M14 16h20M14 24h20M14 32h12" stroke="#6E29F6" strokeWidth="2.5" strokeLinecap="round"/></svg> },
-            { title: '高效能模型推理加速', desc: '自研推理加速引擎，无论是自研模型还是开源模型，均可接入高效推理加速服务，全面提升响应速度与处理性能。', link: '了解详情', svg: <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="14" fill="#F0EBFF"/><path d="M24 12v8l6-4-6 6v8l6-4" stroke="#6E29F6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-            { title: '按量计费 + 企业级保障', desc: '无月费无门槛，按实际 Token 用量计费。提供企业级 SLA 保障，99.9% 服务可用性，新用户注册即享体验额度。', link: '立即体验', svg: <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="14" fill="#F0EBFF"/><circle cx="24" cy="20" r="6" stroke="#6E29F6" strokeWidth="2.5"/><path d="M16 32c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#6E29F6" strokeWidth="2.5" strokeLinecap="round"/></svg> },
-          ].map((card, i) => (
-            <div key={i} style={{ background: '#fff', borderRadius: 16, padding: '40px 32px', border: '1px solid #E5E7EB', transition: 'all 0.3s', cursor: 'pointer', position: 'relative', overflow: 'hidden' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#6E29F6'; e.currentTarget.style.boxShadow = '0 8px 40px rgba(110,41,246,0.1)'; e.currentTarget.style.transform = 'translateY(-4px)' }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5E7EB'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)' }}
-              onClick={() => window.location.href='/pricing'}>
-              <div style={{ position: 'absolute', top: -20, right: -20, width: 120, height: 120, borderRadius: '50%', background: 'radial-gradient(circle, rgba(110,41,246,0.06) 0%, transparent 70%)' }} />
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <div style={{ marginBottom: 24 }}>{card.svg}</div>
-                <h3 style={{ fontSize: 20, fontWeight: 700, color: '#161722', marginBottom: 10 }}>{card.title}</h3>
-                <p style={{ fontSize: 14, color: '#57627F', lineHeight: 1.8, marginBottom: 20 }}>{card.desc}</p>
-                <span style={{ fontSize: 14, fontWeight: 600, color: '#6E29F6', display: 'inline-flex', alignItems: 'center', gap: 4 }}>{card.link}<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#6E29F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+      <section style={{ background: '#F4F8FC', padding: '100px 24px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <h2 style={{ fontSize: 48, fontWeight: 700, color: '#252736', marginBottom: 16, letterSpacing: '-0.02em' }}>全场景 AI 能力平台</h2>
+            <p style={{ fontSize: 17, color: '#4A6A8A' }}>助力用户一站式实现 AI 能力与应用的快速对接</p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+            {[
+              { title: '开箱即用的大模型 API', desc: '覆盖语言、语音、图片、视频等场景，一站式提供大模型 API 服务，按量计费，助力应用快速上线。', img: '/product-api.png', tag: 'API 服务' },
+              { title: '高效能模型推理加速', desc: '自研推理加速引擎，无论是自研模型还是开源模型，均可接入高效推理加速服务，全面提升响应速度与处理性能。', img: '/product-speed.png', tag: '推理加速' },
+              { title: '按量计费 + 企业级保障', desc: '无月费无门槛，按实际 Token 用量计费。提供企业级 SLA 保障，99.9% 服务可用性，新用户注册即享体验额度。', img: '/product-billing.png', tag: '灵活计费' },
+              { title: '专属预留实例', desc: '面向企业核心推理场景，提供独占算力、精度保障与成本优化的一站式方案，支撑关键业务稳定运行。', img: '/product-reserved.png', tag: '企业方案' },
+              { title: '私有化部署', desc: '提供企业级私有化部署方案，一站式解决模型性能优化、部署与运维等痛点，满足多样化场景需求。', img: '/product-private.png', tag: '私有部署' },
+              { title: '多模态 AI 服务', desc: '整合视觉理解、语音识别、视频生成等多模态能力，统一 API 调用，覆盖内容创作、智能客服、实时互动等场景。', img: '/product-multimodal.png', tag: '多模态' },
+            ].map((card, i) => (
+              <div key={i} style={{ background: '#fff', borderRadius: 18, padding: '36px 28px', border: '1px solid #D5D6EA', transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)', cursor: 'pointer', position: 'relative', overflow: 'hidden' }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,74,143,0.08)'; e.currentTarget.style.borderColor = 'rgba(0,74,143,0.15)' }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = '#D5D6EA' }}
+              >
+                <div style={{ position: 'absolute', top: -30, right: -30, width: 140, height: 140, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,74,143,0.04) 0%, transparent 70%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                  <div style={{ marginBottom: 18, borderRadius: 12, overflow: 'hidden', height: 160, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F8F7FF' }}>
+                    <img src={card.img} alt={card.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: '#004A8F', background: 'rgba(0,74,143,0.06)', padding: '4px 12px', borderRadius: 6, display: 'inline-block', marginBottom: 12 }}>{card.tag}</span>
+                  <h3 style={{ fontSize: 18, fontWeight: 700, color: '#252736', marginBottom: 8 }}>{card.title}</h3>
+                  <p style={{ fontSize: 14, color: '#4A6A8A', lineHeight: 1.7 }}>{card.desc}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
