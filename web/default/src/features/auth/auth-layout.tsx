@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 type AuthLayoutProps = { children: React.ReactNode }
 
 export function AuthLayout({ children }: AuthLayoutProps) {
-  const { systemName, logo, loading } = useSystemConfig()
+  const { logo, loading } = useSystemConfig()
 
   return (
     <div style={{
@@ -35,7 +35,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
         }}>
           {loading ? <Skeleton style={{ width: 220, height: 36, borderRadius: 8 }} /> : (
             <img src={logo} alt="aiburj" style={{
-              height: 42, width: 'auto', objectFit: 'contain',
+              height: 126, width: 'auto', objectFit: 'contain',
               filter: 'brightness(0) invert(1)',
               opacity: 0.95,
             }} />
@@ -44,17 +44,11 @@ export function AuthLayout({ children }: AuthLayoutProps) {
 
         {/* Brand text section */}
         <section style={{
-          position: 'absolute', left: 56, top: 133, zIndex: 2,
+          position: 'absolute', left: 56, top: 210, zIndex: 2,
           color: '#fff',
         }}>
-          <h1 style={{
-            fontSize: 48, fontWeight: 700, lineHeight: 1.15, margin: 0,
-            letterSpacing: '-0.02em',
-          }}>
-            {loading ? '...' : systemName}
-          </h1>
           <p style={{
-            fontSize: 16, fontWeight: 500, marginTop: 8, marginBottom: 0,
+            fontSize: 16, fontWeight: 500, marginTop: 0, marginBottom: 0,
             opacity: 0.85, letterSpacing: '0.02em',
           }}>
             加速 AI 普惠人类
@@ -97,7 +91,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
       <div style={{
         flex: '1 1 0%', height: '100%',
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-        background: '#F4F8FC', padding: 40,
+        background: '#EAF1F1', padding: 40,
       }}>
         <div style={{
           width: '100%', maxWidth: 350,

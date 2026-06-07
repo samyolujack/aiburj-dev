@@ -1,6 +1,7 @@
 import { memo } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { ChevronRight } from 'lucide-react'
+import { t } from 'i18next'
 
 type ProductCardProps = {
   title: string
@@ -43,7 +44,7 @@ export const ProductCard = memo(function ProductCard({ title, desc, img, tag, hr
         <h3 style={{ fontSize: 20, fontWeight: 800, color: '#252736', marginBottom: 10 }}>{title}</h3>
         <p style={{ fontSize: 14, color: '#4A6A8A', lineHeight: 1.8, marginBottom: 18 }}>{desc}</p>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#004A8F', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-          了解更多 <ChevronRight size={15} />
+          {t("了解更多")} <ChevronRight size={15} />
         </span>
       </div>
     </div>
