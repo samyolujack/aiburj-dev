@@ -150,7 +150,7 @@ export function Home() {
       <section
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
-        style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', display: 'flex', alignItems: 'center', background: `url(${s.bg}) center/cover no-repeat`, transition: 'background 0.8s ease' }}
+        style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', display: 'flex', alignItems: 'center', background: `url(${s.bg}) ${current === 0 ? '65% 58%' : 'center'}/cover no-repeat`, transition: 'background 0.8s ease' }}
       >
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: s.overlay, transition: 'background 0.8s ease' }} />
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
