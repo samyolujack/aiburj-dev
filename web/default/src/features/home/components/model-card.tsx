@@ -29,13 +29,13 @@ export const ModelCard = memo(function ModelCard({ logo, name, models, desc }: M
       <div style={{ width: 72, height: 72, margin: '0 auto 18px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 16, background: '#F8FAFC', border: '1px solid #EEF2F6' }}>
         <img src={logo} alt={name} style={{ width: 48, height: 48, objectFit: 'contain' }} />
       </div>
-      <h3 style={{ fontSize: 17, fontWeight: 700, color: '#252736', marginBottom: 10 }}>{name}</h3>
+      <h3 style={{ fontSize: 20, fontWeight: 700, color: '#252736', marginBottom: 10 }}>{name}</h3>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, justifyContent: 'center', marginBottom: 10 }}>
         {models.split(',').map((m, j) => (
-          <span key={j} style={{ fontSize: 11, fontWeight: 600, color: '#0080C0', background: 'rgba(0,128,192,0.06)', padding: '2px 9px', borderRadius: 4, lineHeight: '18px' }}>{m.trim()}</span>
+          <span key={j} style={{ fontSize: 12, fontWeight: 600, color: '#0080C0', background: 'rgba(0,128,192,0.06)', padding: '3px 10px', borderRadius: 4, lineHeight: '20px' }}>{m.trim()}</span>
         ))}
       </div>
-      <p style={{ fontSize: 13, color: '#8098B0', lineHeight: 1.6 }}>{desc}</p>
+      <p style={{ fontSize: 14, color: '#8098B0', lineHeight: 1.6 }}>{desc}</p>
     </div>
   )
 })

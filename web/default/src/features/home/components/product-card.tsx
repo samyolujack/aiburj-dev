@@ -53,8 +53,8 @@ export const ProductCard = memo(function ProductCard({ title, desc, img, tag, hr
           <img src={img} alt={title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
         <span style={{ fontSize: 12, fontWeight: 700, color: '#004A8F', background: 'rgba(0,74,143,0.06)', padding: '4px 14px', borderRadius: 6, display: 'inline-block', marginBottom: 14 }}>{tag}</span>
-        <h3 style={{ fontSize: 20, fontWeight: 800, color: '#252736', marginBottom: 10 }}>{title}</h3>
-        <p style={{ fontSize: 14, color: '#4A6A8A', lineHeight: 1.8, marginBottom: 18 }}>{desc}</p>
+        <h3 style={{ fontSize: 28, fontWeight: 600, color: '#252736', marginBottom: 10 }}>{title}</h3>
+        <p style={{ fontSize: 16, color: '#4A6A8A', lineHeight: 1.75, marginBottom: 18 }}>{desc}</p>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#004A8F', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
           了解更多 <ChevronRight size={15} />
         </span>

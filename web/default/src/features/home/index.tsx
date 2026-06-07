@@ -181,11 +181,11 @@ export function Home() {
               <span style={{ width: 8, height: 8, borderRadius: 4, background: s.isDark ? '#00A0E0' : '#004A8F', display: 'inline-block', marginRight: 10, boxShadow: `0 0 8px ${s.isDark ? '#00A0E0' : '#004A8F'}44` }} />{s.badge}
             </div>
           </div>
-          <h1 style={{ fontSize: 'clamp(42px,6vw,76px)', fontWeight: 900, lineHeight: 1.12, color: s.textColor, marginBottom: 28, letterSpacing: '-0.025em' }}>
+          <h1 style={{ fontSize: 'clamp(42px,6vw,72px)', fontWeight: 700, lineHeight: 1.15, color: s.textColor, marginBottom: 28, letterSpacing: '-0.025em' }}>
             {s.title}<br />
             <span ref={titleRef} style={{ background: s.isDark ? 'linear-gradient(135deg, #B8D8F0,#0080C0,#00A0E0)' : 'linear-gradient(135deg, #002060,#004A8F,#0080C0)' }}>{s.title2}</span>
           </h1>
-          <p style={{ fontSize: 19, lineHeight: 1.8, color: s.isDark ? 'rgba(255,255,255,0.7)' : '#4A6A8A', maxWidth: 660, margin: '0 auto 56px' }}>{s.desc}</p>
+          <p style={{ fontSize: 20, lineHeight: 1.8, color: s.isDark ? 'rgba(255,255,255,0.7)' : '#4A6A8A', maxWidth: 660, margin: '0 auto 56px' }}>{s.desc}</p>
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Button style={{ height: 56, padding: '0 40px', fontSize: 17, fontWeight: 700, borderRadius: 16, background: '#004A8F', boxShadow: '0 8px 32px rgba(0,74,143,0.3)', border: 'none' }}
               onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,74,143,0.4)' }}
@@ -222,8 +222,8 @@ export function Home() {
                 <c.icon size={22} color="#0080C0" style={{ opacity: 0.75 }} />
               </div>
               <AnimatedCounter value={c.value} />
-              <div style={{ fontSize: 16, fontWeight: 700, color: '#36384A', marginBottom: 4 }}>{c.label}</div>
-              <div style={{ fontSize: 13, color: '#8098B0' }}>{c.desc}</div>
+              <div style={{ fontSize: 17, fontWeight: 700, color: '#36384A', marginBottom: 4 }}>{c.label}</div>
+              <div style={{ fontSize: 14, color: '#8098B0' }}>{c.desc}</div>
             </div>
           )})}
         </div>
@@ -296,7 +296,7 @@ export function Home() {
                   <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(0,74,143,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}><card.Icon /></div>
                   <h3 style={{ fontSize: 32, fontWeight: 600, color: '#0A1628', textAlign: 'center', marginBottom: 40 }}>{card.title}</h3>
                   <ul style={{ listStyle: 'disc', paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
-                    {card.items.map((item, j) => (<li key={j} style={{ fontSize: 16, color: '#4A6A8A', lineHeight: 1.75 }}>{item}</li>))}
+                    {card.items.map((item, j) => (<li key={j} style={{ fontSize: 17, color: '#4A6A8A', lineHeight: 1.75 }}>{item}</li>))}
                   </ul>
                 </div>
               </div>

@@ -43,7 +43,7 @@ export function SectionHeader({ icon: Icon, badge, title, desc, descMaxWidth = 5
       }} />
       {desc && (
         <p style={{
-          fontSize: 17, color: '#4A6A8A',
+          fontSize: 18, color: '#4A6A8A',
           maxWidth: descMaxWidth, margin: '0 auto',
           lineHeight: 1.75,
         }}>
