@@ -16,11 +16,11 @@ import { SyntaxHighlight } from './components/syntax-highlight'
 
 /* ── Hero 轮播数据 ── */
 const slides = [
-  { title: '国产大模型的灯塔', title2: '一站汇聚，照亮 AI 之路', desc: 'OpenAI 兼容格式，统一 API 调用 DeepSeek、通义千问、GLM 等国产大模型，按量计费，快速集成', bg: '/banner-1.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.55) 0%, rgba(220,235,248,0.65) 50%, rgba(255,255,255,0.9) 100%)', textColor: '#252736', badge: 'AI 之塔', isDark: false },
-  { title: '覆盖 8 大国产厂商', title2: '16 款主流模型', desc: 'DeepSeek V4、Qwen3、GLM-5.1、Kimi-K2 等最新旗舰模型，一次接入全部调用', bg: '/banner-2.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.55) 0%, rgba(220,235,248,0.65) 50%, rgba(255,255,255,0.9) 100%)', textColor: '#252736', badge: '模型生态', isDark: false },
-  { title: '比官方更优的价格', title2: '按量计费无门槛', desc: '新人注册即享体验额度，支持高速推理通道，99.9% 服务可用性保障', bg: '/banner-3.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.55) 0%, rgba(220,235,248,0.65) 50%, rgba(255,255,255,0.9) 100%)', textColor: '#252736', badge: '高性价比', isDark: false },
-  { title: '三步接入零门槛', title2: '一行代码调用大模型', desc: '获取 API Key → 选择模型 → 复制代码，OpenAI SDK 直接兼容，5 分钟完成集成', bg: '/banner-4.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.55) 0%, rgba(220,235,248,0.65) 50%, rgba(255,255,255,0.9) 100%)', textColor: '#252736', badge: '极速接入', isDark: false },
-  { title: '企业级安全合规', title2: '数据隐私全面保障', desc: '支持私有化部署，计算隔离/网络隔离/存储隔离，符合行业安全标准与合规要求', bg: '/banner-5.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.55) 0%, rgba(220,235,248,0.65) 50%, rgba(255,255,255,0.9) 100%)', textColor: '#252736', badge: '安全可靠', isDark: false },
+  { title: '国产大模型的灯塔', title2: '一站汇聚，照亮 AI 之路', desc: 'OpenAI 兼容格式，统一 API 调用 DeepSeek、通义千问、GLM 等国产大模型，按量计费，快速集成', bg: '/banner-1.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.55) 0%, rgba(220,235,248,0.65) 50%, rgba(255,255,255,0.9) 100%)', textColor: '#252736', badge: 'AI 之塔', isDark: false, bgPos: 'right center', bgSize: '110%' },
+  { title: '覆盖 8 大国产厂商', title2: '16 款主流模型', desc: 'DeepSeek V4、Qwen3、GLM-5.1、Kimi-K2 等最新旗舰模型，一次接入全部调用', bg: '/banner-2.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.55) 0%, rgba(220,235,248,0.65) 50%, rgba(255,255,255,0.9) 100%)', textColor: '#252736', badge: '模型生态', isDark: false, bgPos: 'center', bgSize: 'cover' },
+  { title: '比官方更优的价格', title2: '按量计费无门槛', desc: '新人注册即享体验额度，支持高速推理通道，99.9% 服务可用性保障', bg: '/banner-3.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.55) 0%, rgba(220,235,248,0.65) 50%, rgba(255,255,255,0.9) 100%)', textColor: '#252736', badge: '高性价比', isDark: false, bgPos: 'center', bgSize: 'cover' },
+  { title: '三步接入零门槛', title2: '一行代码调用大模型', desc: '获取 API Key → 选择模型 → 复制代码，OpenAI SDK 直接兼容，5 分钟完成集成', bg: '/banner-4.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.55) 0%, rgba(220,235,248,0.65) 50%, rgba(255,255,255,0.9) 100%)', textColor: '#252736', badge: '极速接入', isDark: false, bgPos: 'center', bgSize: 'cover' },
+  { title: '企业级安全合规', title2: '数据隐私全面保障', desc: '支持私有化部署，计算隔离/网络隔离/存储隔离，符合行业安全标准与合规要求', bg: '/banner-5.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.55) 0%, rgba(220,235,248,0.65) 50%, rgba(255,255,255,0.9) 100%)', textColor: '#252736', badge: '安全可靠', isDark: false, bgPos: 'center', bgSize: 'cover' },
 ]
 
 /* ── 产品矩阵数据 ── */
@@ -150,7 +150,7 @@ export function Home() {
       <section
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
-        style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', display: 'flex', alignItems: 'center', background: `url(${s.bg}) ${current === 0 ? '30% 55%' : 'center'}/cover no-repeat`, transition: 'background 0.8s ease' }}
+        style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', display: 'flex', alignItems: 'center', background: `url(${s.bg}) ${s.bgPos}/${s.bgSize} no-repeat`, transition: 'background 0.8s ease' }}
       >
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: s.overlay, transition: 'background 0.8s ease' }} />
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
