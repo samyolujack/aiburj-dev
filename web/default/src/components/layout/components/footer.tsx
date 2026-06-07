@@ -58,7 +58,7 @@ function FooterLinkItem(props: { link: FooterLink }) {
         href={props.link.href}
         target='_blank'
         rel='noopener noreferrer'
-        className='text-muted-foreground hover:text-foreground text-sm transition-colors duration-200'
+        className='text-muted-foreground hover:text-foreground text-base transition-colors duration-200'
       >
         {label}
       </a>
@@ -68,7 +68,7 @@ function FooterLinkItem(props: { link: FooterLink }) {
   return (
     <Link
       to={props.link.href}
-      className='text-muted-foreground hover:text-foreground text-sm transition-colors duration-200'
+      className='text-muted-foreground hover:text-foreground text-base transition-colors duration-200'
     >
       {label}
     </Link>
@@ -231,10 +231,10 @@ export function Footer(props: FooterProps) {
               <img
                 src={displayLogo}
                 alt={displayName}
-                style={{ height: 64, width: 'auto', objectFit: 'contain' }}
+                style={{ height: 96, width: 'auto', objectFit: 'contain' }}
               />
             </Link>
-            <p className='text-muted-foreground/60 mt-3 max-w-[200px] text-xs leading-relaxed'>
+            <p className='text-muted-foreground/60 mt-3 max-w-[220px] text-sm leading-relaxed'>
               {t('Powerful API Management Platform')}
             </p>
             {/* Social links — GitHub icon */}
@@ -257,7 +257,7 @@ export function Footer(props: FooterProps) {
           <div className='grid grid-cols-3 gap-8 md:gap-16'>
             {displayColumns.map((column, index) => (
               <div key={index}>
-                <p className='text-muted-foreground/50 mb-3 text-xs font-medium tracking-wider uppercase'>
+                <p className='text-muted-foreground/50 mb-3 text-base font-medium'>
                   {column.title}
                 </p>
                 <ul className='space-y-2.5'>
@@ -275,7 +275,7 @@ export function Footer(props: FooterProps) {
         {/* Copyright + optional legal links inline on the left, project
             attribution on the right; wraps on narrow screens. */}
         <div className='border-border/30 mt-12 flex flex-col items-center justify-between gap-x-3 gap-y-2 border-t pt-6 sm:flex-row'>
-          <div className='text-muted-foreground/40 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs sm:justify-start'>
+          <div className='text-muted-foreground/40 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm sm:justify-start'>
             <span>
               &copy; {currentYear} {displayName}.{' '}
               {props.copyright ?? t('footer.defaultCopyright')}
