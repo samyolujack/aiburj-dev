@@ -13,7 +13,6 @@ import { ScrollReveal } from './components/scroll-reveal'
 import { AnimatedCounter } from './components/animated-counter'
 import { useMouseParallax } from './components/use-mouse-parallax'
 import { SyntaxHighlight } from './components/syntax-highlight'
-import { WaveDivider } from './components/wave-divider'
 
 /* ── Hero 轮播数据 ── */
 const slides = [
@@ -207,7 +206,7 @@ export function Home() {
       </section>
 
       {/* Gradient transition */}
-      <WaveDivider fill="#fff" height={50} />
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, rgba(0,0,0,0.02), #fff)', marginTop: -1 }} />
       {/* ═══ SECTION 2 — 性能指标 ═══ */}
       <ScrollReveal>
       <section style={{ background: 'linear-gradient(180deg, rgba(230,240,250,0.15), #fff)', padding: '64px 24px 80px' }}>
@@ -232,7 +231,7 @@ export function Home() {
       </ScrollReveal>
 
       {/* ═══ SECTION 3 — 产品矩阵 3×2 ═══ */}
-      <WaveDivider fill="#F4F8FC" height={50} />
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, #fff, #F4F8FC)' }} />
       <ScrollReveal delay={0.1}>
       <section style={{ background: '#F4F8FC', padding: '60px 24px 100px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
@@ -247,7 +246,7 @@ export function Home() {
       </ScrollReveal>
 
       {/* ═══ SECTION 4 — 核心优势 ═══ */}
-      <WaveDivider fill="#fff" height={50} />
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, #F4F8FC, #fff)' }} />
       <ScrollReveal delay={0.1}>
       <section style={{ background: '#fff', padding: '60px 24px 80px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
@@ -308,7 +307,7 @@ export function Home() {
       </ScrollReveal>
 
       {/* ═══ SECTION 5 — 模型生态 3×4 ═══ */}
-      <WaveDivider fill="#F4F8FC" height={50} />
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, #fff, #F4F8FC)' }} />
       <ScrollReveal delay={0.1}>
       <section style={{ background: '#F4F8FC', padding: '60px 24px 80px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
@@ -321,7 +320,7 @@ export function Home() {
       </ScrollReveal>
 
       {/* ═══ SECTION 6 — 行业方案 ═══ */}
-      <WaveDivider fill="#fff" height={50} />
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, #F4F8FC, #fff)' }} />
       <ScrollReveal delay={0.1}>
       <section style={{ background: '#fff', padding: '60px 24px', overflow: 'hidden' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
@@ -334,7 +333,7 @@ export function Home() {
       </ScrollReveal>
 
       {/* ═══ SECTION 7 — 合作伙伴 ═══ */}
-      <WaveDivider fill="#F4F8FC" height={50} />
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, #fff, #F4F8FC)' }} />
       <ScrollReveal>
       <section style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg, #F4F8FC 0%, #E8F0FA 40%, #DCE8F8 70%, #F4F8FC 100%)', padding: '48px 0 0' }}>
         {/* 装饰光晕 */}
@@ -361,7 +360,7 @@ export function Home() {
         </div>
         </div>
       </section>
-      <WaveDivider fill="#fff" height={50} />
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, #F4F8FC, #fff)' }} />
       <section style={{ background: 'linear-gradient(180deg, #F4F8FC, #fff 30%)', padding: '60px 24px 80px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <SectionHeader icon={Code} badge="快速开始" title="三步接入，零门槛" desc="获取 API Key → 选择模型 → 复制代码，OpenAI SDK 直接兼容" />
