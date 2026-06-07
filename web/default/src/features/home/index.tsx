@@ -25,12 +25,12 @@ const slides = [
 
 /* ── 产品矩阵数据 ── */
 const productCards = [
-  { title: '开箱即用的大模型 API', desc: '覆盖语言、语音、图片、视频等场景，一站式提供大模型 API 服务，按量计费，助力应用快速上线。', img: '/product-api.png', tag: 'API 服务', href: '/pricing' },
-  { title: '高效能模型推理加速', desc: '自研推理加速引擎，无论是自研模型还是开源模型，均可接入高效推理加速服务，全面提升响应速度与处理性能。', img: '/product-speed.png', tag: '推理加速', href: '/pricing' },
-  { title: '按量计费 + 企业级保障', desc: '无月费无门槛，按实际 Token 用量计费。提供企业级 SLA 保障，99.9% 服务可用性，新用户注册即享体验额度。', img: '/product-billing.png', tag: '灵活计费', href: '/pricing' },
-  { title: '专属预留实例', desc: '面向企业核心推理场景，提供独占算力、精度保障与成本优化的一站式方案，支撑关键业务稳定运行。', img: '/product-reserved.png', tag: '企业方案', href: '/pricing' },
-  { title: '私有化部署', desc: '提供企业级私有化部署方案，一站式解决模型性能优化、部署与运维等痛点，满足多样化场景需求。', img: '/product-private.png', tag: '私有部署', href: '/pricing' },
-  { title: '多模态 AI 服务', desc: '整合视觉理解、语音识别、视频生成等多模态能力，统一 API 调用，覆盖内容创作、智能客服、实时互动等场景。', img: '/product-multimodal.png', tag: '多模态', href: '/pricing' },
+  { title: '开箱即用的大模型 API', desc: '覆盖语言、语音、图片、视频等场景，一站式提供大模型 API 服务，按量计费，助力应用快速上线。', img: '/product-api.png', tag: 'API 服务', href: '/pricing', imgBg: '#EEF3FF' },
+  { title: '高效能模型推理加速', desc: '自研推理加速引擎，无论是自研模型还是开源模型，均可接入高效推理加速服务，全面提升响应速度与处理性能。', img: '/product-speed.png', tag: '推理加速', href: '/pricing', imgBg: '#E6F7F5' },
+  { title: '按量计费 + 企业级保障', desc: '无月费无门槛，按实际 Token 用量计费。提供企业级 SLA 保障，99.9% 服务可用性，新用户注册即享体验额度。', img: '/product-billing.png', tag: '灵活计费', href: '/pricing', imgBg: '#FFF5EE' },
+  { title: '专属预留实例', desc: '面向企业核心推理场景，提供独占算力、精度保障与成本优化的一站式方案，支撑关键业务稳定运行。', img: '/product-reserved.png', tag: '企业方案', href: '/pricing', imgBg: '#EDF2FA' },
+  { title: '私有化部署', desc: '提供企业级私有化部署方案，一站式解决模型性能优化、部署与运维等痛点，满足多样化场景需求。', img: '/product-private.png', tag: '私有部署', href: '/pricing', imgBg: '#F4F0FA' },
+  { title: '多模态 AI 服务', desc: '整合视觉理解、语音识别、视频生成等多模态能力，统一 API 调用，覆盖内容创作、智能客服、实时互动等场景。', img: '/product-multimodal.png', tag: '多模态', href: '/pricing', imgBg: '#EEF6F0' },
 ]
 
 /* ── 性能指标 ── */
@@ -209,19 +209,23 @@ export function Home() {
       <div style={{ height: 40, background: 'linear-gradient(to bottom, rgba(0,0,0,0.02), #fff)', marginTop: -1 }} />
       {/* ═══ SECTION 2 — 性能指标 ═══ */}
       <ScrollReveal>
-      <section style={{ background: '#fff', padding: '64px 24px 80px' }}>
+      <section style={{ background: 'linear-gradient(180deg, rgba(230,240,250,0.15), #fff)', padding: '64px 24px 80px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 20 }}>
-          {perfCards.map((c, i) => (
-            <div key={i} style={{ background: '#fff', borderRadius: 16, padding: '36px 24px 32px', border: '1px solid #D5D6EA', textAlign: 'center', transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)', cursor: 'default' }}
+          {perfCards.map((c, i) => {
+            const accentColors = ['#004A8F', '#0080C0', '#002060', '#00A0E0']
+            return (
+            <div key={i} style={{ position: 'relative', background: '#fff', borderRadius: 16, padding: '36px 24px 32px', border: '1px solid #D5D6EA', borderTop: `3px solid ${accentColors[i]}`, textAlign: 'center', transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)', cursor: 'default' }}
               onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; e.currentTarget.style.boxShadow = '0 12px 36px rgba(0,74,143,0.1), 0 0 0 2px rgba(0,128,192,0.15)'; e.currentTarget.style.borderColor = 'rgba(0,128,192,0.3)' }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = '#D5D6EA' }}
             >
-              <c.icon size={22} color="#0080C0" style={{ marginBottom: 14, opacity: 0.65 }} />
+              <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'rgba(0,74,143,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
+                <c.icon size={22} color="#0080C0" style={{ opacity: 0.75 }} />
+              </div>
               <AnimatedCounter value={c.value} />
               <div style={{ fontSize: 16, fontWeight: 700, color: '#36384A', marginBottom: 4 }}>{c.label}</div>
               <div style={{ fontSize: 13, color: '#8098B0' }}>{c.desc}</div>
             </div>
-          ))}
+          )})}
         </div>
       </section>
       </ScrollReveal>
@@ -234,7 +238,7 @@ export function Home() {
           <SectionHeader icon={Sparkles} badge="产品矩阵" title="全场景 AI 能力平台" desc="助力用户一站式实现 AI 能力与应用的快速对接" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
             {productCards.map((card, i) => (
-              <ProductCard key={i} title={card.title} desc={card.desc} img={card.img} tag={card.tag} href={card.href} index={i} />
+              <ProductCard key={i} title={card.title} desc={card.desc} img={card.img} tag={card.tag} href={card.href} index={i} imgBg={card.imgBg} />
             ))}
           </div>
         </div>
@@ -267,8 +271,15 @@ export function Home() {
             ))}
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 48, margin: '56px -40px 0', padding: 0 }}>
-            {smallCards.map((card, i) => (
-              <div key={i} className="advantage-small-card" style={{ background: '#F0F6FC', padding: '48px 32px', minHeight: 520, maxWidth: 326, position: 'relative', overflow: 'hidden', borderRadius: 8, transition: 'box-shadow 0.3s', cursor: 'default' }}
+            {smallCards.map((card, i) => {
+              const cardBg = [
+                'linear-gradient(180deg, #E8F1FB, #F0F6FC)',
+                'linear-gradient(180deg, #E5EEF9, #EEF4FB)',
+                'linear-gradient(180deg, #EAF2FB, #F2F7FD)',
+                'linear-gradient(180deg, #ECF3FB, #F4F8FC)',
+              ][i]
+              return (
+              <div key={i} className="advantage-small-card" style={{ background: cardBg, padding: '48px 32px', minHeight: 520, maxWidth: 326, position: 'relative', overflow: 'hidden', borderRadius: 8, transition: 'box-shadow 0.3s', cursor: 'default' }}
                 onMouseEnter={e => {
                   e.currentTarget.style.boxShadow = '0 22px 58px rgba(30,41,59,0.12)'
                   const glow = e.currentTarget.querySelector('[data-glow]') as HTMLElement
@@ -282,14 +293,14 @@ export function Home() {
               >
                 <div data-glow style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'radial-gradient(circle at 50% 0%, rgba(0,74,143,0.12), transparent 42%)', opacity: 0, transition: 'opacity 0.5s' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <div style={{ width: 64, height: 64, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}><card.Icon /></div>
+                  <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(0,74,143,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}><card.Icon /></div>
                   <h3 style={{ fontSize: 32, fontWeight: 600, color: '#0A1628', textAlign: 'center', marginBottom: 40 }}>{card.title}</h3>
                   <ul style={{ listStyle: 'disc', paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
                     {card.items.map((item, j) => (<li key={j} style={{ fontSize: 16, color: '#4A6A8A', lineHeight: 1.75 }}>{item}</li>))}
                   </ul>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </section>

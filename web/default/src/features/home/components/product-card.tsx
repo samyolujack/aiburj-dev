@@ -10,9 +10,10 @@ type ProductCardProps = {
   tag: string
   href: string
   index: number
+  imgBg: string
 }
 
-export const ProductCard = memo(function ProductCard({ title, desc, img, tag, href }: ProductCardProps) {
+export const ProductCard = memo(function ProductCard({ title, desc, img, tag, href, imgBg }: ProductCardProps) {
   const navigate = useNavigate()
   return (
     <motion.div
@@ -48,7 +49,7 @@ export const ProductCard = memo(function ProductCard({ title, desc, img, tag, hr
       }} />
       <div style={{ position: 'absolute', top: -30, right: -30, width: 140, height: 140, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,74,143,0.04) 0%, transparent 70%)', pointerEvents: 'none' }} />
       <div style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{ marginBottom: 22, borderRadius: 12, overflow: 'hidden', height: 180, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F8F7FF' }}>
+        <div style={{ marginBottom: 22, borderRadius: 12, overflow: 'hidden', height: 180, display: 'flex', alignItems: 'center', justifyContent: 'center', background: imgBg }}>
           <img src={img} alt={title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
         <span style={{ fontSize: 12, fontWeight: 700, color: '#004A8F', background: 'rgba(0,74,143,0.06)', padding: '4px 14px', borderRadius: 6, display: 'inline-block', marginBottom: 14 }}>{tag}</span>
