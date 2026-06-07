@@ -67,16 +67,50 @@ const bigCards = [
 
 /* ── 核心优势小卡图标 ── */
 const IconStability = () => (
-  <svg width="65" height="64" viewBox="0 0 65 64" fill="none"><rect opacity="0.8" width="34.441" height="34.441" rx="8" transform="matrix(0.866025 0.5 -0.866025 0.5 32.9531 29.5586)" fill="#004A8F"/><rect opacity="0.95" width="34.441" height="34.441" rx="8" transform="matrix(0.866025 0.5 -0.866025 0.5 32.9531 14.5391)" fill="#0080C0"/><rect opacity="0.8" width="34.441" height="34.441" rx="8" transform="matrix(0.866025 0.5 -0.866025 0.5 32.9531 0)" fill="#004A8F"/></svg>
+  <svg width="65" height="64" viewBox="0 0 65 64" fill="none">
+    <rect x="6" y="48" width="52" height="8" rx="4" fill="#0080C0" opacity="0.85"/>
+    <rect x="12" y="36" width="40" height="8" rx="4" fill="#00A0E0" opacity="0.9"/>
+    <rect x="18" y="24" width="28" height="8" rx="4" fill="#3DB8E8"/>
+    <circle cx="32" cy="12" r="6" fill="#0080C0"/>
+  </svg>
 )
 const IconIntelligence = () => (
-  <svg width="65" height="64" viewBox="0 0 65 64" fill="none"><ellipse opacity="0.95" cx="32.3405" cy="32" rx="11.8424" ry="33.4124" transform="rotate(45 32.3405 32)" fill="#0080C0"/><ellipse opacity="0.8" cx="32.3408" cy="31.9984" rx="11.8424" ry="33.4124" transform="rotate(-45 32.3408 31.9984)" fill="#004A8F"/></svg>
+  <svg width="65" height="64" viewBox="0 0 65 64" fill="none">
+    <circle cx="32" cy="18" r="7" fill="#3DB8E8"/>
+    <circle cx="16" cy="36" r="7" fill="#0080C0" opacity="0.85"/>
+    <circle cx="48" cy="36" r="7" fill="#00A0E0"/>
+    <circle cx="32" cy="52" r="5" fill="#0080C0"/>
+    <line x1="28" y1="23" x2="20" y2="31" stroke="#00A0E0" strokeWidth="2.5" strokeLinecap="round"/>
+    <line x1="36" y1="23" x2="44" y2="31" stroke="#00A0E0" strokeWidth="2.5" strokeLinecap="round"/>
+    <line x1="21" y1="39" x2="27" y2="48" stroke="#3DB8E8" strokeWidth="2" strokeLinecap="round"/>
+    <line x1="43" y1="39" x2="37" y2="48" stroke="#3DB8E8" strokeWidth="2" strokeLinecap="round"/>
+    <line x1="22" y1="30" x2="42" y2="30" stroke="#00A0E0" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"/>
+  </svg>
 )
 const IconSecurity = () => (
-  <svg width="67" height="64" viewBox="0 0 67 64" fill="none"><circle opacity="0.95" cx="33.1708" cy="19.122" r="19.122" fill="#0080C0"/><path opacity="0.8" d="M7.82389 54.4403L28.7304 26.0672C31.1284 22.8128 35.9931 22.8128 38.3911 26.0672L59.2976 54.4403C62.2167 58.4019 59.3882 63.9995 54.4673 63.9995H12.6542C7.73335 63.9995 4.90483 58.4019 7.82389 54.4403Z" fill="#004A8F"/></svg>
+  <svg width="65" height="64" viewBox="0 0 65 64" fill="none">
+    <path d="M32 6L8 16V34C8 47 18 56 32 60C46 56 56 47 56 34V16L32 6Z" fill="#0080C0" opacity="0.9"/>
+    <path d="M32 6L8 16V34C8 47 18 56 32 60C46 56 56 47 56 34V16L32 6Z" fill="url(#secGrad)" opacity="0.4"/>
+    <path d="M40 28L30 42L24 36" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <defs>
+      <linearGradient id="secGrad" x1="32" y1="6" x2="32" y2="60" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#00A0E0"/>
+        <stop offset="1" stopColor="#3DB8E8"/>
+      </linearGradient>
+    </defs>
+  </svg>
 )
 const IconScalability = () => (
-  <svg width="65" height="64" viewBox="0 0 65 64" fill="none"><path d="M17.6602 14.0137C17.6602 19.7944 22.3463 24.4805 28.127 24.4805C33.9075 24.4803 38.5938 19.7943 38.5938 14.0137C38.5938 13.9032 38.5884 13.7932 38.585 13.6836H46.5166C48.6185 13.6837 50.322 15.3874 50.3223 17.4893V27.3018C45.2313 28.0108 41.3125 32.3798 41.3125 37.666C41.3125 42.9522 45.2313 47.3202 50.3223 48.0293V54.9297C50.3222 57.0317 48.6186 58.7353 46.5166 58.7354H38.585C38.4104 53.1077 33.7969 48.5988 28.127 48.5986C22.4569 48.5986 17.8436 53.1077 17.6689 58.7354H9.07617C6.97436 58.7351 5.27057 57.0315 5.27051 54.9297V46.998C5.38015 47.0014 5.49012 47.0068 5.60059 47.0068C11.3812 47.0068 16.0672 42.3206 16.0674 36.54C16.0674 30.7594 11.3813 26.0732 5.60059 26.0732C5.49012 26.0732 5.38015 26.0777 5.27051 26.0811V17.4893C5.27076 15.3876 6.97447 13.6838 9.07617 13.6836H17.6689C17.6655 13.7932 17.6602 13.9032 17.6602 14.0137ZM51.8555 28C57.1103 28 61.3709 32.2598 61.3711 37.5146C61.3711 42.7696 57.1105 47.0303 51.8555 47.0303C46.6006 47.0301 42.3408 42.7695 42.3408 37.5146C42.341 32.2599 46.6008 28.0002 51.8555 28Z" fill="#004A8F"/><circle cx="28.1071" cy="14.0153" r="9.51531" fill="#0080C0"/></svg>
+  <svg width="65" height="64" viewBox="0 0 65 64" fill="none">
+    <circle cx="24" cy="20" r="8" fill="#3DB8E8"/>
+    <circle cx="20" cy="44" r="8" fill="#00A0E0" opacity="0.9"/>
+    <circle cx="44" cy="16" r="6" fill="#0080C0" opacity="0.7"/>
+    <circle cx="48" cy="42" r="6" fill="#00A0E0"/>
+    <circle cx="40" cy="28" r="4" fill="#3DB8E8" opacity="0.8"/>
+    <line x1="28" y1="24" x2="38" y2="19" stroke="#0080C0" strokeWidth="2" strokeLinecap="round" opacity="0.5"/>
+    <line x1="25" y1="38" x2="38" y2="25" stroke="#00A0E0" strokeWidth="2" strokeLinecap="round" opacity="0.5"/>
+    <line x1="28" y1="48" x2="42" y2="44" stroke="#3DB8E8" strokeWidth="2" strokeLinecap="round" opacity="0.5"/>
+  </svg>
 )
 const smallCards = [
   { title: '高稳定性', items: ['经过开发者验证，保证高可靠稳定运行', '完善的监控和容错机制', '专业技术支持，满足企业级场景需求'], Icon: IconStability },
