@@ -17,8 +17,8 @@ export const ModelCard = memo(function ModelCard({ logo, name, models, desc }: M
       }}
       onMouseEnter={e => {
         e.currentTarget.style.transform = 'translateY(-4px)'
-        e.currentTarget.style.boxShadow = '0 12px 36px rgba(0,74,143,0.08)'
-        e.currentTarget.style.borderColor = 'rgba(0,74,143,0.15)'
+        e.currentTarget.style.boxShadow = '0 12px 36px rgba(0,74,143,0.1), 0 0 0 2px rgba(0,128,192,0.15)'
+        e.currentTarget.style.borderColor = 'rgba(0,128,192,0.3)'
       }}
       onMouseLeave={e => {
         e.currentTarget.style.transform = 'translateY(0)'

@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import { motion } from 'framer-motion'
 import { useNavigate } from '@tanstack/react-router'
 import { ChevronRight } from 'lucide-react'
 
@@ -11,29 +12,40 @@ type ProductCardProps = {
   index: number
 }
 
-export const ProductCard = memo(function ProductCard({ title, desc, img, tag, href, index }: ProductCardProps) {
+export const ProductCard = memo(function ProductCard({ title, desc, img, tag, href }: ProductCardProps) {
   const navigate = useNavigate()
   return (
-    <div
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
       style={{
         background: '#fff', borderRadius: 18,
-        padding: index < 3 ? '44px 34px 40px' : '36px 28px',
+        padding: '36px 28px',
         border: '1px solid #D5D6EA',
-        transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
         cursor: 'pointer', position: 'relative', overflow: 'hidden',
       }}
       onMouseEnter={e => {
-        e.currentTarget.style.transform = 'scale(1.02)'
-        e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,74,143,0.08), 0 4px 12px rgba(0,74,143,0.04)'
-        e.currentTarget.style.borderColor = 'rgba(0,74,143,0.15)'
+        e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,74,143,0.12), 0 0 0 2px rgba(0,128,192,0.2), 0 4px 12px rgba(0,74,143,0.04)'
+        e.currentTarget.style.borderColor = 'rgba(0,128,192,0.4)'
+        const shine = e.currentTarget.querySelector('.card-shine') as HTMLElement
+        if (shine) shine.style.left = '120%'
       }}
       onMouseLeave={e => {
-        e.currentTarget.style.transform = 'scale(1)'
         e.currentTarget.style.boxShadow = 'none'
         e.currentTarget.style.borderColor = '#D5D6EA'
+        const shine = e.currentTarget.querySelector('.card-shine') as HTMLElement
+        if (shine) shine.style.left = '-100%'
       }}
       onClick={() => navigate({ to: href })}
     >
+      {/* Shine sweep on hover */}
+      <div className="card-shine" style={{
+        position: 'absolute', top: 0, left: '-100%', width: '60%', height: '100%',
+        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
+        transform: 'skewX(-20deg)',
+        transition: 'left 0.6s ease',
+        pointerEvents: 'none', zIndex: 3,
+      }} />
       <div style={{ position: 'absolute', top: -30, right: -30, width: 140, height: 140, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,74,143,0.04) 0%, transparent 70%)', pointerEvents: 'none' }} />
       <div style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ marginBottom: 22, borderRadius: 12, overflow: 'hidden', height: 180, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F8F7FF' }}>
@@ -46,6 +58,6 @@ export const ProductCard = memo(function ProductCard({ title, desc, img, tag, hr
           了解更多 <ChevronRight size={15} />
         </span>
       </div>
-    </div>
+    </motion.div>
   )
 })

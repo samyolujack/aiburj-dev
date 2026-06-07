@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, Sparkles, ChevronRight, Zap, Shield, Code, Globe, Cpu } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { PublicLayout } from '@/components/layout'
 import { Footer } from '@/components/layout/components/footer'
@@ -8,6 +9,10 @@ import { IndustryCarousel } from './components/industry-carousel'
 import { SectionHeader } from './components/section-header'
 import { ProductCard } from './components/product-card'
 import { ModelCard } from './components/model-card'
+import { ScrollReveal } from './components/scroll-reveal'
+import { AnimatedCounter } from './components/animated-counter'
+import { useMouseParallax } from './components/use-mouse-parallax'
+import { SyntaxHighlight } from './components/syntax-highlight'
 
 /* ── Hero 轮播数据 ── */
 const slides = [
@@ -117,6 +122,7 @@ const marqueeLogos2 = [...partnerLogos2, ...partnerLogos2]
 const marqueeLogos3 = [...partnerLogos3, ...partnerLogos3]
 
 export function Home() {
+  const { smoothX, smoothY } = useMouseParallax()
   const [current, setCurrent] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const titleRef = useRef<HTMLSpanElement>(null)
@@ -148,6 +154,25 @@ export function Home() {
       >
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: s.overlay, transition: 'background 0.8s ease' }} />
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+          {/* 大呼吸光晕 — 跟随鼠标微移 */}
+          <motion.div
+            animate={{ opacity: [0.4, 0.9, 0.4], scale: [1, 1.08, 1] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            style={{
+            position: 'absolute', top: '5%', left: '50%',
+            width: '900px', height: '700px',
+            x: smoothX,
+            background: 'radial-gradient(ellipse, rgba(0,128,192,0.08) 0%, rgba(0,74,143,0.04) 40%, transparent 70%)',
+          }} />
+          {/* 点阵背景 — 反向微移，增强深度感 */}
+          <motion.div style={{
+            position: 'absolute', inset: 0,
+            x: smoothX,
+            y: smoothY,
+            backgroundImage: 'radial-gradient(circle, rgba(0,74,143,0.06) 1px, transparent 1px)',
+            backgroundSize: '28px 28px',
+            opacity: 0.5,
+          }} />
           <div style={{ position: 'absolute', top: '-15%', left: '-10%', width: '55%', height: '70%', background: s.isDark ? 'radial-gradient(ellipse, rgba(0,74,143,0.1) 0%, transparent 70%)' : 'radial-gradient(ellipse, rgba(0,74,143,0.04) 0%, transparent 70%)', transition: 'all 0.8s ease' }} />
         </div>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '180px 32px 200px', textAlign: 'center', position: 'relative' }}>
@@ -180,25 +205,31 @@ export function Home() {
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 120, background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.96))', pointerEvents: 'none' }} />
       </section>
 
+      {/* Gradient transition */}
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, rgba(0,0,0,0.02), #fff)', marginTop: -1 }} />
       {/* ═══ SECTION 2 — 性能指标 ═══ */}
+      <ScrollReveal>
       <section style={{ background: '#fff', padding: '64px 24px 80px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 20 }}>
           {perfCards.map((c, i) => (
             <div key={i} style={{ background: '#fff', borderRadius: 16, padding: '36px 24px 32px', border: '1px solid #D5D6EA', textAlign: 'center', transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)', cursor: 'default' }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; e.currentTarget.style.boxShadow = '0 12px 36px rgba(0,74,143,0.07)'; e.currentTarget.style.borderColor = 'rgba(0,74,143,0.12)' }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; e.currentTarget.style.boxShadow = '0 12px 36px rgba(0,74,143,0.1), 0 0 0 2px rgba(0,128,192,0.15)'; e.currentTarget.style.borderColor = 'rgba(0,128,192,0.3)' }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = '#D5D6EA' }}
             >
               <c.icon size={22} color="#0080C0" style={{ marginBottom: 14, opacity: 0.65 }} />
-              <div style={{ fontSize: 44, fontWeight: 900, color: '#252736', marginBottom: 6 }}>{c.value}</div>
+              <AnimatedCounter value={c.value} />
               <div style={{ fontSize: 16, fontWeight: 700, color: '#36384A', marginBottom: 4 }}>{c.label}</div>
               <div style={{ fontSize: 13, color: '#8098B0' }}>{c.desc}</div>
             </div>
           ))}
         </div>
       </section>
+      </ScrollReveal>
 
       {/* ═══ SECTION 3 — 产品矩阵 3×2 ═══ */}
-      <section style={{ background: '#F4F8FC', padding: '80px 24px 100px' }}>
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, #fff, #F4F8FC)' }} />
+      <ScrollReveal delay={0.1}>
+      <section style={{ background: '#F4F8FC', padding: '60px 24px 100px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <SectionHeader icon={Sparkles} badge="产品矩阵" title="全场景 AI 能力平台" desc="助力用户一站式实现 AI 能力与应用的快速对接" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
@@ -208,9 +239,12 @@ export function Home() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
       {/* ═══ SECTION 4 — 核心优势 ═══ */}
-      <section style={{ background: '#fff', padding: '100px 24px 80px' }}>
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, #F4F8FC, #fff)' }} />
+      <ScrollReveal delay={0.1}>
+      <section style={{ background: '#fff', padding: '60px 24px 80px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <SectionHeader icon={Shield} badge="核心优势" title="为什么选择 aiburj" desc="致力于成为国内领先的 AI 能力提供商" descMaxWidth={500} />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24, maxWidth: 1200, margin: '0 auto 74px' }}>
@@ -259,9 +293,12 @@ export function Home() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
       {/* ═══ SECTION 5 — 模型生态 3×4 ═══ */}
-      <section style={{ background: '#F4F8FC', padding: '100px 24px 80px' }}>
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, #fff, #F4F8FC)' }} />
+      <ScrollReveal delay={0.1}>
+      <section style={{ background: '#F4F8FC', padding: '60px 24px 80px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <SectionHeader icon={Cpu} badge="模型生态" title="已接入的国产大模型" desc="覆盖国内主流大模型厂商，一个 API 全部调用" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
@@ -269,9 +306,12 @@ export function Home() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
       {/* ═══ SECTION 6 — 行业方案 ═══ */}
-      <section style={{ background: '#fff', padding: '100px 24px', overflow: 'hidden' }}>
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, #F4F8FC, #fff)' }} />
+      <ScrollReveal delay={0.1}>
+      <section style={{ background: '#fff', padding: '60px 24px', overflow: 'hidden' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <SectionHeader icon={Globe} badge="行业方案" title="面向不同行业，提供灵活的解决方案" desc="覆盖互联网、教育、政务、智算中心、AI 硬件等多行业场景" descMaxWidth={640} />
           <div style={{ position: 'relative', margin: '0 -80px' }}>
@@ -279,9 +319,12 @@ export function Home() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
       {/* ═══ SECTION 7 — 合作伙伴 ═══ */}
-      <section style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg, #F4F8FC 0%, #E8F0FA 40%, #DCE8F8 70%, #F4F8FC 100%)', padding: '88px 0 0' }}>
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, #fff, #F4F8FC)' }} />
+      <ScrollReveal>
+      <section style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg, #F4F8FC 0%, #E8F0FA 40%, #DCE8F8 70%, #F4F8FC 100%)', padding: '48px 0 0' }}>
         {/* 装饰光晕 */}
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-20%', left: '-10%', width: '50%', height: '60%', background: 'radial-gradient(ellipse, rgba(0,74,143,0.06) 0%, transparent 70%)' }} />
@@ -323,14 +366,18 @@ export function Home() {
                   <div style={{ display: 'flex', gap: 7 }}><div style={{ width: 11, height: 11, borderRadius: 6, background: '#EF4444' }} /><div style={{ width: 11, height: 11, borderRadius: 6, background: '#EAB308' }} /><div style={{ width: 11, height: 11, borderRadius: 6, background: '#22C55E' }} /></div>
                   <span style={{ fontSize: 12, fontWeight: 700, color: tab.color, marginLeft: 12 }}>{tab.lang}</span>
                 </div>
-                <pre style={{ color: '#CDD6F4', fontSize: 13, lineHeight: 2, margin: 0, padding: '20px 22px 24px', whiteSpace: 'pre-wrap', wordBreak: 'break-all', fontFamily: "'SF Mono','Fira Code',monospace", overflow: 'auto', maxHeight: 380 }}>{tab.code}</pre>
+                <pre style={{ color: '#CDD6F4', fontSize: 13, lineHeight: 2, margin: 0, padding: '20px 22px 24px', whiteSpace: 'pre-wrap', wordBreak: 'break-all', fontFamily: "'SF Mono','Fira Code',monospace", overflow: 'auto', maxHeight: 380 }}>
+                  <SyntaxHighlight code={tab.code} lang={tab.lang.toLowerCase()} />
+                </pre>
               </div>
             ))}
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
       {/* ═══ SECTION 9 — CTA ═══ */}
+      <ScrollReveal delay={0.2}>
       <section style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, #001A40 0%, #002060 30%, #004A8F 60%, #0080C0 100%)', padding: '110px 24px 100px', textAlign: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-30%', left: '-10%', width: '60%', height: '80%', background: 'radial-gradient(ellipse, rgba(0,116,192,0.15) 0%, transparent 70%)' }} />
@@ -356,6 +403,7 @@ export function Home() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
       <Footer />
     </PublicLayout>

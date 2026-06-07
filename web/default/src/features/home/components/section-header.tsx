@@ -1,4 +1,5 @@
 import { type LucideIcon } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 type SectionHeaderProps = {
   icon: LucideIcon
@@ -10,7 +11,14 @@ type SectionHeaderProps = {
 
 export function SectionHeader({ icon: Icon, badge, title, desc, descMaxWidth = 580 }: SectionHeaderProps) {
   return (
-    <div className="home-section-heading" style={{ textAlign: 'center', marginBottom: 56 }}>
+    <motion.div
+      className="home-section-heading"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      style={{ textAlign: 'center', marginBottom: 56 }}
+    >
       <div style={{
         display: 'inline-flex', alignItems: 'center', gap: 8,
         background: 'rgba(0,74,143,0.05)', borderRadius: 50,
@@ -21,11 +29,18 @@ export function SectionHeader({ icon: Icon, badge, title, desc, descMaxWidth = 5
       </div>
       <h2 style={{
         fontSize: 48, fontWeight: 700, color: '#252736',
-        marginBottom: desc ? 66 : 0,
+        marginBottom: 20,
         letterSpacing: '-0.02em',
       }}>
         {title}
       </h2>
+      {/* 标题装饰渐变短线 */}
+      <div style={{
+        width: 60, height: 3,
+        borderRadius: 2,
+        background: 'linear-gradient(90deg, #004A8F, #0080C0)',
+        margin: '0 auto 24px',
+      }} />
       {desc && (
         <p style={{
           fontSize: 17, color: '#4A6A8A',
@@ -35,6 +50,6 @@ export function SectionHeader({ icon: Icon, badge, title, desc, descMaxWidth = 5
           {desc}
         </p>
       )}
-    </div>
+    </motion.div>
   )
 }
