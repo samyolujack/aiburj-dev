@@ -184,8 +184,14 @@ export function Home() {
       <section
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
-        style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', display: 'flex', alignItems: 'center', backgroundColor: '#E6F0FA', backgroundImage: s.blendEdge ? `linear-gradient(to right, #E6F0FA 0%, transparent 280px), url(${s.bg})` : `url(${s.bg})`, backgroundPosition: s.blendEdge ? 'left center, right center' : s.bgPos, backgroundSize: s.blendEdge ? '100% 100%, auto 100%' : s.bgSize, backgroundRepeat: 'no-repeat', transition: 'background 0.8s ease' }}
+        style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', display: 'flex', alignItems: 'center', backgroundColor: '#E6F0FA', ...(s.blendEdge ? {} : { backgroundImage: `url(${s.bg})`, backgroundPosition: s.bgPos, backgroundSize: s.bgSize, backgroundRepeat: 'no-repeat' }), transition: 'background 0.8s ease' }}
       >
+        {s.blendEdge && (
+          <>
+            <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${s.bg})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', filter: 'blur(24px)', opacity: 0.55, transform: 'scale(1.1)' }} />
+            <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${s.bg})`, backgroundPosition: 'right center', backgroundSize: 'auto 100%', backgroundRepeat: 'no-repeat' }} />
+          </>
+        )}
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: s.overlay, transition: 'background 0.8s ease' }} />
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
           {/* 大呼吸光晕 — 跟随鼠标微移 */}
