@@ -390,10 +390,11 @@ export function Home() {
 
       {/* ═══ SECTION 9 — CTA ═══ */}
       <ScrollReveal delay={0.2}>
-      <section style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, #001A40 0%, #002060 30%, #004A8F 60%, #0080C0 100%)', padding: '110px 24px 100px', textAlign: 'center' }}>
+      <section style={{ position: 'relative', overflow: 'hidden', background: "url('/cta-bg.png') center/cover no-repeat", padding: '110px 24px 100px', textAlign: 'center' }}>
+        {/* Overlay for text readability */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,10,30,0.35) 0%, rgba(0,42,96,0.25) 50%, rgba(0,10,30,0.4) 100%)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-30%', left: '-10%', width: '60%', height: '80%', background: 'radial-gradient(ellipse, rgba(0,116,192,0.15) 0%, transparent 70%)' }} />
-          <div style={{ position: 'absolute', bottom: '-20%', right: '-5%', width: '50%', height: '70%', background: 'radial-gradient(ellipse, rgba(0,74,143,0.12) 0%, transparent 70%)' }} />
+          <div style={{ position: 'absolute', top: '-25%', right: '-10%', width: '55%', height: '80%', background: 'radial-gradient(ellipse, rgba(0,160,224,0.08) 0%, transparent 70%)' }} />
         </div>
         <div style={{ maxWidth: 700, margin: '0 auto', position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.12)', borderRadius: 50, border: '1px solid rgba(255,255,255,0.15)', padding: '8px 24px', fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.9)', marginBottom: 36 }}>
