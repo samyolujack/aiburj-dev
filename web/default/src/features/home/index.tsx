@@ -390,28 +390,25 @@ export function Home() {
 
       {/* ═══ SECTION 9 — CTA ═══ */}
       <ScrollReveal delay={0.2}>
-      <section style={{ position: 'relative', overflow: 'hidden', background: "url('/cta-bg.png') center/cover no-repeat", padding: '110px 24px 100px', textAlign: 'center' }}>
-        {/* Overlay for text readability */}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,10,30,0.35) 0%, rgba(0,42,96,0.25) 50%, rgba(0,10,30,0.4) 100%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-25%', right: '-10%', width: '55%', height: '80%', background: 'radial-gradient(ellipse, rgba(0,160,224,0.08) 0%, transparent 70%)' }} />
-        </div>
+      <section style={{ position: 'relative', overflow: 'hidden', background: "url('/cta-bg.png') center/cover no-repeat", padding: '120px 24px 110px', textAlign: 'center' }}>
+        {/* Subtle white overlay for readability */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.25) 60%, rgba(255,255,255,0.35) 100%)', pointerEvents: 'none' }} />
         <div style={{ maxWidth: 700, margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.12)', borderRadius: 50, border: '1px solid rgba(255,255,255,0.15)', padding: '8px 24px', fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.9)', marginBottom: 36 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(0,74,143,0.06)', borderRadius: 50, border: '1px solid rgba(0,74,143,0.15)', padding: '8px 24px', fontSize: 14, fontWeight: 600, color: '#004A8F', marginBottom: 36 }}>
             <Sparkles size={16} /> 限时体验
           </div>
-          <h2 style={{ fontSize: 'clamp(34px,5vw,56px)', fontWeight: 900, color: '#fff', marginBottom: 24, lineHeight: 1.2 }}>开始构建你的 AI 应用</h2>
-          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 18, marginBottom: 48, lineHeight: 1.7 }}>注册即享体验额度，零成本测试所有国产大模型</p>
+          <h2 style={{ fontSize: 'clamp(34px,5vw,56px)', fontWeight: 900, color: '#0A1628', marginBottom: 24, lineHeight: 1.2 }}>开始构建你的 AI 应用</h2>
+          <p style={{ color: '#4A6A8A', fontSize: 18, marginBottom: 48, lineHeight: 1.7 }}>注册即享体验额度，零成本测试所有国产大模型</p>
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Button style={{ height: 56, padding: '0 48px', fontSize: 17, fontWeight: 700, borderRadius: 16, background: '#fff', color: '#004A8F', boxShadow: '0 8px 32px rgba(0,0,0,0.18)' }}
+            <Button style={{ height: 56, padding: '0 48px', fontSize: 17, fontWeight: 700, borderRadius: 16, background: '#004A8F', color: '#fff', boxShadow: '0 8px 32px rgba(0,74,143,0.3)' }}
               render={<Link to="/sign-up" />}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.25)' }}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.18)' }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,74,143,0.4)' }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,74,143,0.3)' }}
             >免费注册 <ArrowRight style={{ marginLeft: 8, width: 20 }} /></Button>
-            <Button variant="outline" style={{ height: 56, padding: '0 48px', fontSize: 17, fontWeight: 600, borderRadius: 16, borderColor: 'rgba(255,255,255,0.3)', color: '#fff', background: 'rgba(255,255,255,0.06)' }}
+            <Button variant="outline" style={{ height: 56, padding: '0 48px', fontSize: 17, fontWeight: 600, borderRadius: 16, borderColor: '#C8D8E8', color: '#334155', background: '#fff' }}
               render={<Link to="/pricing" />}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#004A8F'; e.currentTarget.style.color = '#004A8F' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = '#C8D8E8'; e.currentTarget.style.color = '#334155' }}
             >查看定价</Button>
           </div>
         </div>
