@@ -133,7 +133,7 @@ function ProjectAttribution(props: { currentYear: number; inline?: boolean }) {
         rel='noopener noreferrer'
         className='text-foreground/70 hover:text-foreground font-medium transition-colors'
       >
-        {t('New API')}
+        {t('aiburj')}
       </a>
       . {t(NEW_API_FOOTER_ATTRIBUTION_KEY)}
     </span>
@@ -235,7 +235,7 @@ export function Footer(props: FooterProps) {
               />
             </Link>
             <p className='text-muted-foreground/60 mt-3 max-w-[220px] text-sm leading-relaxed'>
-              {t('Powerful API Management Platform')}
+              汇聚中国 AI 力量，一站式大模型 API 聚合平台
             </p>
             {/* Social links — GitHub icon */}
             <div className='mt-4 flex items-center gap-3'>
