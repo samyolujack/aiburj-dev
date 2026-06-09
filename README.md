@@ -159,6 +159,34 @@ docker run --name new-api -d --restart always \
 
 ---
 
+### 🛠️ Build from Source
+
+**Requirements:** Go 1.21+, Node.js 18+ (or Bun)
+
+```bash
+# 1. Clone
+git clone https://github.com/18879240488/aiburj-dev.git
+cd aiburj-dev
+
+# 2. Build frontends (REQUIRED before go build — Go embed needs dist/)
+make build-all-frontends          # uses bun
+# OR manually:
+#   cd web/default && npm install && npm run build && cd ../..
+#   cd web/classic && npm install && npm run build && cd ../..
+
+# 3. Build backend
+go build -o new-api .
+
+# 4. Start
+./new-api --port 3000
+```
+
+> ⚠️ **Important:** `go build` uses `//go:embed` to bundle frontend builds at compile time.
+> The `web/default/dist/` and `web/classic/dist/` directories MUST exist before running `go build`.
+> Always run `make build-all-frontends` first, or `go build` will fail with `no matching files found`.
+
+---
+
 ## 📚 Documentation
 
 <div align="center">
