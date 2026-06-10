@@ -215,7 +215,7 @@ export function PublicHeader(props: PublicHeaderProps) {
           </Link>
 
           {/* Desktop nav links — 80px from logo, siliconflow style */}
-          <div className='hidden items-center gap-9 pl-[80px] sm:flex'>
+          <div className='hidden items-center gap-9 pl-[48px] sm:flex'>
               {links.map((link, i) => {
                 const isActive = pathname === link.href || (link.children?.some(c => pathname === c.href))
                 // Render dropdown for items with children
