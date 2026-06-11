@@ -180,6 +180,7 @@ export function Home() {
 
   return (
     <PublicLayout showMainContainer={false}>
+      <style>{`@keyframes ripple{to{transform:scale(4);opacity:0;}}`}</style>
       {/* ═══ SECTION 1 — Hero Banner 轮播 ═══ */}
       <section
         onMouseEnter={() => setIsPaused(true)}
@@ -221,9 +222,10 @@ export function Home() {
           </h1>
           <p style={{ fontSize: 20, lineHeight: 1.8, color: s.isDark ? 'rgba(255,255,255,0.7)' : '#4A6A8A', maxWidth: 660, margin: '0 auto 56px' }}>{s.desc}</p>
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Button style={{ height: 56, padding: '0 40px', fontSize: 17, fontWeight: 700, borderRadius: 16, background: '#004A8F', boxShadow: '0 8px 32px rgba(0,74,143,0.3)', border: 'none' }}
+            <Button style={{ height: 56, padding: '0 40px', fontSize: 17, fontWeight: 700, borderRadius: 16, background: '#004A8F', boxShadow: '0 8px 32px rgba(0,74,143,0.3)', border: 'none', position: 'relative', overflow: 'hidden' }}
               onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,74,143,0.4)' }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,74,143,0.3)' }}
+              onClick={e => { const btn=e.currentTarget; const r=btn.getBoundingClientRect(); const s=Math.max(r.width,r.height); const ri=document.createElement('span'); ri.style.cssText='position:absolute;border-radius:50%;background:rgba(255,255,255,0.3);width:'+s+'px;height:'+s+'px;left:'+(e.clientX-r.left-s/2)+'px;top:'+(e.clientY-r.top-s/2)+'px;transform:scale(0);animation:ripple 0.6s ease-out;pointer-events:none'; btn.appendChild(ri); setTimeout(()=>ri.remove(),600) }}
               render={<Link to="/sign-up" />}>立即体验 <ArrowRight style={{ marginLeft: 8, width: 18 }} /></Button>
             <Button variant="outline" style={{ height: 56, padding: '0 40px', fontSize: 17, fontWeight: 600, borderRadius: 16, borderColor: s.isDark ? 'rgba(255,255,255,0.25)' : '#D5D6EA', color: s.isDark ? 'rgba(255,255,255,0.9)' : '#334155', background: s.isDark ? 'rgba(255,255,255,0.06)' : '#fff' }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = '#004A8F'; e.currentTarget.style.color = '#004A8F' }}

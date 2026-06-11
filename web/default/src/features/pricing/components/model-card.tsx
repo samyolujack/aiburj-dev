@@ -89,10 +89,17 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
   return (
     <div
       className={cn(
-        'group relative flex flex-col rounded-xl border p-3 transition-colors sm:p-5',
-        'hover:bg-muted/20'
+        'group relative flex flex-col rounded-xl border p-3 transition-all duration-300 sm:p-5',
+        'hover:border-[#004A8F20]',
       )}
+      style={{
+        transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+      }}
+      onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 36px rgba(0,74,143,0.1), 0 0 0 1px rgba(0,128,192,0.15)' }}
+      onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
     >
+      {/* Colored top accent bar */}
+      <div style={{ position: 'absolute', top: 0, left: 16, right: 16, height: 3, borderRadius: '0 0 3px 3px', background: 'linear-gradient(90deg, #004A8F, #0080C0, #00A0E0)', opacity: 0.6 }} />
       {/* Header: icon + name + price + actions */}
       <div className='flex items-start justify-between gap-2.5 sm:gap-3'>
         <div className='flex min-w-0 items-start gap-2.5 sm:gap-3'>
