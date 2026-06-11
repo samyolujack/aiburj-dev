@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { ArrowRight, Sparkles, ChevronRight, Zap, Shield, Code, Globe, Cpu } from 'lucide-react'
+import { ArrowRight, Sparkles, ChevronRight, ChevronLeft, Zap, Shield, Code, Globe, Cpu } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
@@ -44,7 +44,7 @@ const perfCards = [
 /* ── 核心优势大卡 ── */
 const bigCards = [
   {
-    title: '高速推理', bg: "url('/deco-speed-bg.png') center/cover no-repeat",
+    title: '高速推理', bg: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cdefs%3E%3Cpattern id='hex' width='60' height='52' patternUnits='userSpaceOnUse'%3E%3Cpath d='M30 0l30 17.3v34.6L30 69.3 0 52V17.3z' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1'/%3E%3Cpath d='M60 26l30 17.3v34.6L60 95.3 30 78V60.7z' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='280' height='280' fill='url(%23hex)'/%3E%3Ccircle cx='255' cy='0' r='120' fill='rgba(255,255,255,0.03)'/%3E%3Ccircle cx='235' cy='20' r='60' fill='rgba(255,255,255,0.04)'/%3E%3Ccircle cx='260' cy='50' r='24' fill='rgba(255,255,255,0.06)'/%3E%3C/svg%3E") top right/280px 280px no-repeat, linear-gradient(180deg, #004A8F 0%, #002060 100%)`,
     textColor: '#FAFDFF', borderColor: '#0080C0',
     shadowHover: '0 24px 70px rgba(0,42,96,0.30)',
     sections: [
@@ -231,19 +231,35 @@ export function Home() {
               render={<Link to="/pricing" />}>查看模型</Button>
           </div>
         </div>
-        <div style={{ position: 'absolute', bottom: 80, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 10, zIndex: 2 }}>
+        <div style={{ position: 'absolute', bottom: 80, left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 10, zIndex: 2 }}>
+          {/* Left arrow */}
+          <button onClick={() => setCurrent(c => (c - 1 + slides.length) % slides.length)}
+            style={{ width: 40, height: 40, borderRadius: '50%', border: '1px solid rgba(0,0,0,0.1)', background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.25s', opacity: 0.65 }}
+            onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = '#fff'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)' }}
+            onMouseLeave={e => { e.currentTarget.style.opacity = '0.65'; e.currentTarget.style.background = 'rgba(255,255,255,0.75)'; e.currentTarget.style.boxShadow = 'none' }}
+          >
+            <ChevronLeft size={18} color="#004A8F" />
+          </button>
           {slides.map((_, i) => (
             <button key={i} onClick={() => setCurrent(i)} style={{ width: i === current ? 44 : 12, height: 12, borderRadius: 6, background: i === current ? (s.isDark ? '#fff' : '#004A8F') : (s.isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,74,143,0.2)'), border: 'none', cursor: 'pointer', transition: 'all 0.4s cubic-bezier(0.4,0,0.2,1)' }} />
           ))}
+          {/* Right arrow */}
+          <button onClick={() => setCurrent(c => (c + 1) % slides.length)}
+            style={{ width: 40, height: 40, borderRadius: '50%', border: '1px solid rgba(0,0,0,0.1)', background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.25s', opacity: 0.65 }}
+            onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = '#fff'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)' }}
+            onMouseLeave={e => { e.currentTarget.style.opacity = '0.65'; e.currentTarget.style.background = 'rgba(255,255,255,0.75)'; e.currentTarget.style.boxShadow = 'none' }}
+          >
+            <ChevronRight size={18} color="#004A8F" />
+          </button>
         </div>
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 120, background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.96))', pointerEvents: 'none' }} />
       </section>
 
       {/* Gradient transition */}
-      <div style={{ height: 40, background: 'linear-gradient(to bottom, rgba(0,0,0,0.02), #fff)', marginTop: -1 }} />
+      <div style={{ height: 40, background: 'linear-gradient(to bottom, rgba(255,255,255,0.96), #fff)', marginTop: -1 }} />
       {/* ═══ SECTION 2 — 性能指标 ═══ */}
       <ScrollReveal>
-      <section style={{ background: 'linear-gradient(180deg, rgba(230,240,250,0.15), #fff)', padding: '64px 24px 80px' }}>
+      <section style={{ background: '#fff', padding: '48px 24px 64px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 20 }}>
           {perfCards.map((c, i) => {
             const accentColors = ['#004A8F', '#0080C0', '#002060', '#00A0E0']
@@ -265,9 +281,9 @@ export function Home() {
       </ScrollReveal>
 
       {/* ═══ SECTION 3 — 产品矩阵 3×2 ═══ */}
-      <div style={{ height: 40, background: 'linear-gradient(to bottom, #fff, #F4F8FC)' }} />
+      <div style={{ height: 56, background: 'linear-gradient(to bottom, #fff 0%, #F0F4FA 100%)' }} />
       <ScrollReveal delay={0.1}>
-      <section style={{ background: '#F4F8FC', padding: '60px 24px 100px' }}>
+      <section style={{ background: '#F0F4FA', padding: '60px 24px 100px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <SectionHeader icon={Sparkles} badge="产品矩阵" title="全场景 AI 能力平台" desc="助力用户一站式实现 AI 能力与应用的快速对接" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
@@ -280,7 +296,7 @@ export function Home() {
       </ScrollReveal>
 
       {/* ═══ SECTION 4 — 核心优势 ═══ */}
-      <div style={{ height: 40, background: 'linear-gradient(to bottom, #F4F8FC, #fff)' }} />
+      <div style={{ height: 56, background: 'linear-gradient(to bottom, #F0F4FA, #fff)' }} />
       <ScrollReveal delay={0.1}>
       <section style={{ background: '#fff', padding: '60px 24px 80px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
@@ -291,9 +307,11 @@ export function Home() {
                 onMouseEnter={e => { e.currentTarget.style.boxShadow = card.shadowHover }}
                 onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none' }}
               >
-                <div style={{ position: 'absolute', right: -22, top: -39 }}>
-                  <img src={i === 0 ? '/deco-speed.svg' : '/deco-save.svg'} alt="" style={{ width: 246, height: 250 }} />
-                </div>
+                {i === 1 && (
+                  <div style={{ position: 'absolute', right: -22, top: -39 }}>
+                    <img src='/deco-save.svg' alt="" style={{ width: 246, height: 250 }} />
+                  </div>
+                )}
                 {card.sections.map((sec, j) => (
                   <div key={j} style={{ borderBottom: j < card.sections.length - 1 ? `1px solid ${card.borderColor}` : 'none', padding: j === 0 ? '76px 0 0 92px' : '0 112px 0 92px', minHeight: j === 0 ? 376 : j === 1 ? 241 : 249, display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', zIndex: 2 }}>
                     {j === 0 && <h3 style={{ fontSize: 36, fontWeight: 600, lineHeight: 1, marginBottom: 92 }}>{card.title}</h3>}
@@ -341,9 +359,9 @@ export function Home() {
       </ScrollReveal>
 
       {/* ═══ SECTION 5 — 模型生态 3×4 ═══ */}
-      <div style={{ height: 40, background: 'linear-gradient(to bottom, #fff, #F4F8FC)' }} />
+      <div style={{ height: 56, background: 'linear-gradient(to bottom, #fff, #F0F4FA)' }} />
       <ScrollReveal delay={0.1}>
-      <section style={{ background: '#F4F8FC', padding: '60px 24px 80px' }}>
+      <section style={{ background: '#F0F4FA', padding: '60px 24px 80px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <SectionHeader icon={Cpu} badge="模型生态" title="已接入的国产大模型" desc="覆盖国内主流大模型厂商，一个 API 全部调用" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
@@ -354,7 +372,7 @@ export function Home() {
       </ScrollReveal>
 
       {/* ═══ SECTION 6 — 行业方案 ═══ */}
-      <div style={{ height: 40, background: 'linear-gradient(to bottom, #F4F8FC, #fff)' }} />
+      <div style={{ height: 56, background: 'linear-gradient(to bottom, #F0F4FA, #fff)' }} />
       <ScrollReveal delay={0.1}>
       <section style={{ background: '#fff', padding: '60px 24px', overflow: 'hidden' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
@@ -367,9 +385,9 @@ export function Home() {
       </ScrollReveal>
 
       {/* ═══ SECTION 7 — 合作伙伴 ═══ */}
-      <div style={{ height: 40, background: 'linear-gradient(to bottom, #fff, #F4F8FC)' }} />
+      <div style={{ height: 56, background: 'linear-gradient(to bottom, #fff, #F0F4FA)' }} />
       <ScrollReveal>
-      <section style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg, #F4F8FC 0%, #E8F0FA 40%, #DCE8F8 70%, #F4F8FC 100%)', padding: '48px 0 0' }}>
+      <section style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg, #F0F4FA 0%, #E0EAF5 40%, #D0DFF0 70%, #F0F4FA 100%)', padding: '48px 0 0' }}>
         {/* 装饰光晕 */}
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-20%', left: '-10%', width: '50%', height: '60%', background: 'radial-gradient(ellipse, rgba(0,74,143,0.06) 0%, transparent 70%)' }} />
@@ -394,7 +412,7 @@ export function Home() {
         </div>
         </div>
       </section>
-      <div style={{ height: 40, background: 'linear-gradient(to bottom, #F4F8FC, #fff)' }} />
+      <div style={{ height: 56, background: 'linear-gradient(to bottom, #F0F4FA, #fff)' }} />
       <section style={{ background: 'linear-gradient(180deg, #F4F8FC, #fff 30%)', padding: '60px 24px 80px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <SectionHeader icon={Code} badge="快速开始" title="三步接入，零门槛" desc="获取 API Key → 选择模型 → 复制代码，OpenAI SDK 直接兼容" />
@@ -412,7 +430,7 @@ export function Home() {
                   <div style={{ display: 'flex', gap: 7 }}><div style={{ width: 11, height: 11, borderRadius: 6, background: '#EF4444' }} /><div style={{ width: 11, height: 11, borderRadius: 6, background: '#EAB308' }} /><div style={{ width: 11, height: 11, borderRadius: 6, background: '#22C55E' }} /></div>
                   <span style={{ fontSize: 12, fontWeight: 700, color: tab.color, marginLeft: 12 }}>{tab.lang}</span>
                 </div>
-                <pre style={{ color: '#CDD6F4', fontSize: 13, lineHeight: 2, margin: 0, padding: '20px 22px 24px', whiteSpace: 'pre-wrap', wordBreak: 'break-all', fontFamily: "'SF Mono','Fira Code',monospace", overflow: 'auto', maxHeight: 380 }}>
+                <pre style={{ color: '#CDD6F4', fontSize: 13, lineHeight: 2, margin: 0, padding: '20px 22px 24px', whiteSpace: 'pre-wrap', wordBreak: 'break-all', overflow: 'auto', maxHeight: 380, fontFamily: "'SF Mono','Fira Code',monospace" }}>
                   <SyntaxHighlight code={tab.code} lang={tab.lang.toLowerCase()} />
                 </pre>
               </div>
