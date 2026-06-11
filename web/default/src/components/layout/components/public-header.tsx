@@ -215,10 +215,9 @@ export function PublicHeader(props: PublicHeaderProps) {
           </Link>
 
           {/* Desktop nav links — 80px from logo, siliconflow style */}
-          <div className='hidden items-center gap-9 pl-[48px] sm:flex'>
+          <div className='hidden items-center gap-9 pl-[48px] sm:flex' style={{ position: 'relative' }}>
               {links.map((link, i) => {
                 const isActive = pathname === link.href || (link.children?.some(c => pathname === c.href))
-                // Render dropdown for items with children
                 if (link.children && link.children.length > 0) {
                   return (
                     <div key={i} style={{ position: 'relative' }}
@@ -230,7 +229,7 @@ export function PublicHeader(props: PublicHeaderProps) {
                           background: 'none', border: 'none', cursor: 'pointer',
                           fontSize: 16, fontWeight: 'normal', color: isActive ? '#004A8F' : '#1e293b',
                           padding: '2px 4px', display: 'flex', alignItems: 'center', gap: 4,
-                          transition: 'color 0.2s',
+                          transition: 'color 0.2s', position: 'relative', paddingBottom: 6,
                         }}
                         className='hover:text-[#0080C0]'
                       >
@@ -238,6 +237,13 @@ export function PublicHeader(props: PublicHeaderProps) {
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ opacity: 0.5 }}>
                           <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
+                        {/* Active underline for dropdown trigger */}
+                        <span style={{
+                          position: 'absolute', bottom: 0, left: '50%', transform: `translateX(-50%) scaleX(${isActive ? 1 : 0})`,
+                          width: 'calc(100% - 8px)', height: 2, borderRadius: 1,
+                          background: 'linear-gradient(90deg, #004A8F, #0080C0)',
+                          transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        }} />
                       </button>
                       <div data-dropdown style={{
                         position: 'absolute', top: '100%', left: -16,
@@ -294,6 +300,7 @@ export function PublicHeader(props: PublicHeaderProps) {
                     to={link.href}
                     disabled={link.disabled}
                     onClick={(event) => handleNavLinkClick(event, link)}
+                    style={{ position: 'relative' }}
                     className={cn(
                       'px-1 py-1.5 text-[16px] font-normal transition-colors duration-200',
                       isActive
@@ -303,6 +310,12 @@ export function PublicHeader(props: PublicHeaderProps) {
                     )}
                   >
                     {t(link.title)}
+                    <span style={{
+                      position: 'absolute', bottom: -2, left: '50%', transform: `translateX(-50%) scaleX(${isActive ? 1 : 0})`,
+                      width: 'calc(100% - 8px)', height: 2, borderRadius: 1,
+                      background: 'linear-gradient(90deg, #004A8F, #0080C0)',
+                      transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    }} />
                   </Link>
                 )
               })}

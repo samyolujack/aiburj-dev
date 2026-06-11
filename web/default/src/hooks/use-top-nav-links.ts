@@ -33,15 +33,13 @@ export type TopNavLink = {
 
 /**
  * Generate top navigation links based on HeaderNavModules configuration from backend /api/status
- * Backend format example (stringified JSON):
- * {
- *   home: true,
- *   console: true,
- *   pricing: { enabled: true, requireAuth: false },
- *   rankings: { enabled: true, requireAuth: false },
- *   docs: true,
- *   about: true
- * }
+ * Aligned with SiliconFlow navigation structure:
+ *   产品 ▾ → 5 product subpages
+ *   模型    → /pricing (model square)
+ *   价格    → /pricing (same as models)
+ *   文档 ▾  → quickstart / API / FAQ
+ *   生态合作 → /partner
+ *   关于 ▾  → company / brand / news
  */
 export function useTopNavLinks(): TopNavLink[] {
   const { t } = useTranslation()
@@ -62,21 +60,25 @@ export function useTopNavLinks(): TopNavLink[] {
 
   const links: TopNavLink[] = []
 
-  // Home
+  // Products dropdown (replaces Home as top-level nav)
   if (modules?.home !== false) {
-    links.push({ title: t('Home'), href: '/' })
+    links.push({
+      title: t('Products'),
+      href: '/products/api',
+      children: [
+        { title: t('大模型 API 服务'), href: '/products/api' },
+        { title: t('AI 算力运营'), href: '/products/compute' },
+        { title: t('预留实例'), href: '/products/reserved' },
+        { title: t('私有化部署'), href: '/products/private' },
+        { title: t('API 网关'), href: '/products/gateway' },
+      ],
+    })
   }
 
-  // Console -> /dashboard (new console path)
-  if (modules?.console !== false) {
-    links.push({ title: t('Console'), href: '/dashboard' })
-  }
-
-  // Pricing
-  const pricing = modules?.pricing
-  if (pricing && typeof pricing === 'object' && pricing.enabled) {
-    const requiresAuth = pricing.requireAuth && !isAuthed
-    links.push({ title: t('Model Square'), href: '/pricing', requiresAuth })
+  // Model Square (独立链接，类似硅基流动的「模型」)
+  if (modules?.pricing && typeof modules.pricing === 'object' && modules.pricing.enabled) {
+    const requiresAuth = modules.pricing.requireAuth && !isAuthed
+    links.push({ title: t('Models'), href: '/pricing', requiresAuth })
   }
 
   // Rankings
@@ -92,22 +94,32 @@ export function useTopNavLinks(): TopNavLink[] {
     if (isExternalDocs) {
       links.push({ title: t('Docs'), href: docsLink!, external: true })
     } else {
-      links.push({ title: t('Docs'), href: '/docs', children: [
-        { title: t('快速入门'), href: '/docs' },
-        { title: t('API 手册'), href: '/docs/api' },
-        { title: t('模型列表'), href: '/pricing' },
-        { title: t('常见问题'), href: '/docs/faq' },
-      ]})
+      links.push({
+        title: t('Docs'), href: '/docs', children: [
+          { title: t('快速入门'), href: '/docs' },
+          { title: t('API 手册'), href: '/docs/api' },
+          { title: t('模型列表'), href: '/pricing' },
+          { title: t('常见问题'), href: '/docs/faq' },
+        ],
+      })
     }
+  }
+
+  // Partner / Ecosystem
+  if (modules?.partner && typeof modules.partner === 'object' && modules.partner.enabled) {
+    const requiresAuth = modules.partner.requireAuth && !isAuthed
+    links.push({ title: '生态合作', href: '/partner', requiresAuth })
   }
 
   // About
   if (modules?.about !== false) {
-    links.push({ title: t('About'), href: '/about', children: [
-      { title: t('公司介绍'), href: '/about' },
-      { title: t('品牌理念'), href: '/about/brand' },
-      { title: t('资讯动态'), href: '/about/news' },
-    ]})
+    links.push({
+      title: t('About'), href: '/about', children: [
+        { title: t('公司介绍'), href: '/about' },
+        { title: t('品牌理念'), href: '/about/brand' },
+        { title: t('资讯动态'), href: '/about/news' },
+      ],
+    })
   }
 
   return links

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserAgreementRouteImport } from './routes/user-agreement'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -19,6 +20,11 @@ import { Route as RankingsIndexRouteImport } from './routes/rankings/index'
 import { Route as PricingIndexRouteImport } from './routes/pricing/index'
 import { Route as DocsIndexRouteImport } from './routes/docs/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
+import { Route as ProductsReservedRouteImport } from './routes/products/reserved'
+import { Route as ProductsPrivateRouteImport } from './routes/products/private'
+import { Route as ProductsGatewayRouteImport } from './routes/products/gateway'
+import { Route as ProductsComputeRouteImport } from './routes/products/compute'
+import { Route as ProductsApiRouteImport } from './routes/products/api'
 import { Route as OauthProviderRouteImport } from './routes/oauth/$provider'
 import { Route as DocsFaqRouteImport } from './routes/docs/faq'
 import { Route as DocsApiRouteImport } from './routes/docs/api'
@@ -84,6 +90,11 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartnerRoute = PartnerRouteImport.update({
+  id: '/partner',
+  path: '/partner',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
@@ -120,6 +131,31 @@ const DocsIndexRoute = DocsIndexRouteImport.update({
 const AboutIndexRoute = AboutIndexRouteImport.update({
   id: '/about/',
   path: '/about/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsReservedRoute = ProductsReservedRouteImport.update({
+  id: '/products/reserved',
+  path: '/products/reserved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsPrivateRoute = ProductsPrivateRouteImport.update({
+  id: '/products/private',
+  path: '/products/private',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsGatewayRoute = ProductsGatewayRouteImport.update({
+  id: '/products/gateway',
+  path: '/products/gateway',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsComputeRoute = ProductsComputeRouteImport.update({
+  id: '/products/compute',
+  path: '/products/compute',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsApiRoute = ProductsApiRouteImport.update({
+  id: '/products/api',
+  path: '/products/api',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OauthProviderRoute = OauthProviderRouteImport.update({
@@ -424,6 +460,7 @@ const AuthenticatedSystemSettingsAuthSectionRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/partner': typeof PartnerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/user-agreement': typeof UserAgreementRoute
   '/system-settings': typeof AuthenticatedSystemSettingsRouteRouteWithChildren
@@ -447,6 +484,11 @@ export interface FileRoutesByFullPath {
   '/docs/api': typeof DocsApiRoute
   '/docs/faq': typeof DocsFaqRoute
   '/oauth/$provider': typeof OauthProviderRoute
+  '/products/api': typeof ProductsApiRoute
+  '/products/compute': typeof ProductsComputeRoute
+  '/products/gateway': typeof ProductsGatewayRoute
+  '/products/private': typeof ProductsPrivateRoute
+  '/products/reserved': typeof ProductsReservedRoute
   '/about/': typeof AboutIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/pricing/': typeof PricingIndexRoute
@@ -488,6 +530,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/partner': typeof PartnerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/user-agreement': typeof UserAgreementRoute
   '/forgot-password': typeof authForgotPasswordRoute
@@ -510,6 +553,11 @@ export interface FileRoutesByTo {
   '/docs/api': typeof DocsApiRoute
   '/docs/faq': typeof DocsFaqRoute
   '/oauth/$provider': typeof OauthProviderRoute
+  '/products/api': typeof ProductsApiRoute
+  '/products/compute': typeof ProductsComputeRoute
+  '/products/gateway': typeof ProductsGatewayRoute
+  '/products/private': typeof ProductsPrivateRoute
+  '/products/reserved': typeof ProductsReservedRoute
   '/about': typeof AboutIndexRoute
   '/docs': typeof DocsIndexRoute
   '/pricing': typeof PricingIndexRoute
@@ -554,6 +602,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/(auth)': typeof authRouteRouteWithChildren
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/partner': typeof PartnerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/user-agreement': typeof UserAgreementRoute
   '/_authenticated/system-settings': typeof AuthenticatedSystemSettingsRouteRouteWithChildren
@@ -577,6 +626,11 @@ export interface FileRoutesById {
   '/docs/api': typeof DocsApiRoute
   '/docs/faq': typeof DocsFaqRoute
   '/oauth/$provider': typeof OauthProviderRoute
+  '/products/api': typeof ProductsApiRoute
+  '/products/compute': typeof ProductsComputeRoute
+  '/products/gateway': typeof ProductsGatewayRoute
+  '/products/private': typeof ProductsPrivateRoute
+  '/products/reserved': typeof ProductsReservedRoute
   '/about/': typeof AboutIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/pricing/': typeof PricingIndexRoute
@@ -620,6 +674,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/partner'
     | '/privacy-policy'
     | '/user-agreement'
     | '/system-settings'
@@ -643,6 +698,11 @@ export interface FileRouteTypes {
     | '/docs/api'
     | '/docs/faq'
     | '/oauth/$provider'
+    | '/products/api'
+    | '/products/compute'
+    | '/products/gateway'
+    | '/products/private'
+    | '/products/reserved'
     | '/about/'
     | '/docs/'
     | '/pricing/'
@@ -684,6 +744,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/partner'
     | '/privacy-policy'
     | '/user-agreement'
     | '/forgot-password'
@@ -706,6 +767,11 @@ export interface FileRouteTypes {
     | '/docs/api'
     | '/docs/faq'
     | '/oauth/$provider'
+    | '/products/api'
+    | '/products/compute'
+    | '/products/gateway'
+    | '/products/private'
+    | '/products/reserved'
     | '/about'
     | '/docs'
     | '/pricing'
@@ -749,6 +815,7 @@ export interface FileRouteTypes {
     | '/'
     | '/(auth)'
     | '/_authenticated'
+    | '/partner'
     | '/privacy-policy'
     | '/user-agreement'
     | '/_authenticated/system-settings'
@@ -772,6 +839,11 @@ export interface FileRouteTypes {
     | '/docs/api'
     | '/docs/faq'
     | '/oauth/$provider'
+    | '/products/api'
+    | '/products/compute'
+    | '/products/gateway'
+    | '/products/private'
+    | '/products/reserved'
     | '/about/'
     | '/docs/'
     | '/pricing/'
@@ -816,6 +888,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   authRouteRoute: typeof authRouteRouteWithChildren
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  PartnerRoute: typeof PartnerRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   UserAgreementRoute: typeof UserAgreementRoute
   errors401Route: typeof errors401Route
@@ -830,6 +903,11 @@ export interface RootRouteChildren {
   DocsApiRoute: typeof DocsApiRoute
   DocsFaqRoute: typeof DocsFaqRoute
   OauthProviderRoute: typeof OauthProviderRoute
+  ProductsApiRoute: typeof ProductsApiRoute
+  ProductsComputeRoute: typeof ProductsComputeRoute
+  ProductsGatewayRoute: typeof ProductsGatewayRoute
+  ProductsPrivateRoute: typeof ProductsPrivateRoute
+  ProductsReservedRoute: typeof ProductsReservedRoute
   AboutIndexRoute: typeof AboutIndexRoute
   DocsIndexRoute: typeof DocsIndexRoute
   PricingIndexRoute: typeof PricingIndexRoute
@@ -852,6 +930,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy-policy'
       fullPath: '/privacy-policy'
       preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner': {
+      id: '/partner'
+      path: '/partner'
+      fullPath: '/partner'
+      preLoaderRoute: typeof PartnerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -908,6 +993,41 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about/'
       preLoaderRoute: typeof AboutIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/reserved': {
+      id: '/products/reserved'
+      path: '/products/reserved'
+      fullPath: '/products/reserved'
+      preLoaderRoute: typeof ProductsReservedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/private': {
+      id: '/products/private'
+      path: '/products/private'
+      fullPath: '/products/private'
+      preLoaderRoute: typeof ProductsPrivateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/gateway': {
+      id: '/products/gateway'
+      path: '/products/gateway'
+      fullPath: '/products/gateway'
+      preLoaderRoute: typeof ProductsGatewayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/compute': {
+      id: '/products/compute'
+      path: '/products/compute'
+      fullPath: '/products/compute'
+      preLoaderRoute: typeof ProductsComputeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/api': {
+      id: '/products/api'
+      path: '/products/api'
+      fullPath: '/products/api'
+      preLoaderRoute: typeof ProductsApiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/oauth/$provider': {
@@ -1425,6 +1545,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   authRouteRoute: authRouteRouteWithChildren,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  PartnerRoute: PartnerRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   UserAgreementRoute: UserAgreementRoute,
   errors401Route: errors401Route,
@@ -1439,6 +1560,11 @@ const rootRouteChildren: RootRouteChildren = {
   DocsApiRoute: DocsApiRoute,
   DocsFaqRoute: DocsFaqRoute,
   OauthProviderRoute: OauthProviderRoute,
+  ProductsApiRoute: ProductsApiRoute,
+  ProductsComputeRoute: ProductsComputeRoute,
+  ProductsGatewayRoute: ProductsGatewayRoute,
+  ProductsPrivateRoute: ProductsPrivateRoute,
+  ProductsReservedRoute: ProductsReservedRoute,
   AboutIndexRoute: AboutIndexRoute,
   DocsIndexRoute: DocsIndexRoute,
   PricingIndexRoute: PricingIndexRoute,

@@ -197,6 +197,43 @@ export function Pricing() {
               )}
               className='mx-auto mt-4 max-w-2xl sm:mt-6'
             />
+            {/* Quick-filter chips */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, marginTop: 20 }}>
+              {/* Model type chips */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#4A6A8A', marginRight: 4, lineHeight: '32px' }}>模型类型</span>
+                {['全部','对话','生图','嵌入','重排序','语音','视频'].map(tag => (
+                  <button key={tag}
+                    onClick={() => setEndpointTypeFilter(tag === '全部' ? '' : tag)}
+                    style={{
+                      padding: '6px 16px', borderRadius: 20, border: `1px solid ${endpointTypeFilter === tag || (tag === '全部' && !endpointTypeFilter) ? '#004A8F' : '#E8ECF2'}`,
+                      background: endpointTypeFilter === tag || (tag === '全部' && !endpointTypeFilter) ? '#004A8F0d' : '#fff',
+                      color: endpointTypeFilter === tag || (tag === '全部' && !endpointTypeFilter) ? '#004A8F' : '#4A6A8A',
+                      fontSize: 13, fontWeight: 500, cursor: 'pointer', transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={e => { if (!(endpointTypeFilter === tag || (tag === '全部' && !endpointTypeFilter))) { e.currentTarget.style.borderColor = '#004A8F40'; e.currentTarget.style.color = '#004A8F' } }}
+                    onMouseLeave={e => { if (!(endpointTypeFilter === tag || (tag === '全部' && !endpointTypeFilter))) { e.currentTarget.style.borderColor = '#E8ECF2'; e.currentTarget.style.color = '#4A6A8A' } }}
+                  >{tag}</button>
+                ))}
+              </div>
+              {/* Scene chips */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: '#4A6A8A', marginRight: 4, lineHeight: '32px' }}>应用场景</span>
+                {['全部','旗舰全能','Vibe Coding','RAG','长文本','快速响应','多模态','语音交互','图像生成','视频生成'].map(tag => (
+                  <button key={tag}
+                    onClick={() => setTagFilter(tag === '全部' ? '' : tag)}
+                    style={{
+                      padding: '6px 16px', borderRadius: 20, border: `1px solid ${tagFilter === tag || (tag === '全部' && !tagFilter) ? '#004A8F' : '#E8ECF2'}`,
+                      background: tagFilter === tag || (tag === '全部' && !tagFilter) ? '#004A8F0d' : '#fff',
+                      color: tagFilter === tag || (tag === '全部' && !tagFilter) ? '#004A8F' : '#4A6A8A',
+                      fontSize: 13, fontWeight: 500, cursor: 'pointer', transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={e => { if (!(tagFilter === tag || (tag === '全部' && !tagFilter))) { e.currentTarget.style.borderColor = '#004A8F40'; e.currentTarget.style.color = '#004A8F' } }}
+                    onMouseLeave={e => { if (!(tagFilter === tag || (tag === '全部' && !tagFilter))) { e.currentTarget.style.borderColor = '#E8ECF2'; e.currentTarget.style.color = '#4A6A8A' } }}
+                  >{tag}</button>
+                ))}
+              </div>
+            </div>
           </header>
 
           <div className='grid gap-4 xl:grid-cols-[330px_minmax(0,1fr)]'>
