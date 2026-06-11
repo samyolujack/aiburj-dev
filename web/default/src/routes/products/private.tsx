@@ -29,6 +29,14 @@ function ProductsPrivate() {
         <a href="mailto:contact@aiburj.com" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 36px', borderRadius: 10, fontWeight: 700, fontSize: 16, background: '#fff', color: BRAND.primary, textDecoration: 'none', position: 'relative', zIndex: 1 }}>
           咨询方案 <ArrowRight size={18} />
         </a>
+        <div style={{ display: 'flex', gap: 40, justifyContent: 'center', marginTop: 32, position: 'relative', zIndex: 1 }}>
+          {[{ value: '数据', label: '不出域' }, { value: '异构', label: '算力纳管' }, { value: '7×24', label: '运维保障' }].map((s, i) => (
+            <div key={i} style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 32, fontWeight: 800, color: '#fff', lineHeight: 1 }}>{s.value}</div>
+              <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', marginTop: 4 }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style={{ display: 'flex', gap: 80, alignItems: 'center', marginBottom: 80 }}>

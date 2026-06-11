@@ -30,6 +30,14 @@ function ProductsApi() {
         <a href="/pricing" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 36px', borderRadius: 10, fontWeight: 700, fontSize: 16, background: '#fff', color: BRAND.primary, textDecoration: 'none', position: 'relative', zIndex: 1 }}>
           立即体验 <ArrowRight size={18} />
         </a>
+        <div style={{ display: 'flex', gap: 40, justifyContent: 'center', marginTop: 32, position: 'relative', zIndex: 1 }}>
+          {[{ value: '50+', label: '可用模型' }, { value: '12+', label: '国产厂商' }, { value: 'OpenAI', label: '兼容格式' }].map((s, i) => (
+            <div key={i} style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 32, fontWeight: 800, color: '#fff', lineHeight: 1 }}>{s.value}</div>
+              <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', marginTop: 4 }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Product Overview */}

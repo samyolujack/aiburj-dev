@@ -29,6 +29,14 @@ function ProductsCompute() {
         <a href="mailto:contact@aiburj.com" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 36px', borderRadius: 10, fontWeight: 700, fontSize: 16, background: '#fff', color: BRAND.primary, textDecoration: 'none', position: 'relative', zIndex: 1 }}>
           联系我们 <ArrowRight size={18} />
         </a>
+        <div style={{ display: 'flex', gap: 40, justifyContent: 'center', marginTop: 32, position: 'relative', zIndex: 1 }}>
+          {[{ value: '10x+', label: '推理加速' }, { value: '52%', label: '成本下降' }, { value: '弹性', label: '自动扩缩' }].map((s, i) => (
+            <div key={i} style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 32, fontWeight: 800, color: '#fff', lineHeight: 1 }}>{s.value}</div>
+              <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', marginTop: 4 }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style={{ display: 'flex', gap: 80, alignItems: 'center', marginBottom: 80 }}>

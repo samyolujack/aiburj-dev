@@ -29,6 +29,14 @@ function ProductsGateway() {
         <a href="mailto:contact@aiburj.com" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 36px', borderRadius: 10, fontWeight: 700, fontSize: 16, background: '#fff', color: BRAND.primary, textDecoration: 'none', position: 'relative', zIndex: 1 }}>
           了解详情 <ArrowRight size={18} />
         </a>
+        <div style={{ display: 'flex', gap: 40, justifyContent: 'center', marginTop: 32, position: 'relative', zIndex: 1 }}>
+          {[{ value: '统一', label: 'API 接入' }, { value: '智能', label: '限流路由' }, { value: '毫秒级', label: '负载均衡' }].map((s, i) => (
+            <div key={i} style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 32, fontWeight: 800, color: '#fff', lineHeight: 1 }}>{s.value}</div>
+              <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', marginTop: 4 }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style={{ display: 'flex', gap: 80, alignItems: 'center', marginBottom: 80 }}>

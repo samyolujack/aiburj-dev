@@ -17,17 +17,76 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import { createFileRoute } from '@tanstack/react-router'
-import { ArrowRight, Users, GitPullRequest, BookOpen, Cpu, Rocket, GraduationCap, ShieldCheck, Briefcase, TrendingUp, Award, Heart } from 'lucide-react'
+import { ArrowRight, ShieldCheck, Briefcase, TrendingUp, Award, Heart } from 'lucide-react'
 
 const BRAND = { primary: '#004A8F', deep: '#002060', accent: '#0080C0', muted: '#4A6A8A', light: '#F0F4FA', border: '#E8ECF2' }
 
+/* ── 合作模式自定义 SVG 图标 ── */
+const IconWrite = ({ color = '#0080C0' }) => (
+  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+    <rect x="8" y="12" width="36" height="44" rx="4" fill={color} opacity="0.85"/>
+    <rect x="12" y="18" width="10" height="2" rx="1" fill="#fff" opacity="0.6"/>
+    <rect x="12" y="24" width="18" height="2" rx="1" fill="#fff" opacity="0.6"/>
+    <rect x="12" y="30" width="14" height="2" rx="1" fill="#fff" opacity="0.6"/>
+    <circle cx="48" cy="36" r="12" fill={color} opacity="0.2"/>
+    <path d="M46 30l5 6-5 6" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M50 30l-5 6 5 6" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.5"/>
+  </svg>
+)
+const IconCode = ({ color = '#10b981' }) => (
+  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+    <rect x="10" y="14" width="44" height="36" rx="6" fill={color} opacity="0.85"/>
+    <circle cx="24" cy="32" r="8" fill="#fff" opacity="0.3"/>
+    <path d="M22 28l-3 4 3 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M30 28l3 4-3 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <circle cx="44" cy="46" r="5" fill={color} opacity="0.35"/>
+    <path d="M41 48l2 2 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
+const IconBroadcast = ({ color = '#f59e0b' }) => (
+  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+    <rect x="26" y="24" width="12" height="16" rx="3" fill={color} opacity="0.9"/>
+    <rect x="22" y="20" width="20" height="4" rx="2" fill={color} opacity="0.7"/>
+    <circle cx="32" cy="12" r="6" fill={color} opacity="0.15"/>
+    <circle cx="32" cy="12" r="3" fill={color} opacity="0.6"/>
+    <path d="M18 16c-4 4-4 10 0 14" stroke={color} strokeWidth="2" strokeLinecap="round" opacity="0.5"/>
+    <path d="M46 16c4 4 4 10 0 14" stroke={color} strokeWidth="2" strokeLinecap="round" opacity="0.5"/>
+  </svg>
+)
+const IconIntegration = ({ color = '#8b5cf6' }) => (
+  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+    <rect x="8" y="8" width="20" height="20" rx="5" fill={color} opacity="0.85"/>
+    <circle cx="18" cy="18" r="4" fill="#fff" opacity="0.4"/>
+    <rect x="36" y="36" width="20" height="20" rx="5" fill={color} opacity="0.7"/>
+    <circle cx="46" cy="46" r="4" fill="#fff" opacity="0.3"/>
+    <path d="M24 22L36 42" stroke={color} strokeWidth="3" strokeLinecap="round"/>
+    <circle cx="28" cy="30" r="3" fill={color} opacity="0.5"/>
+  </svg>
+)
+const IconUpload = ({ color = '#ec4899' }) => (
+  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+    <rect x="12" y="30" width="40" height="24" rx="5" fill={color} opacity="0.75"/>
+    <path d="M32 14v24" stroke={color} strokeWidth="4" strokeLinecap="round"/>
+    <path d="M24 22l8-8 8 8" stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M20 42l6-6 4 4 6-6 8 8" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.6"/>
+  </svg>
+)
+const IconAcademic = ({ color = '#6366f1' }) => (
+  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+    <path d="M32 6L8 18v4c0 18 10 28 24 32 14-4 24-14 24-32v-4L32 6z" fill={color} opacity="0.85"/>
+    <path d="M20 30l12 8 12-8" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <rect x="26" y="36" width="12" height="4" rx="2" fill="#fff" opacity="0.4"/>
+    <circle cx="32" cy="50" r="3" fill="#fff" opacity="0.3"/>
+  </svg>
+)
+
 const modes = [
-  { icon: BookOpen, title: '使用心得征集', desc: '撰写 aiburj 平台的使用体验、最佳实践、模型评测等技术文章，通过社交媒体或技术博客分享。优质内容将被收录至官方文档，并获得官方社媒推广。', cta: '提交文章', color: '#0080C0' },
-  { icon: GitPullRequest, title: '重点项目 PR 贡献', desc: '参与 aiburj 开源项目的代码贡献，修复 bug、添加新功能、完善文档。项目维护者会 review 你的 PR，合并后将署名并在贡献者列表中展示。', cta: 'GitHub 项目', color: '#10b981' },
-  { icon: Users, title: '内容传播与教学', desc: '制作视频教程、直播分享、线下 Meetup 等活动，帮助更多开发者了解和使用 aiburj。官方将提供技术支持和宣传资源配合。', cta: '申请合作', color: '#f59e0b' },
-  { icon: Cpu, title: '产品深度接入', desc: '将 aiburj API 集成到你的产品中，为用户提供 AI 能力。达到一定调用量后可获得专属折扣和技术支持，深度合作产品将获官方推荐位。', cta: '技术对接', color: '#8b5cf6' },
-  { icon: Rocket, title: '高效上架与分发', desc: '模型厂商可通过标准化接口快速上架新模型，aiburj 提供统一的计费、监控和分发能力。让你的模型被数万名开发者即时发现和调用。', cta: '厂商入驻', color: '#ec4899' },
-  { icon: GraduationCap, title: '学术与公益赋能', desc: '高校、研究机构和公益组织可申请学术支持计划，获得免费或大幅折扣的 API 额度。我们持续支持 AI 教育和公益事业。', cta: '申请支持', color: '#6366f1' },
+  { Icon: () => <IconWrite />, title: '使用心得征集', desc: '撰写 aiburj 平台的使用体验、最佳实践、模型评测等技术文章，通过社交媒体或技术博客分享。优质内容将被收录至官方文档，并获得官方社媒推广。', cta: '提交文章', color: '#0080C0' },
+  { Icon: () => <IconCode />, title: '重点项目 PR 贡献', desc: '参与 aiburj 开源项目的代码贡献，修复 bug、添加新功能、完善文档。项目维护者会 review 你的 PR，合并后将署名并在贡献者列表中展示。', cta: 'GitHub 项目', color: '#10b981' },
+  { Icon: () => <IconBroadcast />, title: '内容传播与教学', desc: '制作视频教程、直播分享、线下 Meetup 等活动，帮助更多开发者了解和使用 aiburj。官方将提供技术支持和宣传资源配合。', cta: '申请合作', color: '#f59e0b' },
+  { Icon: () => <IconIntegration />, title: '产品深度接入', desc: '将 aiburj API 集成到你的产品中，为用户提供 AI 能力。达到一定调用量后可获得专属折扣和技术支持，深度合作产品将获官方推荐位。', cta: '技术对接', color: '#8b5cf6' },
+  { Icon: () => <IconUpload />, title: '高效上架与分发', desc: '模型厂商可通过标准化接口快速上架新模型，aiburj 提供统一的计费、监控和分发能力。让你的模型被数万名开发者即时发现和调用。', cta: '厂商入驻', color: '#ec4899' },
+  { Icon: () => <IconAcademic />, title: '学术与公益赋能', desc: '高校、研究机构和公益组织可申请学术支持计划，获得免费或大幅折扣的 API 额度。我们持续支持 AI 教育和公益事业。', cta: '申请支持', color: '#6366f1' },
 ]
 
 const benefits = [
@@ -123,7 +182,7 @@ function PartnerPage() {
               }}
             >
               <div style={{ width: 48, height: 48, borderRadius: 12, background: `${m.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <m.icon size={24} style={{ color: m.color }} />
+                <m.Icon />
               </div>
               <h3 style={{ fontSize: 20, fontWeight: 700, color: '#002060', margin: 0 }}>{m.title}</h3>
               <p style={{ fontSize: 14, color: '#4A6A8A', lineHeight: 1.8, margin: 0, flex: 1 }}>{m.desc}</p>
