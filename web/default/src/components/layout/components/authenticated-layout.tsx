@@ -37,6 +37,15 @@ export function AuthenticatedLayout(props: AuthenticatedLayoutProps) {
     <LayoutProvider>
       <SearchProvider>
         <SidebarProvider defaultOpen={defaultOpen} className='flex-col'>
+          <div style={{
+            background: '#F0F4FA',
+            minHeight: '100svh',
+            display: 'flex',
+            flexDirection: 'column',
+            position: 'absolute',
+            inset: 0,
+            zIndex: -1,
+          }} />
           <SkipToMain />
           <AppHeader />
           <div className='flex min-h-0 w-full flex-1'>
