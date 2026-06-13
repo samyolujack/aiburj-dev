@@ -37,7 +37,7 @@ export function ApiKeys() {
     queryKey: ['api-keys'],
     queryFn: async () => {
       const res = await getApiKeys({ p: 1, size: 50 })
-      return res?.items || []
+      return res?.data?.items || []
     },
   })
 
