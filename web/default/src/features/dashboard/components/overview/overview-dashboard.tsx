@@ -53,16 +53,9 @@ import {
 } from '@/components/page-transition'
 import { fetchTokenKey, getApiKeys } from '@/features/keys/api'
 import type { ApiKey } from '@/features/keys/types'
-import {
-  useApiInfo,
-  useDashboardContentVisibility,
-} from '../../hooks/use-status-data'
+import { useDashboardContentVisibility } from '../../hooks/use-status-data'
 import { AnnouncementsPanel } from './announcements-panel'
-import { ApiInfoPanel } from './api-info-panel'
-import { FAQPanel } from './faq-panel'
-import { PerformanceHealthPanel } from './performance-health-panel'
 import { SummaryCards } from './summary-cards'
-import { UptimePanel } from './uptime-panel'
 
 const SETUP_GUIDE_VISIBILITY_STORAGE_KEY =
   'dashboard_overview_setup_guide_expanded'
@@ -455,12 +448,8 @@ function CompactQuickAction(props: { action: QuickAction }) {
 export function OverviewDashboard() {
   const { t } = useTranslation()
   const user = useAuthStore((state) => state.auth.user)
-  const { items: apiInfoItems } = useApiInfo()
   const {
-    apiInfo: showApiInfoPanel,
     announcements: showAnnouncementsPanel,
-    faq: showFAQPanel,
-    uptimeKuma: showUptimePanel,
   } = useDashboardContentVisibility()
   const [manualSetupGuideExpanded, setManualSetupGuideExpanded] = useState<
     boolean | null
@@ -561,7 +550,7 @@ export function OverviewDashboard() {
     () => [
       {
         label: t('Route active'),
-        value: apiInfoItems.length > 0 ? t('Online') : t('Current domain'),
+        value: getCurrentOrigin() ? t('Online') : t('Current domain'),
         icon: RadioTower,
       },
       {
@@ -575,11 +564,11 @@ export function OverviewDashboard() {
         icon: Timer,
       },
     ],
-    [apiInfoItems.length, modelsQuery.data, preferredKey, t]
+    [modelsQuery.data, preferredKey, t]
   )
 
   const requestExample = useMemo<RequestExample>(() => {
-    const endpoint = normalizeEndpoint(apiInfoItems[0]?.url)
+    const endpoint = normalizeEndpoint()
     const model = modelsQuery.data?.[0] ?? 'gpt-4o-mini'
     const keyName = preferredKey?.name ?? t('No API key yet')
     const ready = Boolean(preferredKey?.id && model)
@@ -592,14 +581,11 @@ export function OverviewDashboard() {
       displayKey: preferredKey ? formatDisplayKey(`sk-${preferredKey.key}`) : 'sk-...',
       ready,
     }
-  }, [apiInfoItems, modelsQuery.data, preferredKey, t])
+  }, [modelsQuery.data, preferredKey, t])
 
   const completedStepCount = startSteps.filter((step) => step.completed).length
   const setupComplete = completedStepCount === startSteps.length
   const setupGuideExpanded = manualSetupGuideExpanded ?? !setupComplete
-  const showLeftContentPanels =
-    isAdmin || showApiInfoPanel || showAnnouncementsPanel || showFAQPanel
-  const showContentPanels = showLeftContentPanels || showUptimePanel
 
   const handleSetupGuideToggle = () => {
     const nextExpanded = !setupGuideExpanded
@@ -741,50 +727,11 @@ export function OverviewDashboard() {
 
       <SummaryCards />
 
-      {showContentPanels && (
-        <CardStaggerContainer
-          className={cn(
-            'grid grid-cols-1 gap-4',
-            showLeftContentPanels &&
-              showUptimePanel &&
-              'xl:grid-cols-[minmax(0,1fr)_22rem]'
-          )}
-        >
-          {showLeftContentPanels && (
-            <div
-              className={cn(
-                'grid min-w-0 grid-cols-1 gap-4',
-                (showApiInfoPanel || showAnnouncementsPanel || showFAQPanel) &&
-                  'lg:grid-cols-2'
-              )}
-            >
-              {isAdmin && (
-                <CardStaggerItem className='lg:col-span-2'>
-                  <PerformanceHealthPanel />
-                </CardStaggerItem>
-              )}
-              {showApiInfoPanel && (
-                <CardStaggerItem>
-                  <ApiInfoPanel />
-                </CardStaggerItem>
-              )}
-              {showAnnouncementsPanel && (
-                <CardStaggerItem>
-                  <AnnouncementsPanel />
-                </CardStaggerItem>
-              )}
-              {showFAQPanel && (
-                <CardStaggerItem>
-                  <FAQPanel />
-                </CardStaggerItem>
-              )}
-            </div>
-          )}
-          {showUptimePanel && (
-            <CardStaggerItem>
-              <UptimePanel />
-            </CardStaggerItem>
-          )}
+      {showAnnouncementsPanel && (
+        <CardStaggerContainer>
+          <CardStaggerItem>
+            <AnnouncementsPanel />
+          </CardStaggerItem>
         </CardStaggerContainer>
       )}
     </div>

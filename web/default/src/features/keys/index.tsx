@@ -99,12 +99,12 @@ export function ApiKeys() {
       <SectionPageLayout.Title>API 密钥</SectionPageLayout.Title>
       <SectionPageLayout.Actions>
         <Button onClick={() => { setShowCreate(true); setNewKeyName(''); setNewKeyResult('') }}
-          style={{ background: '#6E29F6', borderRadius: 10, height: 42, padding: '0 28px', fontSize: 15, fontWeight: 600 }}>
+          style={{ background: '#004A8F', borderRadius: 10, height: 42, padding: '0 28px', fontSize: 15, fontWeight: 600 }}>
           <Plus size={18} style={{ marginRight: 6 }} />新建 API 密钥
         </Button>
       </SectionPageLayout.Actions>
       <SectionPageLayout.Content>
-        <div style={{ background: '#F5F6FA', borderRadius: 12, padding: '16px 20px', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: '#57627F' }}>
+        <div style={{ background: '#F0F4FA', borderRadius: 12, padding: '16px 20px', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: '#4A6A8A' }}>
           <Key size={16} />
           请妥善保管您的 API 密钥，不要泄露给他人。如果密钥泄露，请立即删除并创建新的密钥。
         </div>
@@ -115,50 +115,50 @@ export function ApiKeys() {
           </div>
         ) : !keys || keys.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '80px 20px' }}>
-            <div style={{ width: 72, height: 72, borderRadius: 18, background: '#F0EBFF', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
-              <Key size={32} color="#6E29F6" />
+            <div style={{ width: 72, height: 72, borderRadius: 18, background: '#F0F4FA', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+              <Key size={32} color="#004A8F" />
             </div>
-            <p style={{ fontSize: 17, fontWeight: 600, color: '#161722', marginBottom: 8 }}>暂无 API 密钥</p>
-            <p style={{ fontSize: 14, color: '#57627F', marginBottom: 28 }}>创建 API 密钥后即可调用 aiburj 的所有模型</p>
-            <Button onClick={() => setShowCreate(true)} style={{ background: '#6E29F6', borderRadius: 10, height: 42, padding: '0 28px', fontSize: 15, fontWeight: 600 }}>
+            <p style={{ fontSize: 17, fontWeight: 600, color: '#002060', marginBottom: 8 }}>暂无 API 密钥</p>
+            <p style={{ fontSize: 14, color: '#4A6A8A', marginBottom: 28 }}>创建 API 密钥后即可调用 aiburj 的所有模型</p>
+            <Button onClick={() => setShowCreate(true)} style={{ background: '#004A8F', borderRadius: 10, height: 42, padding: '0 28px', fontSize: 15, fontWeight: 600 }}>
               <Plus size={16} style={{ marginRight: 6 }} />创建 API 密钥
             </Button>
           </div>
         ) : (
-          <div style={{ background: '#fff', borderRadius: 16, border: '1px solid #E5E7EB', overflow: 'hidden' }}>
+          <div style={{ background: '#fff', borderRadius: 14, border: '1px solid #E8ECF2', overflow: 'hidden' }}>
             {keys.map((k: any, i: number) => (
               <div key={k.id} style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                padding: '18px 24px', borderBottom: i < keys.length - 1 ? '1px solid #F0F1F3' : 'none',
-                transition: 'background 0.15s'
+                padding: '18px 24px', borderBottom: i < keys.length - 1 ? '1px solid #E8ECF2' : 'none',
+                transition: 'all 0.2s'
               }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#F8F9FC' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#F8FAFC' }}
                 onMouseLeave={e => { e.currentTarget.style.background = '#fff' }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16, flex: 1, minWidth: 0 }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0 }}>
-                    <span style={{ fontWeight: 600, fontSize: 15, color: '#161722' }}>{k.name}</span>
+                    <span style={{ fontWeight: 600, fontSize: 15, color: '#002060' }}>{k.name}</span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <code style={{
-                        fontSize: 13, color: '#57627F', fontFamily: 'SF Mono, Menlo, monospace',
-                        background: '#F5F6FA', padding: '2px 10px', borderRadius: 6, letterSpacing: '0.3px'
+                        fontSize: 13, color: '#4A6A8A', fontFamily: 'SF Mono, Menlo, monospace',
+                        background: '#F0F4FA', padding: '2px 10px', borderRadius: 6, letterSpacing: '0.3px'
                       }}>
                         {visibleKeys[k.id] && resolvedKeys[k.id] ? resolvedKeys[k.id] : maskKey(k.key)}
                       </code>
                       <button onClick={() => handleToggleKey(k.id)} disabled={resolvingId === k.id}
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, color: '#9098B0', display: 'flex' }}>
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, color: '#4A6A8A', display: 'flex' }}>
                         {resolvingId === k.id ? <Loader2 size={15} className="animate-spin" /> :
                           visibleKeys[k.id] ? <EyeOff size={15} /> : <Eye size={15} />}
                       </button>
                       <button onClick={() => handleCopy(k.id)} disabled={resolvingId === k.id}
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, color: copiedId === k.id ? '#10B981' : '#9098B0', display: 'flex' }}>
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, color: copiedId === k.id ? '#10B981' : '#4A6A8A', display: 'flex' }}>
                         {copiedId === k.id ? <Check size={15} /> : <Copy size={15} />}
                       </button>
                     </div>
                   </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexShrink: 0 }}>
-                  <span style={{ fontSize: 13, color: '#9098B0' }}>{formatTime(k.created_time)}</span>
+                  <span style={{ fontSize: 13, color: '#4A6A8A' }}>{formatTime(k.created_time)}</span>
                   <Button variant="ghost" size="icon" style={{ color: '#EF4444', opacity: 0.6 }}
                     onClick={() => { if (confirm('确定删除该 API 密钥？删除后无法恢复。')) deleteMutation.mutate(k.id) }}>
                     <Trash2 size={17} />
@@ -182,9 +182,9 @@ export function ApiKeys() {
                 ⚠️ 请立即复制并保存此密钥，关闭后将<b>无法再次查看</b>完整密钥。
               </div>
               <div style={{ display: 'flex', gap: 8 }}>
-                <Input readOnly value={newKeyResult} style={{ fontFamily: 'SF Mono, monospace', fontSize: 13, background: '#F5F6FA', borderRadius: 10 }} />
+                <Input readOnly value={newKeyResult} style={{ fontFamily: 'SF Mono, monospace', fontSize: 13, background: '#F0F4FA', borderRadius: 10 }} />
                 <Button onClick={() => { navigator.clipboard.writeText(newKeyResult); toast.success('已复制') }}
-                  style={{ background: '#6E29F6', borderRadius: 10, flexShrink: 0, padding: '0 14px' }}>
+                  style={{ background: '#004A8F', borderRadius: 10, flexShrink: 0, padding: '0 14px' }}>
                   <Copy size={15} style={{ marginRight: 4 }} />复制
                 </Button>
               </div>
@@ -199,7 +199,7 @@ export function ApiKeys() {
               <DialogFooter style={{ marginTop: 16 }}>
                 <Button variant="outline" onClick={() => setShowCreate(false)} style={{ borderRadius: 10 }}>取消</Button>
                 <Button onClick={() => createMutation.mutate(newKeyName || '默认密钥')} disabled={createMutation.isPending}
-                  style={{ background: '#6E29F6', borderRadius: 10, fontWeight: 600 }}>
+                  style={{ background: '#004A8F', borderRadius: 10, fontWeight: 600 }}>
                   {createMutation.isPending ? <Loader2 size={15} className="animate-spin" /> : '创建'}
                 </Button>
               </DialogFooter>
