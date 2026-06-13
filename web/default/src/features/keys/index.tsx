@@ -95,6 +95,7 @@ export function ApiKeys() {
   }, [resolvedKeys])
 
   return (
+    <>
     <SectionPageLayout>
       <SectionPageLayout.Title>API 密钥</SectionPageLayout.Title>
       <SectionPageLayout.Actions>
@@ -169,44 +170,45 @@ export function ApiKeys() {
           </div>
         )}
       </SectionPageLayout.Content>
-
-      {/* Create */}
-      <Dialog open={showCreate} onOpenChange={(o) => { setShowCreate(o); if (!o) setNewKeyResult('') }}>
-        <DialogContent style={{ borderRadius: 16, maxWidth: 460, padding: 32 }}>
-          <DialogHeader>
-            <DialogTitle style={{ fontSize: 20, fontWeight: 700 }}>新建 API 密钥</DialogTitle>
-          </DialogHeader>
-          {newKeyResult ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <div style={{ background: '#FFF3E0', border: '1px solid #FFCC80', borderRadius: 10, padding: '14px 18px', fontSize: 13, color: '#E65100', lineHeight: 1.6 }}>
-                ⚠️ 请立即复制并保存此密钥，关闭后将<b>无法再次查看</b>完整密钥。
-              </div>
-              <div style={{ display: 'flex', gap: 8 }}>
-                <Input readOnly value={newKeyResult} style={{ fontFamily: 'SF Mono, monospace', fontSize: 13, background: '#F0F4FA', borderRadius: 10 }} />
-                <Button onClick={() => { navigator.clipboard.writeText(newKeyResult); toast.success('已复制') }}
-                  style={{ background: '#004A8F', borderRadius: 10, flexShrink: 0, padding: '0 14px' }}>
-                  <Copy size={15} style={{ marginRight: 4 }} />复制
-                </Button>
-              </div>
-              <Button variant="outline" onClick={() => { setShowCreate(false); setNewKeyResult('') }}
-                style={{ borderRadius: 10, width: '100%' }}>完成</Button>
-            </div>
-          ) : (
-            <>
-              <Input placeholder="密钥名称，例如：生产环境" value={newKeyName}
-                onChange={e => setNewKeyName(e.target.value)}
-                style={{ borderRadius: 10, height: 46, fontSize: 15 }} autoFocus />
-              <DialogFooter style={{ marginTop: 16 }}>
-                <Button variant="outline" onClick={() => setShowCreate(false)} style={{ borderRadius: 10 }}>取消</Button>
-                <Button onClick={() => createMutation.mutate(newKeyName || '默认密钥')} disabled={createMutation.isPending}
-                  style={{ background: '#004A8F', borderRadius: 10, fontWeight: 600 }}>
-                  {createMutation.isPending ? <Loader2 size={15} className="animate-spin" /> : '创建'}
-                </Button>
-              </DialogFooter>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
     </SectionPageLayout>
+
+    {/* Create Dialog — outside SectionPageLayout so it's not filtered out */}
+    <Dialog open={showCreate} onOpenChange={(o) => { setShowCreate(o); if (!o) setNewKeyResult('') }}>
+      <DialogContent style={{ borderRadius: 16, maxWidth: 460, padding: 32 }}>
+        <DialogHeader>
+          <DialogTitle style={{ fontSize: 20, fontWeight: 700 }}>新建 API 密钥</DialogTitle>
+        </DialogHeader>
+        {newKeyResult ? (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div style={{ background: '#FFF3E0', border: '1px solid #FFCC80', borderRadius: 10, padding: '14px 18px', fontSize: 13, color: '#E65100', lineHeight: 1.6 }}>
+              ⚠️ 请立即复制并保存此密钥，关闭后将<b>无法再次查看</b>完整密钥。
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <Input readOnly value={newKeyResult} style={{ fontFamily: 'SF Mono, monospace', fontSize: 13, background: '#F0F4FA', borderRadius: 10 }} />
+              <Button onClick={() => { navigator.clipboard.writeText(newKeyResult); toast.success('已复制') }}
+                style={{ background: '#004A8F', borderRadius: 10, flexShrink: 0, padding: '0 14px' }}>
+                <Copy size={15} style={{ marginRight: 4 }} />复制
+              </Button>
+            </div>
+            <Button variant="outline" onClick={() => { setShowCreate(false); setNewKeyResult('') }}
+              style={{ borderRadius: 10, width: '100%' }}>完成</Button>
+          </div>
+        ) : (
+          <>
+            <Input placeholder="密钥名称，例如：生产环境" value={newKeyName}
+              onChange={e => setNewKeyName(e.target.value)}
+              style={{ borderRadius: 10, height: 46, fontSize: 15 }} autoFocus />
+            <DialogFooter style={{ marginTop: 16 }}>
+              <Button variant="outline" onClick={() => setShowCreate(false)} style={{ borderRadius: 10 }}>取消</Button>
+              <Button onClick={() => createMutation.mutate(newKeyName || '默认密钥')} disabled={createMutation.isPending}
+                style={{ background: '#004A8F', borderRadius: 10, fontWeight: 600 }}>
+                {createMutation.isPending ? <Loader2 size={15} className="animate-spin" /> : '创建'}
+              </Button>
+            </DialogFooter>
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
+    </>
   )
 }
