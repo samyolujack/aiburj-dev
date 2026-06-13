@@ -92,7 +92,7 @@ For commercial licensing, please contact support@quantumnous.com
 
 :root {
   --radius: 1rem;
-  --app-header-height: 3rem;
+  --app-header-height: 4.875rem;  /* 78px — match public header */
   --app-rev: '2k6e8r7p';
   --font-body: var(--font-sans);
   --background: oklch(0.945 0.025 250); /* aiburj visible blue #E3EEF8 */
