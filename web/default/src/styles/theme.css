@@ -95,7 +95,7 @@ For commercial licensing, please contact support@quantumnous.com
   --app-header-height: 3rem;
   --app-rev: '2k6e8r7p';
   --font-body: var(--font-sans);
-  --background: oklch(0.975 0.005 270); /* #F5F6FA page bg */
+  --background: oklch(0.96 0.015 252); /* aiburj #F0F4FA page bg */
   --foreground: oklch(0.18 0.01 270);   /* #252736 text */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.18 0.01 270);
@@ -127,7 +127,7 @@ For commercial licensing, please contact support@quantumnous.com
   --chart-3: oklch(0.588 0.158 241.966);
   --chart-4: oklch(0.681 0.162 75.834);
   --chart-5: oklch(0.577 0.245 27.325);
-  --sidebar: oklch(0.965 0.005 270);
+  --sidebar: oklch(0.95 0.012 252); /* aiburj sidebar tint */
   --sidebar-foreground: oklch(0.18 0.01 270);
   --sidebar-primary: oklch(0.40 0.16 255);
   --sidebar-primary-foreground: oklch(1 0 0);
