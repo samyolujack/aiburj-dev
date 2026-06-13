@@ -95,7 +95,7 @@ For commercial licensing, please contact support@quantumnous.com
   --app-header-height: 3rem;
   --app-rev: '2k6e8r7p';
   --font-body: var(--font-sans);
-  --background: oklch(0.96 0.015 252); /* aiburj #F0F4FA page bg */
+  --background: oklch(0.945 0.025 250); /* aiburj visible blue #E3EEF8 */
   --foreground: oklch(0.18 0.01 270);   /* #252736 text */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.18 0.01 270);
@@ -127,13 +127,13 @@ For commercial licensing, please contact support@quantumnous.com
   --chart-3: oklch(0.588 0.158 241.966);
   --chart-4: oklch(0.681 0.162 75.834);
   --chart-5: oklch(0.577 0.245 27.325);
-  --sidebar: oklch(0.95 0.012 252); /* aiburj sidebar tint */
+  --sidebar: oklch(0.935 0.025 250); /* aiburj sidebar #D8E6F5 */
   --sidebar-foreground: oklch(0.18 0.01 270);
   --sidebar-primary: oklch(0.40 0.16 255);
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.94 0.025 252);  /* aiburj blue tint */
+  --sidebar-accent: oklch(0.92 0.035 250);  /* aiburj accent tint */
   --sidebar-accent-foreground: oklch(0.18 0.01 270);
-  --sidebar-border: oklch(0.90 0.015 252);   /* softer blue border */
+  --sidebar-border: oklch(0.88 0.025 250);   /* aiburj border */
   --sidebar-ring: oklch(0.47 0.26 293);
   --skeleton-base: oklch(0.97 0 0);
   --skeleton-highlight: oklch(0.985 0 0);
