@@ -59,19 +59,15 @@ export function SystemBrand(props: SystemBrandProps) {
       <Link
         to='/'
         aria-label={t('Go to home')}
-        className={cn(
-          'text-foreground inline-flex h-10 items-center gap-2 rounded-md px-1.5 text-[16px] font-medium transition-colors outline-none select-none',
-          'hover:bg-accent focus-visible:ring-ring/40 focus-visible:ring-2'
-        )}
+        className='inline-flex items-center rounded-md outline-none select-none'
       >
-        <div className='flex size-8 items-center justify-center overflow-hidden rounded-md'>
+        <div className='flex items-center justify-center overflow-hidden'>
           <img
             src={logo}
             alt={t('Logo')}
-            className='size-full rounded-md object-cover'
+            style={{ height: 48, width: 'auto', objectFit: 'contain' }}
           />
         </div>
-        <span className='max-w-[14rem] truncate'>{name}</span>
       </Link>
     )
   }
