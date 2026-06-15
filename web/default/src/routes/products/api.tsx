@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ProductsLayout } from '@/features/products/products-layout'
+import { BrandedIllustration } from '@/features/products/product-illustration'
 import { Zap, Layers, Shield, Globe, ArrowRight } from 'lucide-react'
 
 const BRAND = { primary: '#004A8F', deep: '#002060', accent: '#0080C0', muted: '#4A6A8A' }
@@ -50,12 +51,7 @@ function ProductsApi() {
             <p>支持文本对话、图像生成、语音合成、视频生成等全模态能力。按量计费，零月费，零门槛。</p>
           </div>
         </div>
-        <div style={{ flex: '0 0 440px', height: 320, background: 'linear-gradient(135deg, #E8F0FE 0%, #D4E2FC 50%, #BFD4F8 100%)', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 56, fontWeight: 900, color: BRAND.primary, opacity: 0.12, letterSpacing: 4 }}>API</div>
-            <div style={{ fontSize: 14, color: BRAND.accent, marginTop: 12, fontWeight: 500 }}>OpenAI 兼容 · 统一调度</div>
-          </div>
-        </div>
+        <BrandedIllustration icon="⚡" title="OpenAI 兼容" subtitle="统一调度 · 多模型聚合" />
       </div>
 
       {/* Core Features */}
@@ -108,6 +104,4 @@ function ProductsApi() {
   )
 }
 
-export const Route = createFileRoute('/products/api')({
-  component: ProductsApi,
-})
+export const Route = createFileRoute('/products/api')({ component: ProductsApi })

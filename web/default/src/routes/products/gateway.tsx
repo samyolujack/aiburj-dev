@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ProductsLayout } from '@/features/products/products-layout'
+import { BrandedIllustration } from '@/features/products/product-illustration'
 import { Route as RouteIcon, Shield, Gauge, Repeat, ArrowRight } from 'lucide-react'
 
 const BRAND = { primary: '#004A8F', deep: '#002060', accent: '#0080C0', muted: '#4A6A8A' }
@@ -48,12 +49,7 @@ function ProductsGateway() {
             <p>智能路由引擎可根据请求类型、成本预算、延迟要求等条件，自动将请求分发到最优模型实例，最大化资源利用效率。</p>
           </div>
         </div>
-        <div style={{ flex: '0 0 440px', height: 320, background: 'linear-gradient(135deg, #E8F0FE 0%, #D4E2FC 50%, #BFD4F8 100%)', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 56, fontWeight: 900, color: BRAND.primary, opacity: 0.12, letterSpacing: 4 }}>GATEWAY</div>
-            <div style={{ fontSize: 14, color: BRAND.accent, marginTop: 12, fontWeight: 500 }}>统一接入 · 安全管控</div>
-          </div>
-        </div>
+        <BrandedIllustration icon="🌐" title="API 网关" subtitle="统一入口 · 智能路由" />
       </div>
 
       <div style={{ marginBottom: 80 }}>

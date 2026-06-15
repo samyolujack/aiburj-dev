@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ProductsLayout } from '@/features/products/products-layout'
+import { BrandedIllustration } from '@/features/products/product-illustration'
 import { Building2, Shield, Server, Wrench, ArrowRight } from 'lucide-react'
 
 const BRAND = { primary: '#004A8F', deep: '#002060', accent: '#0080C0', muted: '#4A6A8A' }
@@ -48,12 +49,7 @@ function ProductsPrivate() {
             <p>从部署规划、模型适配、性能调优到持续运维，我们提供端到端的闭环服务，确保你的大模型应用安全、稳定、高效地运行。</p>
           </div>
         </div>
-        <div style={{ flex: '0 0 440px', height: 320, background: 'linear-gradient(135deg, #E8F0FE 0%, #D4E2FC 50%, #BFD4F8 100%)', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 56, fontWeight: 900, color: BRAND.primary, opacity: 0.12, letterSpacing: 4 }}>PRIVATE</div>
-            <div style={{ fontSize: 14, color: BRAND.accent, marginTop: 12, fontWeight: 500 }}>数据不出域 · 安全可控</div>
-          </div>
-        </div>
+        <BrandedIllustration icon="🔒" title="私有部署" subtitle="安全合规 · 数据隔离" />
       </div>
 
       <div style={{ marginBottom: 80 }}>

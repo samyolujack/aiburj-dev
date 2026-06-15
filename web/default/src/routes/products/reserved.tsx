@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ProductsLayout } from '@/features/products/products-layout'
+import { BrandedIllustration } from '@/features/products/product-illustration'
 import { Lock, Zap, BarChart3, Shield, ArrowRight } from 'lucide-react'
 
 const BRAND = { primary: '#004A8F', deep: '#002060', accent: '#0080C0', muted: '#4A6A8A' }
@@ -48,12 +49,7 @@ function ProductsReserved() {
             <p>配合专属运维经理 7×24 小时支持，从部署规划到性能优化，我们为你的关键业务提供端到端保障。</p>
           </div>
         </div>
-        <div style={{ flex: '0 0 440px', height: 320, background: 'linear-gradient(135deg, #E8F0FE 0%, #D4E2FC 50%, #BFD4F8 100%)', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 56, fontWeight: 900, color: BRAND.primary, opacity: 0.12, letterSpacing: 4 }}>DEDICATED</div>
-            <div style={{ fontSize: 14, color: BRAND.accent, marginTop: 12, fontWeight: 500 }}>独占算力 · 精度保障</div>
-          </div>
-        </div>
+        <BrandedIllustration icon="🏗️" title="专属实例" subtitle="独占算力 · 精度保障" />
       </div>
 
       <div style={{ marginBottom: 80 }}>

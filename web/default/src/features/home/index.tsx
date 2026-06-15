@@ -415,6 +415,10 @@ export function Home() {
         </div>
       </section>
       <div style={{ height: 56, background: 'linear-gradient(to bottom, #F0F4FA, #fff)' }} />
+      {/* 代码区入口装饰条 */}
+      <div style={{ maxWidth: 1200, margin: '0 auto 0', padding: '0 24px' }}>
+        <div style={{ height: 4, background: 'linear-gradient(to right, transparent, #004A8F60, #0080C060, #004A8F60, transparent)', borderRadius: 2 }} />
+      </div>
       <section style={{ background: 'linear-gradient(180deg, #F4F8FC, #fff 30%)', padding: '60px 24px 80px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <SectionHeader icon={Code} badge="快速开始" title="三步接入，零门槛" desc="获取 API Key → 选择模型 → 复制代码，OpenAI SDK 直接兼容" />

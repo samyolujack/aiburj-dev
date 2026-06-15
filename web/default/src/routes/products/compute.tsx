@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ProductsLayout } from '@/features/products/products-layout'
+import { BrandedIllustration } from '@/features/products/product-illustration'
 import { Cpu, Server, TrendingUp, Gauge, ArrowRight } from 'lucide-react'
 
 const BRAND = { primary: '#004A8F', deep: '#002060', accent: '#0080C0', muted: '#4A6A8A' }
@@ -48,12 +49,7 @@ function ProductsCompute() {
             <p>我们的推理引擎在语言模型上实现 10x+ 速度提升，生图模型 3x+ 加速，助力你的 AI 应用实现毫秒级响应。</p>
           </div>
         </div>
-        <div style={{ flex: '0 0 440px', height: 320, background: 'linear-gradient(135deg, #E8F0FE 0%, #D4E2FC 50%, #BFD4F8 100%)', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 56, fontWeight: 900, color: BRAND.primary, opacity: 0.12, letterSpacing: 4 }}>GPU</div>
-            <div style={{ fontSize: 14, color: BRAND.accent, marginTop: 12, fontWeight: 500 }}>弹性算力 · 高效推理</div>
-          </div>
-        </div>
+        <BrandedIllustration icon="🖥️" title="弹性算力" subtitle="高效推理 · 自动扩缩" />
       </div>
 
       <div style={{ marginBottom: 80 }}>
