@@ -61,6 +61,10 @@ export function SidebarModulesSection({
   const updateOption = useUpdateOption()
 
   const sectionMeta: Record<string, { title: string; description: string }> = {
+    experience: {
+      title: t('Experience Center'),
+      description: t('AI model playground: text, images, video, and voice.'),
+    },
     chat: {
       title: t('Chat area'),
       description: t('Playground experiments and live conversations.'),
@@ -83,6 +87,24 @@ export function SidebarModulesSection({
     string,
     Record<string, { title: string; description: string }>
   > = {
+    experience: {
+      text: {
+        title: t('Text Chat'),
+        description: t('Interactive AI conversation with model parameter tuning.'),
+      },
+      image: {
+        title: t('Image Generation'),
+        description: t('Create images from text prompts with adjustable parameters.'),
+      },
+      video: {
+        title: t('Video Generation'),
+        description: t('Generate videos from text descriptions with async task tracking.'),
+      },
+      tts: {
+        title: t('Text to Speech'),
+        description: t('Convert text to natural speech with voice selection.'),
+      },
+    },
     chat: {
       playground: {
         title: t('Playground'),

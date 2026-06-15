@@ -36,6 +36,13 @@ type SidebarModulesUserConfig = SidebarModulesAdminConfig | null
  * Default sidebar modules configuration
  */
 const DEFAULT_SIDEBAR_MODULES: SidebarModulesAdminConfig = {
+  experience: {
+    enabled: true,
+    text: true,
+    image: true,
+    video: true,
+    tts: true,
+  },
   chat: {
     enabled: true,
     playground: true,

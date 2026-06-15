@@ -23,7 +23,7 @@ import { Playground } from '@/features/playground'
 
 export const Route = createFileRoute('/_authenticated/playground/')({
   beforeLoad: () => {
-    if (!isSidebarModuleEnabled('chat', 'playground')) {
+    if (!isSidebarModuleEnabled('experience', 'text')) {
       throw redirect({ to: '/dashboard' })
     }
   },
