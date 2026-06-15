@@ -9,7 +9,8 @@ type AnimatedCounterProps = {
 export function AnimatedCounter({ value, duration = 1.8 }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
-  const [displayValue, setDisplayValue] = useState('0')
+  const [displayValue, setDisplayValue] = useState(value)
+  const [started, setStarted] = useState(false)
 
   // Parse numeric part and suffix
   const match = value.match(/^([\d.]+)(.*)$/)
@@ -17,7 +18,9 @@ export function AnimatedCounter({ value, duration = 1.8 }: AnimatedCounterProps)
   const suffix = match ? match[2] : ''
 
   useEffect(() => {
-    if (!inView) return
+    if (!inView || started) return
+    setStarted(true)
+    setDisplayValue('0')
     const steps = 40
     const interval = (duration * 1000) / steps
     let step = 0
