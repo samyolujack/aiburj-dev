@@ -88,14 +88,22 @@ export function Playground() {
 
   // Update models when data changes
   useEffect(() => {
-    if (!modelsData) return
+    if (!modelsData || modelsData.length === 0) return
 
     setModels(modelsData)
 
     // Set default model if current model is not available
     const isCurrentModelValid = modelsData.some((m) => m.value === config.model)
-    if (modelsData.length > 0 && !isCurrentModelValid) {
-      updateConfig('model', modelsData[0].value)
+    if (!isCurrentModelValid) {
+      // Prefer chat/LLM models for playground; fall back to first available
+      const chatModel = modelsData.find((m) =>
+        m.value.includes('deepseek') ||
+        m.value.includes('qwen') ||
+        m.value.includes('glm') ||
+        m.value.includes('gpt') ||
+        m.value.includes('claude')
+      )
+      updateConfig('model', chatModel?.value ?? modelsData[0].value)
     }
   }, [modelsData, config.model, setModels, updateConfig])
 
