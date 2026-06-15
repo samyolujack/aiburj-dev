@@ -51,6 +51,11 @@ import (
 )
 
 func GetAdaptor(apiType int) channel.Adaptor {
+	// Check the new registry first (channels registered via RegisterChannel)
+	if a := GetAdaptorFromRegistry(apiType); a != nil {
+		return a
+	}
+	// Fall through to legacy switch
 	switch apiType {
 	case constant.APITypeAli:
 		return &ali.Adaptor{}
