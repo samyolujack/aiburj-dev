@@ -163,6 +163,10 @@ function ProductsCompute() {
           <h2 style={{ fontSize: 32, fontWeight: 700, color: BRAND.deep, marginBottom: 8 }}>多 GPU 架构支持</h2>
           <p style={{ fontSize: 15, color: BRAND.muted }}>兼容主流 GPU 平台，灵活满足不同部署环境</p>
         </div>
+        {/* GPU architecture illustration */}
+        <div style={{ marginBottom: 32, borderRadius: 14, overflow: 'hidden', border: `1px solid ${BRAND.border}` }}>
+          <img src="/compute-gpu-bg.png" alt="GPU架构" style={{ width: '100%', height: 'auto', display: 'block' }} />
+        </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 20 }}>
           {gpuArchitectures.map((gpu, i) => (
             <div key={i} style={{ background: '#fff', borderRadius: 16, border: `1px solid ${BRAND.border}`, padding: '32px 24px', textAlign: 'center', transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)', cursor: 'default', position: 'relative', overflow: 'hidden' }}
