@@ -78,6 +78,10 @@ function ProductsReserved() {
           <h2 style={{ fontSize: 32, fontWeight: 700, color: BRAND.deep, marginBottom: 8 }}>为什么需要预留实例？</h2>
           <p style={{ fontSize: 15, color: BRAND.muted }}>当业务规模达到千万级调用量，公共实例的局限就显现了</p>
         </div>
+        {/* Comparison illustration */}
+        <div style={{ marginBottom: 32, borderRadius: 14, overflow: 'hidden', border: `1px solid ${BRAND.border}` }}>
+          <img src="/reserved-compare-bg.png" alt="预留实例对比" style={{ width: '100%', height: 'auto', display: 'block' }} />
+        </div>
         <div style={{ background: '#fff', borderRadius: 16, border: `1px solid ${BRAND.border}`, overflow: 'hidden' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', padding: '16px 28px', background: BRAND.light, borderBottom: `1px solid ${BRAND.border}`, fontSize: 14, fontWeight: 700, color: BRAND.deep }}>
             <div>对比维度</div>
