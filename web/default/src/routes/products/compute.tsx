@@ -129,6 +129,10 @@ function ProductsCompute() {
           <h2 style={{ fontSize: 32, fontWeight: 700, color: BRAND.deep, marginBottom: 8 }}>推理加速效果对比</h2>
           <p style={{ fontSize: 15, color: BRAND.muted }}>自研推理引擎 vs 标准推理——速度与成本的双重飞跃</p>
         </div>
+        {/* Performance comparison illustration */}
+        <div style={{ marginBottom: 32, borderRadius: 14, overflow: 'hidden', border: `1px solid ${BRAND.border}` }}>
+          <img src="/compute-perf-bg.png" alt="性能对比" style={{ width: '100%', height: 'auto', display: 'block' }} />
+        </div>
         <div style={{ background: '#fff', borderRadius: 16, border: `1px solid ${BRAND.border}`, overflow: 'hidden' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', padding: '16px 28px', background: BRAND.light, borderBottom: `1px solid ${BRAND.border}`, fontSize: 14, fontWeight: 700, color: BRAND.deep }}>
             <div>场景</div>
