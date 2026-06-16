@@ -18,6 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { PanelLeftClose,PanelLeftOpen } from 'lucide-react'
 import { PublicLayout } from '@/components/layout'
 import { PageTransition } from '@/components/page-transition'
 import {
@@ -30,15 +31,17 @@ import {
   ModelCardGrid,
   ModelDetailsDrawer,
 } from './components'
-import { EXCLUDED_GROUPS, VIEW_MODES } from './constants'
+import { EXCLUDED_GROUPS,VIEW_MODES } from './constants'
+import { resolveModelIdentity } from '@/lib/model-identity'
 import { useFilters } from './hooks/use-filters'
 import { usePricingData } from './hooks/use-pricing-data'
 
+const HOT_MODELS = ['deepseek-v4-pro','qwen3-235b-a22b','glm-5.1','Kwai-Kolors/Kolors','cogview-4','Qwen/Qwen-Image']
+
 export function Pricing() {
   const { t } = useTranslation()
-  const [selectedModelName, setSelectedModelName] = useState<string | null>(
-    null
-  )
+  const [selectedModelName, setSelectedModelName] = useState<string | null>(null)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const {
     models,
@@ -107,6 +110,10 @@ export function Pricing() {
     clearFilters()
     clearSearch()
   }, [clearFilters, clearSearch])
+
+  const handleHotModelClick = useCallback((modelName: string) => {
+    setSearchInput(modelName)
+  }, [setSearchInput])
 
   const renderPricingContent = () => {
     if (filteredModels.length === 0) {
@@ -197,7 +204,7 @@ export function Pricing() {
               )}
               className='mx-auto mt-4 max-w-2xl sm:mt-6'
             />
-            {/* Feature badges — SiliconFlow style */}
+            {/* Feature badges */}
             <div className='mt-3 flex flex-wrap items-center justify-center gap-3 text-xs'>
               <span className='text-muted-foreground/70 inline-flex items-center gap-1.5'>
                 <svg className='size-3 text-green-500' viewBox='0 0 16 16' fill='none'><circle cx='8' cy='8' r='7' stroke='currentColor' strokeWidth='1.5'/><path d='M5 8l2 2 4-4' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round'/></svg>
@@ -212,9 +219,29 @@ export function Pricing() {
                 {t('按厂商快速定位')}
               </span>
             </div>
-            {/* Quick-filter chips */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, marginTop: 20 }}>
-              {/* Model type chips */}
+            {/* Hot models quick entry */}
+            <div className='mt-4 flex flex-wrap items-center justify-center gap-2'>
+              <span className='text-muted-foreground mr-1 text-xs font-semibold'>{t('热门模型')}</span>
+              {HOT_MODELS.map(m => {
+                const identity = resolveModelIdentity(m)
+                const label = m.includes('/') ? m.split('/').pop()! : m
+                return (
+                  <button
+                    key={m}
+                    type='button'
+                    onClick={() => handleHotModelClick(m)}
+                    className='inline-flex items-center gap-1.5 rounded-full border border-[#E0E7EF] bg-white px-3 py-1.5 text-xs font-medium text-[#4A6A8A] transition-all hover:border-[#004A8F40] hover:text-[#004A8F] hover:bg-[#004A8F08]'
+                  >
+                    {identity?.vendor && (
+                      <span className='text-[11px] text-muted-foreground/60'>{identity.vendor}</span>
+                    )}
+                    {label}
+                  </button>
+                )
+              })}
+            </div>
+            {/* Model type & scene chips */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, marginTop: 16 }}>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
                 <span style={{ fontSize: 13, fontWeight: 600, color: '#4A6A8A', marginRight: 4, lineHeight: '32px' }}>模型类型</span>
                 {['全部','对话','生图','嵌入','重排序','语音','视频'].map(tag => (
@@ -231,7 +258,6 @@ export function Pricing() {
                   >{tag}</button>
                 ))}
               </div>
-              {/* Scene chips */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
                 <span style={{ fontSize: 13, fontWeight: 600, color: '#4A6A8A', marginRight: 4, lineHeight: '32px' }}>应用场景</span>
                 {['全部','旗舰全能','Vibe Coding','RAG','长文本','快速响应','多模态','语音交互','图像生成','视频生成'].map(tag => (
@@ -251,29 +277,42 @@ export function Pricing() {
             </div>
           </header>
 
-          <div className='grid gap-4 xl:grid-cols-[330px_minmax(0,1fr)]'>
-            <PricingSidebar
-              quotaTypeFilter={quotaTypeFilter}
-              endpointTypeFilter={endpointTypeFilter}
-              vendorFilter={vendorFilter}
-              groupFilter={groupFilter}
-              tagFilter={tagFilter}
-              onQuotaTypeChange={setQuotaTypeFilter}
-              onEndpointTypeChange={setEndpointTypeFilter}
-              onVendorChange={setVendorFilter}
-              onGroupChange={setGroupFilter}
-              onTagChange={setTagFilter}
-              vendors={vendors || []}
-              groups={availableGroups}
-              groupRatios={groupRatio}
-              tags={availableTags}
-              models={models || []}
-              hasActiveFilters={hasActiveFilters}
-              onClearFilters={clearFilters}
-              className='hover-scrollbar sticky top-4 hidden max-h-[calc(100dvh-2rem)] self-start overflow-y-auto xl:block'
-            />
+          <div className='flex items-start gap-4'>
+            {/* Sidebar toggle button */}
+            <button
+              type='button'
+              onClick={() => setSidebarOpen(o => !o)}
+              className='shrink-0 mt-2 p-2 rounded-lg border border-border/60 hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors'
+              title={sidebarOpen ? t('收起筛选') : t('展开筛选')}
+            >
+              {sidebarOpen ? <PanelLeftClose className='size-4' /> : <PanelLeftOpen className='size-4' />}
+            </button>
 
-            <main className='min-w-0 space-y-4'>
+            {/* Sidebar panel */}
+            {sidebarOpen && (
+              <PricingSidebar
+                quotaTypeFilter={quotaTypeFilter}
+                endpointTypeFilter={endpointTypeFilter}
+                vendorFilter={vendorFilter}
+                groupFilter={groupFilter}
+                tagFilter={tagFilter}
+                onQuotaTypeChange={setQuotaTypeFilter}
+                onEndpointTypeChange={setEndpointTypeFilter}
+                onVendorChange={setVendorFilter}
+                onGroupChange={setGroupFilter}
+                onTagChange={setTagFilter}
+                vendors={vendors || []}
+                groups={availableGroups}
+                groupRatios={groupRatio}
+                tags={availableTags}
+                models={models || []}
+                hasActiveFilters={hasActiveFilters}
+                onClearFilters={clearFilters}
+                className='shrink-0 w-[300px] max-h-[calc(100dvh-10rem)] overflow-y-auto rounded-xl border bg-card/60 p-3'
+              />
+            )}
+
+            <main className='min-w-0 flex-1 space-y-4'>
               <PricingToolbar
                 filteredCount={filteredModels.length}
                 totalCount={models?.length}
