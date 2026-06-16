@@ -124,21 +124,9 @@ function ProductsReserved() {
           ))}
         </div>
 
-        {/* SLA badges */}
-        <div style={{ marginTop: 48, display: 'flex', justifyContent: 'center', gap: 48, flexWrap: 'wrap' }}>
-          {[
-            { icon: Shield, value: '99.9%', label: '可用性保障' },
-            { icon: Clock, value: '7×24', label: '专属运维' },
-            { icon: TrendingDown, value: '40%+', label: '成本节省' },
-          ].map((m, i) => (
-            <div key={i} style={{ textAlign: 'center' }}>
-              <div style={{ width: 64, height: 64, borderRadius: 20, background: `${BRAND.primary}10`, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
-                <m.icon size={28} color={BRAND.primary} />
-              </div>
-              <div style={{ fontSize: 28, fontWeight: 800, color: BRAND.primary }}>{m.value}</div>
-              <div style={{ fontSize: 13, color: BRAND.muted, marginTop: 4 }}>{m.label}</div>
-            </div>
-          ))}
+        {/* SLA illustration */}
+        <div style={{ marginTop: 48, borderRadius: 14, overflow: 'hidden', border: `1px solid ${BRAND.border}` }}>
+          <img src="/reserved-sla-bg.png" alt="SLA保障" style={{ width: '100%', height: 'auto', display: 'block' }} />
         </div>
       </div>
 
