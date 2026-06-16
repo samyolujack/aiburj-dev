@@ -164,18 +164,36 @@ export function Pricing() {
   return (
     <PublicLayout showMainContainer={false}>
       <div className='relative'>
-        {/* Background image overlay */}
+        {/* Background layers (matches homepage style) */}
+        {/* Layer 1: Radial gradients */}
         <div
           aria-hidden
-          className='pointer-events-none absolute inset-x-0 top-0 h-[500px] sm:h-[600px]'
+          className='pointer-events-none absolute inset-x-0 top-0 h-[600px] opacity-25 dark:opacity-[0.12]'
+          style={{
+            background: [
+              'radial-gradient(ellipse 60% 50% at 20% 20%, oklch(0.72 0.18 250 / 80%) 0%, transparent 70%)',
+              'radial-gradient(ellipse 50% 40% at 80% 15%, oklch(0.65 0.15 200 / 60%) 0%, transparent 70%)',
+              'radial-gradient(ellipse 40% 35% at 50% 70%, oklch(0.70 0.12 280 / 40%) 0%, transparent 70%)',
+            ].join(', '),
+          }}
+        />
+        {/* Layer 2: Grid pattern */}
+        <div
+          aria-hidden
+          className='pointer-events-none absolute inset-x-0 top-0 h-[600px] bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_30%,black_10%,transparent_100%)] bg-[size:4rem_4rem] opacity-[0.06]'
+        />
+        {/* Layer 3: Custom background image (overlay) */}
+        <div
+          aria-hidden
+          className='pointer-events-none absolute inset-x-0 top-0 h-[600px]'
           style={{
             backgroundImage: `url('/model-bg.png')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center top',
             backgroundRepeat: 'no-repeat',
-            opacity: 0.35,
-            maskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)',
+            opacity: 0.18,
+            maskImage: 'linear-gradient(to bottom, black 20%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, black 20%, transparent 100%)',
           }}
         />
         <PageTransition className='relative mx-auto w-full max-w-[1800px] px-3 pt-16 pb-8 sm:px-6 sm:pt-20 sm:pb-10 xl:px-8'>

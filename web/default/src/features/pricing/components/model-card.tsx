@@ -91,9 +91,9 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
       onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)' }}
       onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)' }}
     >
-      {/* Top accent bar */}
-      <div className='absolute top-0 left-4 right-4 h-[3px] rounded-b-sm opacity-60'
-        style={{ background: 'linear-gradient(90deg, #004A8F, #0080C0, #00A0E0)' }} />
+      {/* Top accent bar — purple gradient like homepage */}
+      <div className='absolute top-0 left-4 right-4 h-[3px] rounded-b-sm opacity-70'
+        style={{ background: 'linear-gradient(90deg, #7C3AED, #6366F1, #3B82F6)' }} />
 
       {/* Header row: icon + name + actions */}
       <div className='flex items-start justify-between gap-3 mt-1'>
