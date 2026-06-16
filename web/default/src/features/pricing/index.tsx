@@ -292,7 +292,11 @@ export function Pricing() {
                 ))}
               </div>
             </div>
-          </header>\n\n          {/* Cards section with muted background for visual layering */}\n          <div className='-mx-3 sm:-mx-6 xl:-mx-8 px-3 sm:px-6 xl:px-8 py-6 sm:py-8 bg-muted/30 border-y border-border/30'>\n          <div className='flex items-start gap-4'>
+          </header>
+
+          {/* Cards section with muted background for visual layering */}
+          <div className='-mx-3 sm:-mx-6 xl:-mx-8 px-3 sm:px-6 xl:px-8 py-6 sm:py-8 bg-muted/30 border-y border-border/30'>
+          <div className='flex items-start gap-4'>
             {/* Sidebar toggle button */}
             <button
               type='button'
