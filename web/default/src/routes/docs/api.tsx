@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { PublicLayout } from '@/components/layout'
-import { Footer } from '@/components/layout/components/footer'
 
 const endpoints = [
   { method: 'POST', path: '/v1/chat/completions', desc: '对话补全（支持流式 SSE）', auth: 'Bearer' },
@@ -174,7 +173,6 @@ console.log(response.choices[0].message.content);` },
         </div>
       </section>
 
-      <Footer />
     </PublicLayout>
   )
 }

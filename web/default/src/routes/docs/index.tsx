@@ -2,7 +2,6 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowRight, Key, Cpu, Code, Copy, Check, Zap, Shield, Globe } from 'lucide-react'
 import { useState } from 'react'
 import { PublicLayout } from '@/components/layout'
-import { Footer } from '@/components/layout/components/footer'
 
 const steps = [
   { num: '01', icon: Key, title: '获取 API Key', desc: '注册后在控制台创建 API Key，用于身份认证。', action: '创建 Key', href: '/keys' },
@@ -170,8 +169,6 @@ export function DocsPage() {
           <CodeBlock code={jsCode} label="JavaScript / TypeScript" />
         </div>
       </section>
-
-      <Footer />
     </PublicLayout>
   )
 }

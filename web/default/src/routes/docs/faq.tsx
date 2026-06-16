@@ -2,7 +2,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { PublicLayout } from '@/components/layout'
-import { Footer } from '@/components/layout/components/footer'
 
 const faqs = [
   {
@@ -89,7 +88,6 @@ function FaqPage() {
           </div>
         ))}
       </section>
-      <Footer />
     </PublicLayout>
   )
 }
