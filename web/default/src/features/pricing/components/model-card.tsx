@@ -20,6 +20,7 @@ import { memo } from 'react'
 import { ChevronRight, Copy } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { getLobeIcon } from '@/lib/lobe-icon'
+import { resolveModelIdentity } from '@/lib/model-identity'
 import { cn } from '@/lib/utils'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { StatusBadge } from '@/components/status-badge'
@@ -58,7 +59,13 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
   const endpoints = props.model.supported_endpoint_types || []
   const vendorIcon = props.model.vendor_icon
     ? getLobeIcon(props.model.vendor_icon, 28)
-    : null
+    : (() => {
+        const identity = resolveModelIdentity(props.model.model_name || '')
+        return identity ? getLobeIcon(identity.icon, 28) : null
+      })()
+  const vendorName = props.model.owner_by ||
+    resolveModelIdentity(props.model.model_name || '')?.vendor ||
+    ''
   const initial = props.model.model_name?.charAt(0).toUpperCase() || '?'
   const isDynamicPricing =
     props.model.billing_mode === 'tiered_expr' &&
@@ -114,6 +121,11 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
             <h3 className='text-foreground truncate font-mono text-[15px] leading-tight font-bold'>
               {props.model.model_name}
             </h3>
+            {vendorName && (
+              <p className='text-muted-foreground/70 truncate text-xs mt-0.5'>
+                {vendorName}
+              </p>
+            )}
             <div className='mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-xs sm:mt-1 sm:gap-x-3'>
               {dynamicSummary ? (
                 dynamicSummary.isSpecialExpression ? (

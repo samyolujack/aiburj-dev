@@ -197,6 +197,21 @@ export function Pricing() {
               )}
               className='mx-auto mt-4 max-w-2xl sm:mt-6'
             />
+            {/* Feature badges — SiliconFlow style */}
+            <div className='mt-3 flex flex-wrap items-center justify-center gap-3 text-xs'>
+              <span className='text-muted-foreground/70 inline-flex items-center gap-1.5'>
+                <svg className='size-3 text-green-500' viewBox='0 0 16 16' fill='none'><circle cx='8' cy='8' r='7' stroke='currentColor' strokeWidth='1.5'/><path d='M5 8l2 2 4-4' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round'/></svg>
+                {t('实时价格同步')}
+              </span>
+              <span className='text-muted-foreground/70 inline-flex items-center gap-1.5'>
+                <svg className='size-3 text-blue-500' viewBox='0 0 16 16' fill='none'><circle cx='8' cy='8' r='7' stroke='currentColor' strokeWidth='1.5'/><path d='M8 4v4M8 12h.01' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round'/></svg>
+                {t('仅展示可用模型')}
+              </span>
+              <span className='text-muted-foreground/70 inline-flex items-center gap-1.5'>
+                <svg className='size-3 text-purple-500' viewBox='0 0 16 16' fill='none'><rect x='2' y='2' width='12' height='12' rx='2' stroke='currentColor' strokeWidth='1.5'/><path d='M5 6h6M5 9h4M5 12h3' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round'/></svg>
+                {t('按厂商快速定位')}
+              </span>
+            </div>
             {/* Quick-filter chips */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, marginTop: 20 }}>
               {/* Model type chips */}
