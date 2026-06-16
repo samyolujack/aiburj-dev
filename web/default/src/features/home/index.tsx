@@ -179,7 +179,7 @@ export function Home() {
   const s = slides[current]
 
   return (
-    <PublicLayout showMainContainer={false}>
+    <PublicLayout showMainContainer={false} showFooter={false}>
       <style>{`@keyframes ripple{to{transform:scale(4);opacity:0;}}`}</style>
       {/* ═══ SECTION 1 — Hero Banner 轮播 ═══ */}
       <section

@@ -18,6 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import type { TopNavLink } from '../types'
 import { PublicHeader, type PublicHeaderProps } from './public-header'
+import { Footer } from './footer'
 
 type PublicLayoutProps = {
   children: React.ReactNode
@@ -30,9 +31,13 @@ type PublicLayoutProps = {
   showNotifications?: boolean
   logo?: React.ReactNode
   siteName?: string
+  /** Show the global footer at the bottom. Defaults to true. */
+  showFooter?: boolean
 }
 
 export function PublicLayout(props: PublicLayoutProps) {
+  const showFooter = props.showFooter !== false
+
   return (
     <div className='bg-background text-foreground relative min-h-svh overflow-x-clip'>
       <PublicHeader
@@ -53,6 +58,8 @@ export function PublicLayout(props: PublicLayoutProps) {
       ) : (
         props.children
       )}
+
+      {showFooter && <Footer />}
     </div>
   )
 }
