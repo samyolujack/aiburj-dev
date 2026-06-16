@@ -18,6 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import { useTranslation } from 'react-i18next'
 import { getLobeIcon } from '@/lib/lobe-icon'
+import { resolveModelIdentity } from '@/lib/model-identity'
 import { formatTokens } from '../lib/format'
 import type { ModelRanking } from '../types'
 import { ModelLink, VendorLink } from './entity-links'
@@ -68,7 +69,15 @@ function ModelList(props: {
   const compact = props.variant === 'compact'
   return (
     <ul>
-      {props.rows.map((row) => (
+      {props.rows.map((row) => {
+        // Fallback to model-name-based identity when backend returns unknown
+        const identity =
+          row.vendor && row.vendor.toLowerCase() !== 'unknown'
+            ? { vendor: row.vendor, icon: row.vendor_icon ?? '' }
+            : resolveModelIdentity(row.model_name)
+        const vendorName = identity?.vendor ?? row.vendor
+        const iconName = identity?.icon ?? row.vendor_icon
+        return (
         <li
           key={row.model_name}
           className={
@@ -81,7 +90,7 @@ function ModelList(props: {
             {row.rank}.
           </span>
           <span className='shrink-0'>
-            {getLobeIcon(row.vendor_icon, compact ? 20 : 22)}
+            {getLobeIcon(iconName, compact ? 20 : 22)}
           </span>
           <div className='min-w-0 flex-1'>
             <ModelLink
@@ -102,8 +111,8 @@ function ModelList(props: {
               }
             >
               by{' '}
-              <VendorLink vendor={row.vendor}>
-                {row.vendor.toLowerCase()}
+              <VendorLink vendor={vendorName}>
+                {vendorName.toLowerCase()}
               </VendorLink>
             </p>
           </div>
@@ -131,7 +140,8 @@ function ModelList(props: {
             />
           </div>
         </li>
-      ))}
+        )
+      })}
     </ul>
   )
 }
