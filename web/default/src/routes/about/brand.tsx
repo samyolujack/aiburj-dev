@@ -35,7 +35,7 @@ function AboutBrand() {
     <AboutLayout>
       {/* ── Hero ── */}
       <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '160px 24px 120px', textAlign: 'center', marginBottom: 80, position: 'relative', overflow: 'hidden', background: '#001840' }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/about-brand-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.4 }} />
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/about-brand-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.7 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
         <h1 style={{ fontSize: 52, fontWeight: 700, color: '#fff', marginBottom: 20, position: 'relative', zIndex: 1, letterSpacing: '-0.02em' }}>
           aiburj 品牌解读
