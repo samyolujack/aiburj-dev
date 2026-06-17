@@ -37,7 +37,7 @@ function ProductsReserved() {
   return (
     <ProductsLayout>
       {/* ── Hero ── */}
-      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '200px 60px 140px', textAlign: 'center', marginBottom: 0, position: 'relative', overflow: 'hidden', background: '#001840' }}>
+      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '200px 60px 200px', textAlign: 'center', marginBottom: 0, position: 'relative', overflow: 'hidden', background: '#001840' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/reserved-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.45 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
         {/* Bottom glow */}
