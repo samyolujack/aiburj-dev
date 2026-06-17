@@ -22,7 +22,7 @@ function AboutCompany() {
   return (
     <AboutLayout>
       {/* ── Hero ── */}
-      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '240px 24px 220px', textAlign: 'center', marginBottom: 64, position: 'relative', overflow: 'hidden', background: '#001840' }}>
+      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '350px 24px 350px', textAlign: 'center', marginBottom: 64, position: 'relative', overflow: 'hidden', background: '#001840' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/about-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.4 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
         {/* Bottom glow */}
