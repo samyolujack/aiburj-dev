@@ -35,7 +35,7 @@ function AboutBrand() {
     <AboutLayout>
       {/* ── Hero ── */}
       <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '350px 24px 350px', textAlign: 'center', marginBottom: 80, position: 'relative', overflow: 'hidden', background: '#001840' }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/about-brand-hero-bg.png')`, backgroundSize: 'auto 110%', backgroundPosition: 'top center', opacity: 0.7 }} />
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/about-brand-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.7 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
         {/* Bottom glow */}
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 180, background: 'radial-gradient(ellipse at 50% 100%, rgba(0,128,192,0.2) 0%, transparent 70%)', zIndex: 0 }} />

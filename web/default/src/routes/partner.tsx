@@ -1,23 +1,6 @@
-/*
-Copyright (C) 2023-2026 QuantumNous
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-For commercial licensing, please contact support@quantumnous.com
-*/
 import { createFileRoute } from '@tanstack/react-router'
 import { ArrowRight, ShieldCheck, Briefcase, TrendingUp, Award, Heart } from 'lucide-react'
+import { PublicLayout } from '@/components/layout'
 
 const BRAND = { primary: '#004A8F', deep: '#002060', accent: '#0080C0', muted: '#4A6A8A', light: '#F0F4FA', border: '#E8ECF2' }
 
@@ -100,194 +83,167 @@ const partners = ['DeepSeek', 'Qwen', '字节豆包', '智谱AI', '月之暗面'
 
 function PartnerPage() {
   return (
-    <div style={{ minHeight: '100vh', background: '#fff' }}>
-      {/* ======== Hero ======== */}
-      <section style={{
-        background: 'linear-gradient(135deg, #004A8F 0%, #002060 40%, #001840 100%)',
-        padding: '100px 24px 80px', textAlign: 'center', position: 'relative', overflow: 'hidden',
-      }}>
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.25) 0%, transparent 60%)',
-        }} />
-        {[0, 1, 2, 3, 4].map(i => (
-          <div key={i} style={{
-            position: 'absolute', width: 8, height: 8, borderRadius: '50%',
-            background: 'rgba(255,255,255,0.3)',
-            top: `${20 + Math.random() * 60}%`, left: `${10 + Math.random() * 80}%`,
-            animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
-          }} />
-        ))}
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.6)', letterSpacing: 4, textTransform: 'uppercase', marginBottom: 16 }}>
-            PARTNERSHIP
-          </div>
-          <h1 style={{
-            fontSize: 48, fontWeight: 700, color: '#fff',
-            marginBottom: 20, letterSpacing: '-0.02em',
-          }}>
-            aiburj 生态共建计划
-          </h1>
-          <p style={{
-            fontSize: 18, color: 'rgba(255,255,255,0.7)',
-            maxWidth: 640, margin: '0 auto 36px', lineHeight: 1.8,
-          }}>
-            依托开放稳定高效的大模型 API 能力，链接模型厂商与创新应用，
-            与全球伙伴共建开放、共赢的 AI 生态价值共同体。
-          </p>
-          <a href="mailto:partner@aiburj.com" style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            padding: '14px 36px', borderRadius: 10, fontWeight: 700, fontSize: 16,
-            background: '#fff', color: BRAND.primary, textDecoration: 'none',
-            transition: 'all 0.25s',
-          }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.2)' }}
-            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
-          >
-            立即加入 <ArrowRight size={18} />
-          </a>
-        </div>
-      </section>
-
-      {/* ======== 合作模式 ======== */}
-      <section style={{ padding: '80px 24px', maxWidth: 1200, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 56 }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: '#0080C0', letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>
-            PARTNERSHIP
-          </div>
-          <h2 style={{ fontSize: 40, fontWeight: 700, color: '#002060', marginBottom: 16, letterSpacing: '-0.02em' }}>
-            灵活多样的合作模式
-          </h2>
-          <p style={{ fontSize: 16, color: '#4A6A8A', maxWidth: 560, margin: '0 auto' }}>
-            面向不同类型的伙伴，提供多种合作路径。
-          </p>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 24 }}>
-          {modes.map((m, i) => (
-            <div key={i} style={{
-              background: '#fff', borderRadius: 14, border: '1px solid #E8ECF2',
-              padding: '36px 32px', display: 'flex', flexDirection: 'column', gap: 16,
-              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-            }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = 'translateY(-4px)'
-                e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,74,143,0.08)'
-                e.currentTarget.style.borderColor = 'rgba(0,74,143,0.2)'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.boxShadow = 'none'
-                e.currentTarget.style.borderColor = '#E8ECF2'
-              }}
-            >
-              <div style={{ width: 48, height: 48, borderRadius: 12, background: `${m.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <m.Icon />
-              </div>
-              <h3 style={{ fontSize: 20, fontWeight: 700, color: '#002060', margin: 0 }}>{m.title}</h3>
-              <p style={{ fontSize: 14, color: '#4A6A8A', lineHeight: 1.8, margin: 0, flex: 1 }}>{m.desc}</p>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 14, fontWeight: 600, color: m.color, cursor: 'pointer' }}>
-                {m.cta} <ArrowRight size={14} />
-              </span>
+    <PublicLayout showMainContainer={false}>
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+        {/* ======== Hero ======== */}
+        <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '280px 24px 280px', textAlign: 'center', marginBottom: 0, position: 'relative', overflow: 'hidden', background: '#001840' }}>
+          <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/partner-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: '50% 25%', opacity: 0.4 }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 180, background: 'radial-gradient(ellipse at 50% 100%, rgba(0,128,192,0.2) 0%, transparent 70%)', zIndex: 0 }} />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.6)', letterSpacing: 4, textTransform: 'uppercase', marginBottom: 16 }}>
+              PARTNERSHIP
             </div>
-          ))}
+            <h1 style={{ fontSize: 52, fontWeight: 700, color: '#fff', marginBottom: 20, letterSpacing: '-0.02em' }}>
+              aiburj 生态共建计划
+            </h1>
+            <p style={{ fontSize: 20, color: 'rgba(255,255,255,0.7)', maxWidth: 640, margin: '0 auto 36px', lineHeight: 1.8 }}>
+              依托开放稳定高效的大模型 API 能力，链接模型厂商与创新应用，与全球伙伴共建开放、共赢的 AI 生态价值共同体。
+            </p>
+            <a href="mailto:partner@aiburj.com" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '14px 36px', borderRadius: 10, fontWeight: 700, fontSize: 16,
+              background: '#fff', color: BRAND.primary, textDecoration: 'none',
+            }}>
+              立即加入 <ArrowRight size={18} />
+            </a>
+          </div>
         </div>
-      </section>
+
+        {/* ======== 合作模式 ======== */}
+        <div style={{ padding: '80px 0' }}>
+          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>
+              PARTNERSHIP
+            </div>
+            <h2 style={{ fontSize: 40, fontWeight: 700, color: BRAND.deep, marginBottom: 16, letterSpacing: '-0.02em' }}>
+              灵活多样的合作模式
+            </h2>
+            <p style={{ fontSize: 16, color: BRAND.muted, maxWidth: 560, margin: '0 auto' }}>
+              面向不同类型的伙伴，提供多种合作路径。
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 24 }}>
+            {modes.map((m, i) => (
+              <div key={i} style={{
+                background: '#fff', borderRadius: 14, border: `1px solid ${BRAND.border}`,
+                padding: '36px 32px', display: 'flex', flexDirection: 'column', gap: 16,
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = 'translateY(-4px)'
+                  e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,74,143,0.08)'
+                  e.currentTarget.style.borderColor = 'rgba(0,74,143,0.2)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = 'none'
+                  e.currentTarget.style.borderColor = BRAND.border
+                }}
+              >
+                <div style={{ width: 48, height: 48, borderRadius: 12, background: `${m.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <m.Icon />
+                </div>
+                <h3 style={{ fontSize: 20, fontWeight: 700, color: BRAND.deep, margin: 0 }}>{m.title}</h3>
+                <p style={{ fontSize: 14, color: BRAND.muted, lineHeight: 1.8, margin: 0, flex: 1 }}>{m.desc}</p>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 14, fontWeight: 600, color: m.color, cursor: 'pointer' }}>
+                  {m.cta} <ArrowRight size={14} />
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* ======== 伙伴权益 ======== */}
-      <section style={{ padding: '80px 24px', background: 'linear-gradient(135deg, #F0F4FA 0%, #E8EFF8 100%)' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '80px 0', background: BRAND.light, borderTop: `1px solid ${BRAND.border}`, borderBottom: `1px solid ${BRAND.border}` }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#0080C0', letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>
               BENEFITS
             </div>
-            <h2 style={{ fontSize: 40, fontWeight: 700, color: '#002060', marginBottom: 16, letterSpacing: '-0.02em' }}>
+            <h2 style={{ fontSize: 40, fontWeight: 700, color: BRAND.deep, marginBottom: 16, letterSpacing: '-0.02em' }}>
               伙伴权益
             </h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 24 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 24 }}>
             {benefits.map((b, i) => (
               <div key={i} style={{
-                background: '#fff', borderRadius: 14, border: '1px solid #E8ECF2',
+                background: '#fff', borderRadius: 14, border: `1px solid ${BRAND.border}`,
                 padding: '32px 28px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16,
                 transition: 'all 0.3s',
               }}
                 onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,74,143,0.06)' }}
                 onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
               >
-                <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'linear-gradient(135deg, #004A8F, #0080C0)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: 56, height: 56, borderRadius: '50%', background: `linear-gradient(135deg, ${BRAND.primary}, ${BRAND.accent})`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <b.icon size={26} style={{ color: '#fff' }} />
                 </div>
-                <h3 style={{ fontSize: 17, fontWeight: 700, color: '#002060', margin: 0 }}>{b.title}</h3>
-                <p style={{ fontSize: 14, color: '#4A6A8A', lineHeight: 1.8, margin: 0 }}>{b.desc}</p>
+                <h3 style={{ fontSize: 17, fontWeight: 700, color: BRAND.deep, margin: 0 }}>{b.title}</h3>
+                <p style={{ fontSize: 14, color: BRAND.muted, lineHeight: 1.8, margin: 0 }}>{b.desc}</p>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* ======== 生态伙伴案例 ======== */}
-      <section style={{ padding: '80px 24px', maxWidth: 1200, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: '#0080C0', letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>
-            ECOSYSTEM
-          </div>
-          <h2 style={{ fontSize: 40, fontWeight: 700, color: '#002060', marginBottom: 16, letterSpacing: '-0.02em' }}>
-            生态伙伴案例
-          </h2>
-        </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center' }}>
-          {partners.map((p, i) => (
-            <div key={i} style={{
-              padding: '16px 24px', borderRadius: 10,
-              background: '#F7F9FC', border: '1px solid #E8ECF2',
-              fontSize: 15, fontWeight: 600, color: '#4A6A8A',
-              transition: 'all 0.25s', cursor: 'default',
-            }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#004A8F0d'; e.currentTarget.style.borderColor = '#004A8F30'; e.currentTarget.style.color = '#004A8F' }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#F7F9FC'; e.currentTarget.style.borderColor = '#E8ECF2'; e.currentTarget.style.color = '#4A6A8A' }}
-            >
-              {p}
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+        {/* ======== 生态伙伴案例 ======== */}
+        <div style={{ padding: '80px 0' }}>
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>
+              ECOSYSTEM
             </div>
-          ))}
+            <h2 style={{ fontSize: 40, fontWeight: 700, color: BRAND.deep, marginBottom: 16, letterSpacing: '-0.02em' }}>
+              生态伙伴案例
+            </h2>
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center' }}>
+            {partners.map((p, i) => (
+              <div key={i} style={{
+                padding: '16px 24px', borderRadius: 10,
+                background: '#F7F9FC', border: `1px solid ${BRAND.border}`,
+                fontSize: 15, fontWeight: 600, color: BRAND.muted,
+                transition: 'all 0.25s', cursor: 'default',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.background = `${BRAND.primary}0d`; e.currentTarget.style.borderColor = `${BRAND.primary}30`; e.currentTarget.style.color = BRAND.primary }}
+                onMouseLeave={e => { e.currentTarget.style.background = '#F7F9FC'; e.currentTarget.style.borderColor = BRAND.border; e.currentTarget.style.color = BRAND.muted }}
+              >
+                {p}
+              </div>
+            ))}
+          </div>
         </div>
-      </section>
+      </div>
 
       {/* ======== 加入CTA ======== */}
-      <section style={{
-        background: 'linear-gradient(135deg, #004A8F 0%, #002060 100%)',
-        padding: '80px 24px', textAlign: 'center', position: 'relative', overflow: 'hidden',
+      <div style={{
+        borderRadius: 0, margin: '0 calc(-50vw + 50%)',
+        background: `linear-gradient(135deg, ${BRAND.primary} 0%, ${BRAND.deep} 100%)`,
+        padding: '80px 0', textAlign: 'center', position: 'relative', overflow: 'hidden',
       }}>
         <div style={{
           position: 'absolute', inset: 0,
           background: 'radial-gradient(ellipse at 30% 50%, rgba(0,128,192,0.2) 0%, transparent 50%)',
         }} />
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <h2 style={{
-            fontSize: 36, fontWeight: 700, color: '#fff',
-            marginBottom: 16, letterSpacing: '-0.02em',
-          }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
+          <h2 style={{ fontSize: 36, fontWeight: 700, color: '#fff', marginBottom: 16, letterSpacing: '-0.02em' }}>
             加入 aiburj 生态共建计划
           </h2>
-          <p style={{
-            fontSize: 16, color: 'rgba(255,255,255,0.7)', maxWidth: 500, margin: '0 auto 32px', lineHeight: 1.8,
-          }}>
+          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.7)', maxWidth: 500, margin: '0 auto 32px', lineHeight: 1.8 }}>
             无论你是模型厂商、开发者、内容创作者还是企业客户，aiburj 生态都欢迎你。
           </p>
           <a href="mailto:partner@aiburj.com" style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
             padding: '14px 40px', borderRadius: 10, fontWeight: 700, fontSize: 16,
             background: '#fff', color: BRAND.primary, textDecoration: 'none',
-            transition: 'all 0.25s',
-          }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)' }}
-            onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)' }}
-          >
+          }}>
             <Heart size={18} /> 提交合作申请 <ArrowRight size={18} />
           </a>
         </div>
-      </section>
-    </div>
+      </div>
+    </PublicLayout>
   )
 }
 
