@@ -36,35 +36,32 @@ function AboutCompany() {
       </div>
 
       {/* ── Company Introduction ── */}
-      <div style={{ display: 'flex', gap: 80, alignItems: 'center', marginBottom: 80 }}>
-        <div style={{ flex: 1 }}>
-          <h2 style={{ fontSize: 40, fontWeight: 700, color: BRAND.primary, marginBottom: 28, letterSpacing: '-0.02em' }}>
-            aiburj
-          </h2>
-          <div style={{ fontSize: 16, color: BRAND.muted, lineHeight: 2 }}>
-            <p style={{ marginBottom: 16 }}>
-              aiburj 成立于 2025 年，致力于成为领先的国产大模型 API 聚合平台，汇聚中国最优秀的大模型能力，加速 AI 普惠中国。
-            </p>
-            <p style={{ marginBottom: 16 }}>
-              核心产品一站式大模型 API 聚合平台，基于 OpenAI 兼容格式，提供统一的 API 接口。开发者只需一次接入，即可调用 DeepSeek、通义千问、智谱 GLM、月之暗面 Kimi、百川等国内主流大模型，无需关注模型层面的底层技术细节，无需担心多平台切换带来的开发成本，助力开发者和企业聚焦产品创新。
-            </p>
-            <p>
-              目前，aiburj 已聚合 12+ 家国产大模型厂商、50+ 款模型，覆盖对话、代码、图像生成、语音、视频等多个领域，按量计费、零门槛接入，服务互联网、教育、金融、制造等多个行业的开发者和企业客户。
-            </p>
-          </div>
+      <div style={{ marginBottom: 48 }}>
+        <h2 style={{ fontSize: 40, fontWeight: 700, color: BRAND.primary, marginBottom: 28, letterSpacing: '-0.02em' }}>
+          aiburj
+        </h2>
+        <div style={{ fontSize: 16, color: BRAND.muted, lineHeight: 2 }}>
+          <p style={{ marginBottom: 16 }}>
+            aiburj 成立于 2025 年，致力于成为领先的国产大模型 API 聚合平台，汇聚中国最优秀的大模型能力，加速 AI 普惠中国。
+          </p>
+          <p style={{ marginBottom: 16 }}>
+            核心产品一站式大模型 API 聚合平台，基于 OpenAI 兼容格式，提供统一的 API 接口。开发者只需一次接入，即可调用 DeepSeek、通义千问、智谱 GLM、月之暗面 Kimi、百川等国内主流大模型，无需关注模型层面的底层技术细节，无需担心多平台切换带来的开发成本，助力开发者和企业聚焦产品创新。
+          </p>
+          <p>
+            目前，aiburj 已聚合 12+ 家国产大模型厂商、50+ 款模型，覆盖对话、代码、图像生成、语音、视频等多个领域，按量计费、零门槛接入，服务互联网、教育、金融、制造等多个行业的开发者和企业客户。
+          </p>
         </div>
-        {/* Stats illustration — replaces old gray placeholder */}
-        <div style={{ flex: '0 0 400px', background: `linear-gradient(135deg, ${BRAND.light} 0%, #E0ECF8 100%)`, borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '40px 32px', border: `1px solid ${BRAND.border}` }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-            {statsData.map((s, i) => (
-              <div key={i} style={{ textAlign: 'center', background: '#fff', borderRadius: 14, padding: '24px 16px', border: `1px solid ${BRAND.border}` }}>
-                <s.icon size={24} color={BRAND.primary} style={{ marginBottom: 8 }} />
-                <div style={{ fontSize: 28, fontWeight: 800, color: BRAND.primary, lineHeight: 1 }}>{s.value}</div>
-                <div style={{ fontSize: 13, color: BRAND.muted, marginTop: 4 }}>{s.label}</div>
-              </div>
-            ))}
+      </div>
+
+      {/* ── Stats Bar ── */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 64, flexWrap: 'wrap', marginBottom: 80 }}>
+        {statsData.map((s, i) => (
+          <div key={i} style={{ textAlign: 'center' }}>
+            <s.icon size={28} color={BRAND.primary} style={{ marginBottom: 8 }} />
+            <div style={{ fontSize: 32, fontWeight: 800, color: BRAND.primary, lineHeight: 1 }}>{s.value}</div>
+            <div style={{ fontSize: 14, color: BRAND.muted, marginTop: 4 }}>{s.label}</div>
           </div>
-        </div>
+        ))}
       </div>
 
       {/* ── Development Timeline ── */}
