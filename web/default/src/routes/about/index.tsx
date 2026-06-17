@@ -22,13 +22,13 @@ function AboutCompany() {
   return (
     <AboutLayout>
       {/* ── Hero ── */}
-      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '120px 24px 80px', textAlign: 'center', marginBottom: 64, position: 'relative', overflow: 'hidden', background: '#001840' }}>
+      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '160px 24px 120px', textAlign: 'center', marginBottom: 64, position: 'relative', overflow: 'hidden', background: '#001840' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/about-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.4 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
-        <h1 style={{ fontSize: 48, fontWeight: 700, color: '#fff', marginBottom: 16, position: 'relative', zIndex: 1, letterSpacing: '-0.02em' }}>
+        <h1 style={{ fontSize: 52, fontWeight: 700, color: '#fff', marginBottom: 20, position: 'relative', zIndex: 1, letterSpacing: '-0.02em' }}>
           汇聚中国 AI 力量
         </h1>
-        <p style={{ fontSize: 22, color: 'rgba(255,255,255,0.75)', maxWidth: 560, margin: '0 auto', position: 'relative', zIndex: 1, lineHeight: 1.6 }}>
+        <p style={{ fontSize: 24, color: 'rgba(255,255,255,0.75)', maxWidth: 640, margin: '0 auto', position: 'relative', zIndex: 1, lineHeight: 1.6 }}>
           让生成式人工智能惠及每一位开发者和企业
         </p>
       </div>
@@ -66,7 +66,8 @@ function AboutCompany() {
       </div>
 
       {/* ── Development Timeline ── */}
-      <div style={{ background: `${BRAND.light}`, borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '64px 48px', marginBottom: 80, border: `1px solid ${BRAND.border}` }}>
+      <div style={{ background: `${BRAND.light}`, borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '80px 0', marginBottom: 80, border: `1px solid ${BRAND.border}` }}>
+        <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 24px' }}>
         <h2 style={{ fontSize: 40, fontWeight: 700, color: BRAND.deep, textAlign: 'center', marginBottom: 56, letterSpacing: '-0.02em' }}>
           发展历程
         </h2>
@@ -108,6 +109,7 @@ function AboutCompany() {
               </div>
             )
           })}
+        </div>
         </div>
       </div>
 

@@ -133,7 +133,8 @@ function ProductsApi() {
       </div>
 
       {/* ── Core Features ── */}
-      <div style={{ margin: '80px calc(-50vw + 50%) 0', padding: '80px 48px', background: `${BRAND.light}`, borderTop: `1px solid ${BRAND.border}`, borderBottom: `1px solid ${BRAND.border}` }}>
+      <div style={{ margin: '80px calc(-50vw + 50%) 0', padding: '80px 0', background: `${BRAND.light}`, borderTop: `1px solid ${BRAND.border}`, borderBottom: `1px solid ${BRAND.border}` }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Features</div>
           <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep }}>核心能力</h2>
@@ -160,6 +161,7 @@ function ProductsApi() {
               <div style={{ fontSize: 13, color: BRAND.muted, marginTop: 4 }}>{m.label}</div>
             </div>
           ))}
+        </div>
         </div>
       </div>
 
@@ -218,11 +220,12 @@ function ProductsApi() {
       </div>
 
       {/* ── CTA ── */}
-      <div style={{ margin: '80px calc(-50vw + 50%) 0', background: 'linear-gradient(135deg, #004A8F 0%, #002060 100%)', borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '64px 48px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ margin: '80px calc(-50vw + 50%) 0', background: 'linear-gradient(135deg, #004A8F 0%, #002060 100%)', borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '64px 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 50%, rgba(0,128,192,0.15) 0%, transparent 50%)' }} />
-        <h2 style={{ fontSize: 32, fontWeight: 700, color: '#fff', marginBottom: 16, position: 'relative', zIndex: 1 }}>准备好开始了吗？</h2>
-        <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.7)', maxWidth: 500, margin: '0 auto 28px', position: 'relative', zIndex: 1 }}>注册即享免费额度，零成本体验全部模型能力。</p>
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
+        <h2 style={{ fontSize: 32, fontWeight: 700, color: '#fff', marginBottom: 16 }}>准备好开始了吗？</h2>
+        <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.7)', maxWidth: 500, margin: '0 auto 28px' }}>注册即享免费额度，零成本体验全部模型能力。</p>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
           <a href="/pricing" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 36px', borderRadius: 10, fontWeight: 700, fontSize: 16, background: '#fff', color: BRAND.primary, textDecoration: 'none' }}>
             浏览模型 <ArrowRight size={18} />
           </a>
@@ -230,6 +233,7 @@ function ProductsApi() {
             <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', marginBottom: 2 }}>按量计费 · 零月费</div>
             <div style={{ fontSize: 14, color: '#fff', fontWeight: 700 }}>新人注册即享体验额度</div>
           </div>
+        </div>
         </div>
       </div>
     </ProductsLayout>

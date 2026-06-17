@@ -105,7 +105,8 @@ function ProductsReserved() {
       </div>
 
       {/* ── Core Features ── */}
-      <div style={{ margin: '80px calc(-50vw + 50%) 0', padding: '80px 48px', background: `${BRAND.light}`, borderTop: `1px solid ${BRAND.border}`, borderBottom: `1px solid ${BRAND.border}` }}>
+      <div style={{ margin: '80px calc(-50vw + 50%) 0', padding: '80px 0', background: `${BRAND.light}`, borderTop: `1px solid ${BRAND.border}`, borderBottom: `1px solid ${BRAND.border}` }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Features</div>
           <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep }}>核心能力</h2>
@@ -127,6 +128,7 @@ function ProductsReserved() {
         {/* SLA illustration */}
         <div style={{ marginTop: 48, borderRadius: 14, overflow: 'hidden', border: `1px solid ${BRAND.border}` }}>
           <img src="/reserved-sla-bg.png" alt="SLA保障" style={{ width: '100%', height: 'auto', display: 'block' }} />
+        </div>
         </div>
       </div>
 
@@ -176,11 +178,12 @@ function ProductsReserved() {
       </div>
 
       {/* ── CTA ── */}
-      <div style={{ margin: '80px calc(-50vw + 50%) 0', background: 'linear-gradient(135deg, #004A8F 0%, #002060 100%)', borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '64px 48px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ margin: '80px calc(-50vw + 50%) 0', background: 'linear-gradient(135deg, #004A8F 0%, #002060 100%)', borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '64px 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 50%, rgba(0,128,192,0.15) 0%, transparent 50%)' }} />
-        <h2 style={{ fontSize: 32, fontWeight: 700, color: '#fff', marginBottom: 16, position: 'relative', zIndex: 1 }}>立即申请预留实例</h2>
-        <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.7)', maxWidth: 500, margin: '0 auto 28px', position: 'relative', zIndex: 1 }}>获取你的专属算力方案和定制报价。</p>
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
+        <h2 style={{ fontSize: 32, fontWeight: 700, color: '#fff', marginBottom: 16 }}>立即申请预留实例</h2>
+        <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.7)', maxWidth: 500, margin: '0 auto 28px' }}>获取你的专属算力方案和定制报价。</p>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
           <a href="mailto:contact@aiburj.com" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 36px', borderRadius: 10, fontWeight: 700, fontSize: 16, background: '#fff', color: BRAND.primary, textDecoration: 'none' }}>
             联系销售 <ArrowRight size={18} />
           </a>
@@ -188,6 +191,7 @@ function ProductsReserved() {
             <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', marginBottom: 2 }}>专属方案定制</div>
             <div style={{ fontSize: 14, color: '#fff', fontWeight: 700 }}>1v1 架构师对接评估</div>
           </div>
+        </div>
         </div>
       </div>
     </ProductsLayout>

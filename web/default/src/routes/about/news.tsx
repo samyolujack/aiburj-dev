@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { AboutLayout } from '@/features/about/about-layout'
-import { Calendar, Tag } from 'lucide-react'
+import { Calendar, Tag, ArrowRight } from 'lucide-react'
 
-const BRAND = { primary: '#004A8F', deep: '#002060', accent: '#0080C0', muted: '#4A6A8A' }
+const BRAND = { primary: '#004A8F', deep: '#002060', accent: '#0080C0', muted: '#4A6A8A', border: '#E8ECF2', light: '#F0F4FA' }
 
 const newsItems = [
   {
@@ -50,67 +50,86 @@ const newsItems = [
 function AboutNews() {
   return (
     <AboutLayout>
-      {/* Page Header */}
-      <div style={{ marginBottom: 48 }}>
-        <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep, marginBottom: 12, letterSpacing: '-0.02em' }}>
+      {/* ── Hero ── */}
+      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '160px 24px 120px', textAlign: 'center', marginBottom: 80, position: 'relative', overflow: 'hidden', background: '#001840' }}>
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/about-news-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.35 }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 60% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
+        <h1 style={{ fontSize: 52, fontWeight: 700, color: '#fff', marginBottom: 20, position: 'relative', zIndex: 1, letterSpacing: '-0.02em' }}>
           资讯动态
-        </h2>
-        <p style={{ fontSize: 16, color: BRAND.muted }}>
-          了解 aiburj 最新产品发布、模型更新和技术动态。
+        </h1>
+        <p style={{ fontSize: 24, color: 'rgba(255,255,255,0.75)', maxWidth: 640, margin: '0 auto', position: 'relative', zIndex: 1, lineHeight: 1.6 }}>
+          了解 aiburj 最新产品发布、模型更新和技术动态
         </p>
       </div>
 
-      {/* News Cards */}
-      <div style={{ display: 'grid', gap: 20 }}>
-        {newsItems.map((item, i) => (
-          <div key={i} style={{
-            background: '#fff', borderRadius: 14, border: '1px solid #E8ECF2',
-            padding: '28px 32px', display: 'flex', gap: 24, alignItems: 'flex-start',
-            transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)', cursor: 'default',
-          }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateX(4px)'
-              e.currentTarget.style.boxShadow = '0 8px 28px rgba(0,74,143,0.06)'
-              e.currentTarget.style.borderColor = 'rgba(0,74,143,0.15)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateX(0)'
-              e.currentTarget.style.boxShadow = 'none'
-              e.currentTarget.style.borderColor = '#E8ECF2'
-            }}
-          >
-            {/* Date badge */}
-            <div style={{
-              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
-              flexShrink: 0, minWidth: 72,
-            }}>
-              <Calendar size={18} color={BRAND.accent} />
-              <div style={{ fontSize: 13, fontWeight: 600, color: BRAND.muted, textAlign: 'center', lineHeight: 1.4 }}>
-                {item.date.replace(/-/g, '\n')}
-              </div>
-            </div>
+      {/* ── News Timeline ── */}
+      <div style={{ position: 'relative', paddingBottom: 60 }}>
+        {/* Vertical timeline line */}
+        <div style={{
+          position: 'absolute', left: 36, top: 0, bottom: 0, width: 2,
+          background: `linear-gradient(to bottom, ${BRAND.accent}20, ${BRAND.border}, ${BRAND.accent}10)`,
+        }} />
 
-            {/* Content */}
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
-                <h3 style={{ fontSize: 18, fontWeight: 700, color: BRAND.deep, margin: 0 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+          {newsItems.map((item, i) => (
+            <div key={i} style={{ position: 'relative', paddingLeft: 80 }}>
+              {/* Timeline dot */}
+              <div style={{
+                position: 'absolute', left: 28, top: 28,
+                width: 18, height: 18, borderRadius: '50%',
+                border: `3px solid ${item.tagColor}`, background: '#fff',
+                zIndex: 2, boxShadow: `0 0 0 4px ${item.tagColor}14`,
+              }} />
+
+              {/* Card */}
+              <div style={{
+                background: '#fff', borderRadius: 14, border: `1px solid ${BRAND.border}`,
+                padding: '28px 32px',
+                transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)', cursor: 'default',
+              }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = 'translateX(6px)'
+                  e.currentTarget.style.boxShadow = '0 12px 36px rgba(0,74,143,0.08)'
+                  e.currentTarget.style.borderColor = 'rgba(0,74,143,0.2)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = 'translateX(0)'
+                  e.currentTarget.style.boxShadow = 'none'
+                  e.currentTarget.style.borderColor = BRAND.border
+                }}
+              >
+                {/* Top row: date + tag */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 12 }}>
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: 6,
+                    fontSize: 13, fontWeight: 600, color: BRAND.muted,
+                  }}>
+                    <Calendar size={14} color={BRAND.accent} />
+                    {item.date}
+                  </div>
+                  <span style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 4,
+                    fontSize: 12, fontWeight: 600, color: item.tagColor,
+                    background: `${item.tagColor}12`, padding: '2px 10px', borderRadius: 20,
+                  }}>
+                    <Tag size={10} />
+                    {item.tag}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 style={{ fontSize: 20, fontWeight: 700, color: BRAND.deep, marginBottom: 10, lineHeight: 1.4 }}>
                   {item.title}
                 </h3>
-                <span style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 4,
-                  fontSize: 12, fontWeight: 600, color: item.tagColor,
-                  background: `${item.tagColor}12`, padding: '2px 10px', borderRadius: 20,
-                }}>
-                  <Tag size={10} />
-                  {item.tag}
-                </span>
+
+                {/* Description */}
+                <p style={{ fontSize: 15, color: BRAND.muted, lineHeight: 1.9, margin: 0 }}>
+                  {item.desc}
+                </p>
               </div>
-              <p style={{ fontSize: 15, color: BRAND.muted, lineHeight: 1.8, margin: 0 }}>
-                {item.desc}
-              </p>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </AboutLayout>
   )

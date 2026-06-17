@@ -5,6 +5,8 @@ export const Route = createFileRoute('/about/brand')({
   component: AboutBrand,
 })
 
+const BRAND = { primary: '#004A8F', deep: '#002060', accent: '#0080C0', muted: '#4A6A8A', border: '#E8ECF2', light: '#F0F4FA' }
+
 const valuesData = [
   {
     num: '01',
@@ -31,59 +33,41 @@ const valuesData = [
 function AboutBrand() {
   return (
     <AboutLayout>
-      {/* Brand Banner */}
-      <div style={{
-        background: 'linear-gradient(135deg, #004A8F 0%, #002060 40%, #001840 100%)',
-        borderRadius: 20,
-        padding: '80px 60px',
-        textAlign: 'center',
-        marginBottom: 64,
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.2) 0%, transparent 60%)',
-        }} />
-        <h1 style={{
-          fontSize: 48, fontWeight: 700, color: '#fff',
-          marginBottom: 16, position: 'relative', zIndex: 1,
-          letterSpacing: '-0.02em',
-        }}>
+      {/* ── Hero ── */}
+      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '160px 24px 120px', textAlign: 'center', marginBottom: 80, position: 'relative', overflow: 'hidden', background: '#001840' }}>
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/about-brand-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.4 }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
+        <h1 style={{ fontSize: 52, fontWeight: 700, color: '#fff', marginBottom: 20, position: 'relative', zIndex: 1, letterSpacing: '-0.02em' }}>
           aiburj 品牌解读
         </h1>
-        <p style={{
-          fontSize: 20, color: 'rgba(255,255,255,0.7)',
-          maxWidth: 560, margin: '0 auto', position: 'relative', zIndex: 1,
-          lineHeight: 1.6,
-        }}>
+        <p style={{ fontSize: 24, color: 'rgba(255,255,255,0.75)', maxWidth: 640, margin: '0 auto', position: 'relative', zIndex: 1, lineHeight: 1.6 }}>
           AI + Burj（阿拉伯语"塔"）—— 国产大模型的灯塔
         </p>
       </div>
 
-      {/* Name Origin */}
+      {/* ── Name Origin ── */}
       <div style={{ marginBottom: 80 }}>
         <div style={{
-          textAlign: 'center', marginBottom: 40,
-          fontSize: 13, fontWeight: 700, color: '#0080C0',
+          textAlign: 'center', marginBottom: 16,
+          fontSize: 13, fontWeight: 700, color: BRAND.accent,
           letterSpacing: 3, textTransform: 'uppercase',
         }}>
           Brand Story
         </div>
         <h2 style={{
-          fontSize: 40, fontWeight: 700, color: '#002060', textAlign: 'center',
-          marginBottom: 32, letterSpacing: '-0.02em',
+          fontSize: 40, fontWeight: 700, color: BRAND.deep, textAlign: 'center',
+          marginBottom: 40, letterSpacing: '-0.02em',
         }}>
           名字的由来
         </h2>
         <div style={{
-          maxWidth: 700, margin: '0 auto',
-          fontSize: 17, color: '#4A6A8A', lineHeight: 2, textAlign: 'center',
+          maxWidth: 720, margin: '0 auto',
+          fontSize: 17, color: BRAND.muted, lineHeight: 2, textAlign: 'center',
         }}>
-          <p style={{ marginBottom: 16 }}>
-            aiburj 由 <strong style={{ color: '#004A8F' }}>AI</strong> + <strong style={{ color: '#004A8F' }}>Burj</strong> 组成。
+          <p style={{ marginBottom: 20 }}>
+            aiburj 由 <strong style={{ color: BRAND.primary }}>AI</strong> + <strong style={{ color: BRAND.primary }}>Burj</strong> 组成。
           </p>
-          <p style={{ marginBottom: 16 }}>
+          <p style={{ marginBottom: 20 }}>
             Burj 是阿拉伯语中"塔"的意思。正如迪拜哈利法塔（Burj Khalifa）以 828 米的高度刺破天际、重塑了人类建筑的极限，aiburj 致力于成为国产 AI 模型的最高灯塔 —— 汇聚中国 AI 之光，照亮智能之路。
           </p>
           <p>
@@ -92,89 +76,89 @@ function AboutBrand() {
         </div>
       </div>
 
-      {/* Mission & Vision */}
+      {/* ── Mission & Vision ── */}
       <div style={{
-        background: 'linear-gradient(135deg, #F0F4FA 0%, #E8EFF8 100%)',
-        borderRadius: 20, padding: '64px 48px', marginBottom: 80,
-        textAlign: 'center',
+        background: BRAND.light, borderRadius: 0, margin: '0 calc(-50vw + 50%)',
+        padding: '80px 0', marginBottom: 80, textAlign: 'center',
+        borderTop: `1px solid ${BRAND.border}`, borderBottom: `1px solid ${BRAND.border}`,
       }}>
+        <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 24px' }}>
         <div style={{
-          fontSize: 13, fontWeight: 700, color: '#0080C0',
+          fontSize: 13, fontWeight: 700, color: BRAND.accent,
           letterSpacing: 3, textTransform: 'uppercase', marginBottom: 16,
         }}>
           Mission & Vision
         </div>
         <h2 style={{
-          fontSize: 40, fontWeight: 700, color: '#002060',
-          marginBottom: 16, letterSpacing: '-0.02em',
+          fontSize: 40, fontWeight: 700, color: BRAND.deep,
+          marginBottom: 20, letterSpacing: '-0.02em',
         }}>
           使命与愿景
         </h2>
         <p style={{
-          fontSize: 28, fontWeight: 600, color: '#004A8F',
-          maxWidth: 700, margin: '0 auto 24px', lineHeight: 1.5,
+          fontSize: 26, fontWeight: 600, color: BRAND.primary,
+          maxWidth: 720, margin: '0 auto 24px', lineHeight: 1.5,
         }}>
           加速 AI 普惠中国，让世界因汇聚而更强大
         </p>
         <p style={{
-          fontSize: 16, color: '#4A6A8A', maxWidth: 600, margin: '0 auto',
-          lineHeight: 1.8,
+          fontSize: 16, color: BRAND.muted, maxWidth: 640, margin: '0 auto',
+          lineHeight: 1.9,
         }}>
           我们的使命是降低中国 AI 应用开发的门槛。让每一家创业公司都能用上大模型，让每一位开发者都能专注于产品创新而非基础设施。我们相信，当 AI 能力真正普惠时，中国的创新力将前所未有地迸发。
         </p>
+        </div>
       </div>
 
-      {/* Values */}
-      <div style={{ marginBottom: 60 }}>
+      {/* ── Values ── */}
+      <div style={{ marginBottom: 80 }}>
         <div style={{
           textAlign: 'center', fontSize: 13, fontWeight: 700,
-          color: '#0080C0', letterSpacing: 3, textTransform: 'uppercase',
+          color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase',
           marginBottom: 16,
         }}>
           Our Values
         </div>
         <h2 style={{
-          fontSize: 40, fontWeight: 700, color: '#002060', textAlign: 'center',
+          fontSize: 40, fontWeight: 700, color: BRAND.deep, textAlign: 'center',
           marginBottom: 48, letterSpacing: '-0.02em',
         }}>
           我们的价值观
         </h2>
-        {valuesData.map((v, i) => (
-          <div key={i} style={{
-            display: 'flex', gap: 32, alignItems: 'flex-start',
-            marginBottom: 40, padding: '32px',
-            background: '#fff', borderRadius: 14,
-            border: '1px solid #E8ECF2',
-            transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'scale(1.02)'
-              e.currentTarget.style.boxShadow = '0 8px 28px rgba(0,74,143,0.06)'
-              e.currentTarget.style.borderColor = 'rgba(0,74,143,0.15)'
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 24 }}>
+          {valuesData.map((v, i) => (
+            <div key={i} style={{
+              background: '#fff', borderRadius: 16,
+              border: `1px solid ${BRAND.border}`, padding: '40px 28px',
+              textAlign: 'center',
+              transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)', cursor: 'default',
             }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'scale(1)'
-              e.currentTarget.style.boxShadow = 'none'
-              e.currentTarget.style.borderColor = '#E8ECF2'
-            }}
-          >
-            <div style={{
-              fontSize: 48, fontWeight: 900, color: '#004A8F',
-              opacity: 0.15, lineHeight: 1, flexShrink: 0,
-              minWidth: 80,
-            }}>
-              {v.num}
-            </div>
-            <div>
-              <h3 style={{ fontSize: 22, fontWeight: 700, color: '#002060', marginBottom: 8 }}>
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = 'translateY(-6px)'
+                e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,74,143,0.1)'
+                e.currentTarget.style.borderColor = 'rgba(0,74,143,0.2)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
+                e.currentTarget.style.borderColor = BRAND.border
+              }}
+            >
+              <div style={{
+                fontSize: 52, fontWeight: 900, color: BRAND.primary,
+                opacity: 0.12, lineHeight: 1, marginBottom: 20,
+              }}>
+                {v.num}
+              </div>
+              <h3 style={{ fontSize: 20, fontWeight: 700, color: BRAND.deep, marginBottom: 12 }}>
                 {v.title}
               </h3>
-              <p style={{ fontSize: 15, color: '#4A6A8A', lineHeight: 1.9 }}>
+              <p style={{ fontSize: 14, color: BRAND.muted, lineHeight: 1.8 }}>
                 {v.desc}
               </p>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </AboutLayout>
   )
