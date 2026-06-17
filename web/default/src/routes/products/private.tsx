@@ -59,7 +59,7 @@ function ProductsPrivate() {
       </div>
 
       {/* ── Overview ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ display: 'flex', gap: 80, alignItems: 'center' }}>
           <div style={{ flex: 1 }}>
             <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep, marginBottom: 24 }}>企业级私有化大模型平台</h2>
@@ -74,7 +74,7 @@ function ProductsPrivate() {
       </div>
 
       {/* ── 安全特性 ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <h2 style={{ fontSize: 32, fontWeight: 700, color: BRAND.deep, marginBottom: 8 }}>全方位安全保障</h2>
           <p style={{ fontSize: 15, color: BRAND.muted }}>四级安全防护体系，从网络到应用层全面覆盖</p>
@@ -95,7 +95,7 @@ function ProductsPrivate() {
       </div>
 
       {/* ── 私有化 vs SaaS 对比 ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <h2 style={{ fontSize: 32, fontWeight: 700, color: BRAND.deep, marginBottom: 8 }}>为什么选择私有化部署？</h2>
           <p style={{ fontSize: 15, color: BRAND.muted }}>当数据安全和合规成为核心诉求，私有化部署是唯一解</p>
@@ -144,7 +144,7 @@ function ProductsPrivate() {
       </div>
 
       {/* ── Scenarios ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Scenarios</div>
           <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep }}>适用场景</h2>

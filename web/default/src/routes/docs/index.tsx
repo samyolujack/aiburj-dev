@@ -87,7 +87,7 @@ export function DocsPage() {
       {/* Hero */}
       <section style={{
         background: 'linear-gradient(135deg, #004A8F 0%, #002060 40%, #001840 100%)',
-        padding: '120px 24px 80px', textAlign: 'center', position: 'relative', overflow: 'hidden',
+        padding: '120px 24px 80px', textAlign: 'center', position: 'relative', overflow: 'hidden', margin: '0 calc(-50vw + 50%)', borderRadius: 0,
       }}>
         <div style={{
           position: 'absolute', inset: 0,
@@ -132,7 +132,7 @@ export function DocsPage() {
       </section>
 
       {/* Platform features */}
-      <section style={{ maxWidth: 1000, margin: '0 auto', padding: '72px 24px 0' }}>
+      <section style={{ maxWidth: 1000, margin: '0 auto', padding: '80px 24px 0' }}>
         <h2 style={{ textAlign: 'center', fontSize: 36, fontWeight: 700, color: '#002060', marginBottom: 40, letterSpacing: '-0.02em' }}>平台特性</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 20 }}>
           {features.map((f, i) => (
@@ -159,7 +159,7 @@ export function DocsPage() {
       </section>
 
       {/* Code Examples */}
-      <section style={{ maxWidth: 1000, margin: '0 auto', padding: '72px 24px 0' }} id="examples">
+      <section style={{ maxWidth: 1000, margin: '0 auto', padding: '80px 24px 0' }} id="examples">
         <h2 style={{ textAlign: 'center', fontSize: 36, fontWeight: 700, color: '#002060', marginBottom: 40, letterSpacing: '-0.02em' }}>代码示例</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(400px,1fr))', gap: 24 }}>
           <CodeBlock code={curlCode} label="cURL" />

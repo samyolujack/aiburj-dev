@@ -58,7 +58,7 @@ function ProductsReserved() {
       </div>
 
       {/* ── Overview ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ display: 'flex', gap: 80, alignItems: 'center' }}>
           <div style={{ flex: 1 }}>
             <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep, marginBottom: 24 }}>企业级独占算力方案</h2>
@@ -73,7 +73,7 @@ function ProductsReserved() {
       </div>
 
       {/* ── 公共实例 vs 预留实例对比 ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <h2 style={{ fontSize: 32, fontWeight: 700, color: BRAND.deep, marginBottom: 8 }}>为什么需要预留实例？</h2>
           <p style={{ fontSize: 15, color: BRAND.muted }}>当业务规模达到千万级调用量，公共实例的局限就显现了</p>
@@ -131,7 +131,7 @@ function ProductsReserved() {
       </div>
 
       {/* ── 定价方案 ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Pricing</div>
           <h2 style={{ fontSize: 32, fontWeight: 700, color: BRAND.deep, marginBottom: 8 }}>预留实例方案</h2>
@@ -160,7 +160,7 @@ function ProductsReserved() {
       </div>
 
       {/* ── Scenarios ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Scenarios</div>
           <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep }}>适用场景</h2>

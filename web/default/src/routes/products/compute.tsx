@@ -62,7 +62,7 @@ function ProductsCompute() {
       </div>
 
       {/* ── Overview ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ display: 'flex', gap: 80, alignItems: 'center' }}>
           <div style={{ flex: 1 }}>
             <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep, marginBottom: 24 }}>专业的 AI 算力基础设施</h2>
@@ -77,7 +77,7 @@ function ProductsCompute() {
       </div>
 
       {/* ── Architecture ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Architecture</div>
           <h2 style={{ fontSize: 32, fontWeight: 700, color: BRAND.deep, marginBottom: 8 }}>自研推理引擎架构</h2>
@@ -123,7 +123,7 @@ function ProductsCompute() {
       </div>
 
       {/* ── Performance Comparison ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Performance</div>
           <h2 style={{ fontSize: 32, fontWeight: 700, color: BRAND.deep, marginBottom: 8 }}>推理加速效果对比</h2>
@@ -157,7 +157,7 @@ function ProductsCompute() {
       </div>
 
       {/* ── GPU Architecture Support ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>GPU Support</div>
           <h2 style={{ fontSize: 32, fontWeight: 700, color: BRAND.deep, marginBottom: 8 }}>多 GPU 架构支持</h2>
@@ -182,7 +182,7 @@ function ProductsCompute() {
       </div>
 
       {/* ── Scenarios ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Scenarios</div>
           <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep }}>适用场景</h2>

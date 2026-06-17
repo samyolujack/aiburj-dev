@@ -59,7 +59,7 @@ function ProductsGateway() {
       </div>
 
       {/* ── Overview ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ display: 'flex', gap: 80, alignItems: 'center' }}>
           <div style={{ flex: 1 }}>
             <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep, marginBottom: 24 }}>企业级大模型 API 网关</h2>
@@ -74,7 +74,7 @@ function ProductsGateway() {
       </div>
 
       {/* ── 网关四层架构 ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Architecture</div>
           <h2 style={{ fontSize: 32, fontWeight: 700, color: BRAND.deep, marginBottom: 8 }}>四层网关架构</h2>
@@ -101,7 +101,7 @@ function ProductsGateway() {
       </div>
 
       {/* ── 网关 vs 直连对比 ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <h2 style={{ fontSize: 32, fontWeight: 700, color: BRAND.deep, marginBottom: 8 }}>网关 vs 直连厂商</h2>
           <p style={{ fontSize: 15, color: BRAND.muted }}>统一网关带来的不只是便利，更是企业级管控能力</p>
@@ -150,7 +150,7 @@ function ProductsGateway() {
       </div>
 
       {/* ── Scenarios ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Scenarios</div>
           <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep }}>适用场景</h2>

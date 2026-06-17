@@ -90,7 +90,7 @@ function ProductsApi() {
       </div>
 
       {/* ── Overview ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ display: 'flex', gap: 80, alignItems: 'center' }}>
           <div style={{ flex: 1 }}>
             <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep, marginBottom: 24 }}>一站式大模型调用平台</h2>
@@ -105,7 +105,7 @@ function ProductsApi() {
       </div>
 
       {/* ── Comparison Table ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <h2 style={{ fontSize: 32, fontWeight: 700, color: BRAND.deep, marginBottom: 8 }}>为什么选择 aiburj 而不是直接接厂商？</h2>
           <p style={{ fontSize: 15, color: BRAND.muted }}>一次接入 vs 逐个对接——省下的不只是时间</p>
@@ -164,7 +164,7 @@ function ProductsApi() {
       </div>
 
       {/* ── Usage Flow ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Quick Start</div>
           <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep }}>三步开始调用</h2>
@@ -190,7 +190,7 @@ function ProductsApi() {
       </div>
 
       {/* ── Code Example ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Try It</div>
           <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep }}>一行代码调用大模型</h2>
@@ -202,7 +202,7 @@ function ProductsApi() {
       </div>
 
       {/* ── Scenarios ── */}
-      <div style={{ padding: '80px 0 0' }}>
+      <div style={{ padding: '80px 0' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Scenarios</div>
           <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep }}>适用场景</h2>
