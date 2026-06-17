@@ -33,7 +33,6 @@ export const defaultTopNavLinks: TopNavLink[] = [
   { title: '文档', href: '/docs', children: [
     { title: '快速入门', href: '/docs' },
     { title: 'API 手册', href: '/docs/api' },
-    { title: '模型列表', href: '/pricing' },
     { title: '常见问题', href: '/docs/faq' },
   ]},
   { title: '关于', href: '/about', children: [

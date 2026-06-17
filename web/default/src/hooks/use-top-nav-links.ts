@@ -98,7 +98,6 @@ export function useTopNavLinks(): TopNavLink[] {
         title: t('Docs'), href: '/docs', children: [
           { title: t('快速入门'), href: '/docs' },
           { title: t('API 手册'), href: '/docs/api' },
-          { title: t('模型列表'), href: '/pricing' },
           { title: t('常见问题'), href: '/docs/faq' },
         ],
       })
