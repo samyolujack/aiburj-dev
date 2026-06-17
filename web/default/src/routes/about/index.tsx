@@ -26,7 +26,7 @@ function AboutCompany() {
         <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/about-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: '50% 25%', opacity: 0.4 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 80%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
         {/* Bottom glow */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 180, background: 'radial-gradient(ellipse at 50% 100%, rgba(0,128,192,0.2) 0%, transparent 70%)', zIndex: 0 }} />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 180, background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.95))', zIndex: 0 }} />
         <h1 style={{ fontSize: 52, fontWeight: 700, color: '#fff', marginBottom: 20, position: 'relative', zIndex: 1, letterSpacing: '-0.02em' }}>
           汇聚中国 AI 力量
         </h1>
