@@ -42,7 +42,7 @@ function ProductsPrivate() {
         <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/product-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.35 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
         {/* Bottom glow */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 180, background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.95))', zIndex: 0 }} />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 180, background: 'linear-gradient(to bottom, transparent, #F0F4FA)', zIndex: 0 }} />
         <h1 style={{ fontSize: 48, fontWeight: 700, color: '#fff', marginBottom: 16, position: 'relative', zIndex: 1 }}>私有化部署</h1>
         <p style={{ fontSize: 20, color: 'rgba(255,255,255,0.7)', maxWidth: 600, margin: '0 auto 36px', position: 'relative', zIndex: 1, lineHeight: 1.6 }}>
           企业级私有化大模型服务平台，一站式解决模型部署、性能优化与运维等需求。
