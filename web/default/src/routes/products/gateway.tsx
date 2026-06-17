@@ -38,9 +38,11 @@ function ProductsGateway() {
   return (
     <ProductsLayout>
       {/* ── Hero ── */}
-      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '160px 60px 120px', textAlign: 'center', marginBottom: 0, position: 'relative', overflow: 'hidden', background: '#001840' }}>
+      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '200px 60px 140px', textAlign: 'center', marginBottom: 0, position: 'relative', overflow: 'hidden', background: '#001840' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/product-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.35 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
+        {/* Bottom glow */}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 180, background: 'radial-gradient(ellipse at 50% 100%, rgba(0,128,192,0.2) 0%, transparent 70%)', zIndex: 0 }} />
         <h1 style={{ fontSize: 48, fontWeight: 700, color: '#fff', marginBottom: 16, position: 'relative', zIndex: 1 }}>API 网关</h1>
         <p style={{ fontSize: 20, color: 'rgba(255,255,255,0.7)', maxWidth: 600, margin: '0 auto 36px', position: 'relative', zIndex: 1, lineHeight: 1.6 }}>
           企业级大模型 API 网关，提供统一接入、安全管控、智能路由和用量监控能力。
