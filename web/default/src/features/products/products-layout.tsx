@@ -1,11 +1,13 @@
 import { PublicLayout } from '@/components/layout'
 
-type ProductsLayoutProps = { children: React.ReactNode }
+type LayoutProps = { children: React.ReactNode }
 
-export function ProductsLayout({ children }: ProductsLayoutProps) {
+export function ProductsLayout({ children }: LayoutProps) {
   return (
     <PublicLayout showMainContainer={false}>
-      {children}
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+        {children}
+      </div>
     </PublicLayout>
   )
 }
