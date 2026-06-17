@@ -22,7 +22,7 @@ function AboutCompany() {
   return (
     <AboutLayout>
       {/* ── Hero ── */}
-      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '350px 24px 350px', textAlign: 'center', marginBottom: 64, position: 'relative', overflow: 'hidden', background: '#001840', maskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)' }}>
+      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '355px 24px 355px', textAlign: 'center', marginBottom: 64, position: 'relative', overflow: 'hidden', background: '#001840', maskImage: 'linear-gradient(to bottom, black 0%, black 92%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 92%, transparent 100%)' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/about-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: '50% 25%', opacity: 0.4 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 80%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
         <h1 style={{ fontSize: 52, fontWeight: 700, color: '#fff', marginBottom: 20, position: 'relative', zIndex: 1, letterSpacing: '-0.02em' }}>

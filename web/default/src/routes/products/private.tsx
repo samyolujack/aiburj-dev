@@ -38,7 +38,7 @@ function ProductsPrivate() {
   return (
     <ProductsLayout>
       {/* ── Hero ── */}
-      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '280px 60px 280px', textAlign: 'center', marginBottom: 0, position: 'relative', overflow: 'hidden', background: '#001840', maskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)' }}>
+      <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '260px 60px 260px', textAlign: 'center', marginBottom: 0, position: 'relative', overflow: 'hidden', background: '#001840', maskImage: 'linear-gradient(to bottom, black 0%, black 92%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 92%, transparent 100%)' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/product-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.35 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
         <h1 style={{ fontSize: 48, fontWeight: 700, color: '#fff', marginBottom: 16, position: 'relative', zIndex: 1 }}>私有化部署</h1>

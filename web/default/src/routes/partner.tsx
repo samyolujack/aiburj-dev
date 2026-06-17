@@ -86,7 +86,7 @@ function PartnerPage() {
     <PublicLayout showMainContainer={false}>
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
         {/* ======== Hero ======== */}
-        <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '280px 24px 280px', textAlign: 'center', marginBottom: 0, position: 'relative', overflow: 'hidden', background: '#001840', maskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)' }}>
+        <div style={{ borderRadius: 0, margin: '0 calc(-50vw + 50%)', padding: '280px 24px 280px', textAlign: 'center', marginBottom: 0, position: 'relative', overflow: 'hidden', background: '#001840', maskImage: 'linear-gradient(to bottom, black 0%, black 92%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 92%, transparent 100%)' }}>
           <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/partner-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: '50% 25%', opacity: 0.4 }} />
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 180, background: 'linear-gradient(to bottom, transparent, #F0F4FA)', zIndex: 0 }} />
