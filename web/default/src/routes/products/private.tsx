@@ -38,7 +38,7 @@ function ProductsPrivate() {
   return (
     <ProductsLayout>
       {/* ── Hero ── */}
-      <div style={{ borderRadius: 20, padding: '80px 60px', textAlign: 'center', marginBottom: 0, position: 'relative', overflow: 'hidden', background: '#001840' }}>
+      <div style={{ borderRadius: 0, padding: '80px 60px', textAlign: 'center', marginBottom: 0, position: 'relative', overflow: 'hidden', background: '#001840' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/product-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.35 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
         <h1 style={{ fontSize: 48, fontWeight: 700, color: '#fff', marginBottom: 16, position: 'relative', zIndex: 1 }}>私有化部署</h1>
@@ -123,7 +123,7 @@ function ProductsPrivate() {
       </div>
 
       {/* ── Core Features ── */}
-      <div style={{ margin: '80px -48px 0', padding: '80px 48px', background: `${BRAND.light}`, borderTop: `1px solid ${BRAND.border}`, borderBottom: `1px solid ${BRAND.border}` }}>
+      <div style={{ margin: '80px 0 0', padding: '80px 48px', background: `${BRAND.light}`, borderTop: `1px solid ${BRAND.border}`, borderBottom: `1px solid ${BRAND.border}` }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: BRAND.accent, letterSpacing: 3, textTransform: 'uppercase', marginBottom: 12 }}>Features</div>
           <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep }}>核心能力</h2>
@@ -160,7 +160,7 @@ function ProductsPrivate() {
       </div>
 
       {/* ── CTA ── */}
-      <div style={{ margin: '80px -48px 0', background: 'linear-gradient(135deg, #004A8F 0%, #002060 100%)', borderRadius: 0, padding: '64px 48px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ margin: '80px 0 0', background: 'linear-gradient(135deg, #004A8F 0%, #002060 100%)', borderRadius: 0, padding: '64px 48px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 50%, rgba(0,128,192,0.15) 0%, transparent 50%)' }} />
         <h2 style={{ fontSize: 32, fontWeight: 700, color: '#fff', marginBottom: 16, position: 'relative', zIndex: 1 }}>获取专属私有化方案</h2>
         <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.7)', maxWidth: 500, margin: '0 auto 28px', position: 'relative', zIndex: 1 }}>我们的架构师团队将根据你的基础设施和业务需求，提供定制化部署方案。</p>

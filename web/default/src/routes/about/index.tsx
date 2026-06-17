@@ -22,7 +22,7 @@ function AboutCompany() {
   return (
     <AboutLayout>
       {/* ── Hero ── */}
-      <div style={{ borderRadius: 20, padding: '80px 60px', textAlign: 'center', marginBottom: 64, position: 'relative', overflow: 'hidden', background: '#001840' }}>
+      <div style={{ borderRadius: 0, padding: '120px 24px 80px', textAlign: 'center', marginBottom: 64, position: 'relative', overflow: 'hidden', background: '#001840' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: `url('/about-hero-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.4 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(0,128,192,0.15) 0%, transparent 60%)' }} />
         <h1 style={{ fontSize: 48, fontWeight: 700, color: '#fff', marginBottom: 16, position: 'relative', zIndex: 1, letterSpacing: '-0.02em' }}>
@@ -52,7 +52,7 @@ function AboutCompany() {
           </div>
         </div>
         {/* Stats illustration — replaces old gray placeholder */}
-        <div style={{ flex: '0 0 400px', background: `linear-gradient(135deg, ${BRAND.light} 0%, #E0ECF8 100%)`, borderRadius: 20, padding: '40px 32px', border: `1px solid ${BRAND.border}` }}>
+        <div style={{ flex: '0 0 400px', background: `linear-gradient(135deg, ${BRAND.light} 0%, #E0ECF8 100%)`, borderRadius: 0, padding: '40px 32px', border: `1px solid ${BRAND.border}` }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
             {statsData.map((s, i) => (
               <div key={i} style={{ textAlign: 'center', background: '#fff', borderRadius: 14, padding: '24px 16px', border: `1px solid ${BRAND.border}` }}>
@@ -66,7 +66,7 @@ function AboutCompany() {
       </div>
 
       {/* ── Development Timeline ── */}
-      <div style={{ background: `${BRAND.light}`, borderRadius: 20, padding: '64px 48px', marginBottom: 80, border: `1px solid ${BRAND.border}` }}>
+      <div style={{ background: `${BRAND.light}`, borderRadius: 0, padding: '64px 48px', marginBottom: 80, border: `1px solid ${BRAND.border}` }}>
         <h2 style={{ fontSize: 40, fontWeight: 700, color: BRAND.deep, textAlign: 'center', marginBottom: 56, letterSpacing: '-0.02em' }}>
           发展历程
         </h2>
