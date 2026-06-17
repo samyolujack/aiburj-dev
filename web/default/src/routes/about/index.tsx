@@ -117,7 +117,7 @@ function AboutCompany() {
         <h2 style={{ fontSize: 36, fontWeight: 700, color: BRAND.deep, textAlign: 'center', marginBottom: 48, letterSpacing: '-0.02em' }}>
           平台保障
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 20 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
           {guarantees.map((item, i) => (
             <div key={i} style={{ background: '#fff', borderRadius: 14, padding: '32px 24px', border: `1px solid ${BRAND.border}`, textAlign: 'center', transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)', cursor: 'default' }}
               onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,74,143,0.08)' }}
