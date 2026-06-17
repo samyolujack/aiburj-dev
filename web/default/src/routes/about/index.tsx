@@ -54,9 +54,9 @@ function AboutCompany() {
       </div>
 
       {/* ── Stats Bar ── */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: 48, marginBottom: 80 }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 64, marginBottom: 80 }}>
         {statsData.map((s, i) => (
-          <div key={i} style={{ textAlign: 'center', flex: '0 0 auto' }}>
+          <div key={i} style={{ textAlign: 'center', minWidth: 100 }}>
             <s.icon size={28} color={BRAND.primary} style={{ marginBottom: 8 }} />
             <div style={{ fontSize: 32, fontWeight: 800, color: BRAND.primary, lineHeight: 1 }}>{s.value}</div>
             <div style={{ fontSize: 14, color: BRAND.muted, marginTop: 4 }}>{s.label}</div>
