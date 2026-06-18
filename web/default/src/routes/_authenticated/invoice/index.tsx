@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
-import { FileText, Send } from 'lucide-react'
+import { Loader2, Send } from 'lucide-react'
 import { toast } from 'sonner'
+import { api } from '@/lib/api'
 import { Main } from '@/components/layout'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -28,19 +29,40 @@ function InvoicePage() {
   const [taxId, setTaxId] = useState('')
   const [email, setEmail] = useState('')
   const [remark, setRemark] = useState('')
+  const [submitting, setSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!amount || !title) {
       toast.error(t('请填写必要信息'))
       return
     }
-    toast.success(t('发票申请已提交，我们将尽快处理'))
-    setAmount('')
-    setTitle('')
-    setTaxId('')
-    setEmail('')
-    setRemark('')
+    setSubmitting(true)
+    try {
+      const res = await api.post('/api/user/invoice', {
+        type: invoiceType,
+        title,
+        tax_id: taxId,
+        amount: parseFloat(amount),
+        email,
+        remark,
+      })
+      if (res.data.success) {
+        toast.success(t('发票申请已提交，我们将尽快处理'))
+        setAmount('')
+        setTitle('')
+        setTaxId('')
+        setEmail('')
+        setRemark('')
+        setInvoiceType('personal')
+      } else {
+        toast.error(res.data.message || t('提交失败'))
+      }
+    } catch {
+      toast.error(t('提交失败，请稍后重试'))
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -125,9 +147,9 @@ function InvoicePage() {
             </div>
           </div>
 
-          <Button type="submit" className="gap-2">
-            <Send className="size-4" />
-            {t('提交申请')}
+          <Button type="submit" className="gap-2" disabled={submitting}>
+            {submitting ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
+            {submitting ? t('提交中...') : t('提交申请')}
           </Button>
         </form>
       </div>

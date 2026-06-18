@@ -285,6 +285,19 @@ func migrateDB() error {
 	if err != nil {
 		return err
 	}
+	// Manually create ticket and invoice tables for SQLite
+	if common.UsingSQLite {
+		if !DB.Migrator().HasTable("tickets") {
+			if err := DB.Migrator().CreateTable(&Ticket{}); err != nil {
+				return err
+			}
+		}
+		if !DB.Migrator().HasTable("invoices") {
+			if err := DB.Migrator().CreateTable(&Invoice{}); err != nil {
+				return err
+			}
+		}
+	}
 	if common.UsingSQLite {
 		if err := ensureSubscriptionPlanTableSQLite(); err != nil {
 			return err
