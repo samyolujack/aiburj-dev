@@ -20,26 +20,17 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { MOTION_TRANSITION, MOTION_VARIANTS } from '@/lib/motion'
 import { useLayout } from '@/context/layout-provider'
 import { useSidebarView } from '@/hooks/use-sidebar-view'
-import { Sidebar, SidebarContent, SidebarRail } from '@/components/ui/sidebar'
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarRail,
+} from '@/components/ui/sidebar'
 import { NavGroup } from './nav-group'
 import { SidebarViewHeader } from './sidebar-view-header'
 
 /**
- * Application sidebar.
- *
- * Adopts the Vercel / Cloudflare "drill-in" pattern: the URL drives
- * which sidebar *view* is rendered. Clicking a top-level entry like
- * `System Settings` swaps the sidebar to a contextual workspace —
- * with a `← Back to Dashboard` affordance — instead of stacking the
- * sub-navigation inside the root tree.
- *
- * Architecture:
- *   - View resolution + filtering: {@link useSidebarView}
- *   - View registry: `layout/lib/sidebar-view-registry.ts`
- *   - Per-view header: {@link SidebarViewHeader}
- *
- * Adding a new nested view only requires registering a {@link SidebarView}
- * in the registry; this component requires no changes.
+ * Application sidebar with drill-in pattern and branded header.
  */
 export function AppSidebar() {
   const { collapsible, variant } = useLayout()
@@ -48,10 +39,30 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible={collapsible} variant={variant}>
+      {/* Branded logo header with gradient background */}
+      <SidebarHeader className="border-sidebar-border border-b bg-linear-to-b from-[#004A8F] via-[#003878] to-[#002060] p-3">
+        <div className="flex items-center gap-2.5">
+          <img
+            src="/logo.png"
+            alt="aiburj"
+            className="size-8 rounded object-contain"
+            style={{ filter: 'brightness(0) invert(1)' }}
+          />
+          <div className="flex flex-col leading-tight">
+            <span className="text-[15px] font-bold text-white tracking-tight">
+              aiburj
+            </span>
+            <span className="text-[10px] text-white/60 tracking-wide">
+              控制台
+            </span>
+          </div>
+        </div>
+      </SidebarHeader>
+
       {view && <SidebarViewHeader view={view} />}
 
-      <SidebarContent className='py-2'>
-        <AnimatePresence mode='wait' initial={false}>
+      <SidebarContent className="py-2">
+        <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={key}
             initial={
@@ -60,7 +71,7 @@ export function AppSidebar() {
             animate={MOTION_VARIANTS.sidebarSlide.animate}
             exit={shouldReduce ? undefined : MOTION_VARIANTS.sidebarSlide.exit}
             transition={MOTION_TRANSITION.fast}
-            className='flex flex-col'
+            className="flex flex-col"
           >
             {navGroups.map((props) => (
               <NavGroup key={props.id || props.title} {...props} />

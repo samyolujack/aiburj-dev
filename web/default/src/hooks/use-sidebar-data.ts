@@ -17,19 +17,24 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import {
-  Activity,
+  BarChart3,
+  BookOpen,
   Box,
   CreditCard,
   FileText,
-  FlaskConical,
+  Gift,
   Image,
   Key,
   LayoutDashboard,
   ListTodo,
+  MessageCircle,
   MessageSquare,
   Mic,
   Radio,
+  ReceiptText,
+  ScrollText,
   Settings,
+  Store,
   Ticket,
   User,
   Users,
@@ -42,6 +47,10 @@ import { type SidebarData } from '@/components/layout/types'
 /**
  * Root navigation groups for the application sidebar.
  *
+ * Groups follow the SiliconFlow-inspired structure:
+ *   概览 → 体验中心 → 模型服务 → 费用管理 → 账户中心 → 活动运营
+ *   → 文档中心 → 工单反馈 → 系统管理（admin only）
+ *
  * These are shown when the URL does not match any nested sidebar view
  * registered in `layout/lib/sidebar-view-registry.ts`.
  */
@@ -50,6 +59,17 @@ export function useSidebarData(): SidebarData {
 
   return {
     navGroups: [
+      {
+        id: 'overview',
+        title: t('概览'),
+        items: [
+          {
+            title: t('Overview'),
+            url: '/dashboard/overview',
+            icon: LayoutDashboard,
+          },
+        ],
+      },
       {
         id: 'experience',
         title: t('体验中心'),
@@ -77,28 +97,60 @@ export function useSidebarData(): SidebarData {
         ],
       },
       {
-        id: 'general',
-        title: t('General'),
+        id: 'models',
+        title: t('模型服务'),
         items: [
-          {
-            title: t('Overview'),
-            url: '/dashboard/overview',
-            icon: Activity,
-          },
-          {
-            title: t('Dashboard'),
-            url: '/dashboard/models',
-            icon: LayoutDashboard,
-          },
           {
             title: t('API Keys'),
             url: '/keys',
             icon: Key,
           },
           {
-            title: t('Usage Logs'),
-            url: '/usage-logs/common',
+            title: t('模型广场'),
+            url: '/pricing',
+            icon: Store,
+          },
+          {
+            title: t('Dashboard'),
+            url: '/dashboard/models',
+            icon: BarChart3,
+          },
+        ],
+      },
+      {
+        id: 'billing',
+        title: t('费用管理'),
+        items: [
+          {
+            title: t('Wallet'),
+            url: '/wallet',
+            icon: Wallet,
+          },
+          {
+            title: t('费用明细'),
+            url: '/billing',
+            icon: ReceiptText,
+          },
+          {
+            title: t('发票开具'),
+            url: '/invoice',
             icon: FileText,
+          },
+        ],
+      },
+      {
+        id: 'account',
+        title: t('账户中心'),
+        items: [
+          {
+            title: t('Profile'),
+            url: '/profile',
+            icon: User,
+          },
+          {
+            title: t('使用日志'),
+            url: '/usage-logs/common',
+            icon: ScrollText,
           },
           {
             title: t('Task Logs'),
@@ -110,24 +162,46 @@ export function useSidebarData(): SidebarData {
         ],
       },
       {
-        id: 'personal',
-        title: t('Personal'),
+        id: 'activity',
+        title: t('活动运营'),
         items: [
           {
-            title: t('Wallet'),
+            title: t('推荐计划'),
             url: '/wallet',
-            icon: Wallet,
+            icon: Gift,
           },
           {
-            title: t('Profile'),
-            url: '/profile',
-            icon: User,
+            title: t('邀请记录'),
+            url: '/activity/invites',
+            icon: Users,
+          },
+        ],
+      },
+      {
+        id: 'docs',
+        title: t('文档中心'),
+        items: [
+          {
+            title: t('文档中心'),
+            url: '/docs',
+            icon: BookOpen,
+          },
+        ],
+      },
+      {
+        id: 'tickets',
+        title: t('工单反馈'),
+        items: [
+          {
+            title: t('工单反馈'),
+            url: '/tickets',
+            icon: MessageCircle,
           },
         ],
       },
       {
         id: 'admin',
-        title: t('Admin'),
+        title: t('系统管理'),
         items: [
           {
             title: t('Channels'),

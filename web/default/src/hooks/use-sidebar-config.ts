@@ -36,6 +36,10 @@ type SidebarModulesUserConfig = SidebarModulesAdminConfig | null
  * Default sidebar modules configuration
  */
 const DEFAULT_SIDEBAR_MODULES: SidebarModulesAdminConfig = {
+  overview: {
+    enabled: true,
+    dashboard: true,
+  },
   experience: {
     enabled: true,
     text: true,
@@ -43,23 +47,36 @@ const DEFAULT_SIDEBAR_MODULES: SidebarModulesAdminConfig = {
     video: true,
     tts: true,
   },
-  chat: {
+  models: {
     enabled: true,
-    playground: true,
-    chat: true,
+    keys: true,
+    pricing: true,
+    dashboard: true,
   },
-  console: {
+  billing: {
     enabled: true,
+    wallet: true,
     detail: true,
-    token: true,
-    log: true,
-    midjourney: true,
-    task: true,
+    invoice: true,
   },
-  personal: {
+  account: {
     enabled: true,
-    topup: true,
-    personal: true,
+    profile: true,
+    logs: true,
+    tasks: true,
+  },
+  activity: {
+    enabled: true,
+    referral: true,
+    invites: true,
+  },
+  docs: {
+    enabled: true,
+    docs: true,
+  },
+  tickets: {
+    enabled: true,
+    tickets: true,
   },
   admin: {
     enabled: true,
@@ -101,18 +118,27 @@ const mergeWithDefaultSidebarModules = (
  * Mapping from URL to configuration keys
  */
 const URL_TO_CONFIG_MAP: Record<string, { section: string; module: string }> = {
-  '/playground': { section: 'chat', module: 'playground' },
-  '/dashboard': { section: 'console', module: 'detail' },
-  '/dashboard/overview': { section: 'console', module: 'detail' },
-  '/dashboard/models': { section: 'console', module: 'detail' },
-  '/dashboard/users': { section: 'console', module: 'detail' },
-  '/keys': { section: 'console', module: 'token' },
-  '/usage-logs': { section: 'console', module: 'log' },
-  '/usage-logs/common': { section: 'console', module: 'log' },
-  '/usage-logs/drawing': { section: 'console', module: 'midjourney' },
-  '/usage-logs/task': { section: 'console', module: 'task' },
-  '/wallet': { section: 'personal', module: 'topup' },
-  '/profile': { section: 'personal', module: 'personal' },
+  '/playground': { section: 'experience', module: 'text' },
+  '/image-gen': { section: 'experience', module: 'image' },
+  '/video-gen': { section: 'experience', module: 'video' },
+  '/tts': { section: 'experience', module: 'tts' },
+  '/dashboard': { section: 'overview', module: 'dashboard' },
+  '/dashboard/overview': { section: 'overview', module: 'dashboard' },
+  '/dashboard/models': { section: 'models', module: 'dashboard' },
+  '/dashboard/users': { section: 'models', module: 'dashboard' },
+  '/keys': { section: 'models', module: 'keys' },
+  '/pricing': { section: 'models', module: 'pricing' },
+  '/wallet': { section: 'billing', module: 'wallet' },
+  '/billing': { section: 'billing', module: 'detail' },
+  '/invoice': { section: 'billing', module: 'invoice' },
+  '/profile': { section: 'account', module: 'profile' },
+  '/usage-logs': { section: 'account', module: 'logs' },
+  '/usage-logs/common': { section: 'account', module: 'logs' },
+  '/usage-logs/drawing': { section: 'account', module: 'tasks' },
+  '/usage-logs/task': { section: 'account', module: 'tasks' },
+  '/activity/invites': { section: 'activity', module: 'invites' },
+  '/docs': { section: 'docs', module: 'docs' },
+  '/tickets': { section: 'tickets', module: 'tickets' },
   '/channels': { section: 'admin', module: 'channel' },
   '/models': { section: 'admin', module: 'models' },
   '/models/metadata': { section: 'admin', module: 'models' },

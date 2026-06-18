@@ -54,23 +54,47 @@ export const HEADER_NAV_DEFAULT: HeaderNavModulesConfig = {
 }
 
 export const SIDEBAR_MODULES_DEFAULT: SidebarModulesAdminConfig = {
-  chat: {
+  overview: {
     enabled: true,
-    playground: true,
-    chat: true,
+    dashboard: true,
   },
-  console: {
+  experience: {
     enabled: true,
+    text: true,
+    image: true,
+    video: true,
+    tts: true,
+  },
+  models: {
+    enabled: true,
+    keys: true,
+    pricing: true,
+    dashboard: true,
+  },
+  billing: {
+    enabled: true,
+    wallet: true,
     detail: true,
-    token: true,
-    log: true,
-    midjourney: true,
-    task: true,
+    invoice: true,
   },
-  personal: {
+  account: {
     enabled: true,
-    topup: true,
-    personal: true,
+    profile: true,
+    logs: true,
+    tasks: true,
+  },
+  activity: {
+    enabled: true,
+    referral: true,
+    invites: true,
+  },
+  docs: {
+    enabled: true,
+    docs: true,
+  },
+  tickets: {
+    enabled: true,
+    tickets: true,
   },
   admin: {
     enabled: true,

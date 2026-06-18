@@ -61,24 +61,40 @@ export function SidebarModulesSection({
   const updateOption = useUpdateOption()
 
   const sectionMeta: Record<string, { title: string; description: string }> = {
+    overview: {
+      title: t('概览'),
+      description: t('Usage overview and setup guide.'),
+    },
     experience: {
-      title: t('Experience Center'),
+      title: t('体验中心'),
       description: t('AI model playground: text, images, video, and voice.'),
     },
-    chat: {
-      title: t('Chat area'),
-      description: t('Playground experiments and live conversations.'),
+    models: {
+      title: t('模型服务'),
+      description: t('API keys, model marketplace, and usage dashboard.'),
     },
-    console: {
-      title: t('Console area'),
-      description: t('Dashboards, tokens, and usage analytics.'),
+    billing: {
+      title: t('费用管理'),
+      description: t('Balance top-up, billing details, and invoice requests.'),
     },
-    personal: {
-      title: t('Personal area'),
-      description: t('Wallet management and personal preferences.'),
+    account: {
+      title: t('账户中心'),
+      description: t('Profile settings, usage logs, and task history.'),
+    },
+    activity: {
+      title: t('活动运营'),
+      description: t('Referral program and invitation records.'),
+    },
+    docs: {
+      title: t('文档中心'),
+      description: t('Quick link to documentation center.'),
+    },
+    tickets: {
+      title: t('工单反馈'),
+      description: t('Submit feedback and support tickets.'),
     },
     admin: {
-      title: t('Admin area'),
+      title: t('系统管理'),
       description: t('Global configuration and administrative tools.'),
     },
   }
@@ -87,64 +103,92 @@ export function SidebarModulesSection({
     string,
     Record<string, { title: string; description: string }>
   > = {
+    overview: {
+      dashboard: {
+        title: t('Overview'),
+        description: t('Usage overview and quick-start guide.'),
+      },
+    },
     experience: {
       text: {
-        title: t('Text Chat'),
+        title: t('文本对话'),
         description: t('Interactive AI conversation with model parameter tuning.'),
       },
       image: {
-        title: t('Image Generation'),
+        title: t('图像生成'),
         description: t('Create images from text prompts with adjustable parameters.'),
       },
       video: {
-        title: t('Video Generation'),
+        title: t('视频生成'),
         description: t('Generate videos from text descriptions with async task tracking.'),
       },
       tts: {
-        title: t('Text to Speech'),
+        title: t('语音合成'),
         description: t('Convert text to natural speech with voice selection.'),
       },
     },
-    chat: {
-      playground: {
-        title: t('Playground'),
-        description: t('Experiment with prompts and models in real time.'),
-      },
-      chat: {
-        title: t('Chat'),
-        description: t('Access previous conversations and start new ones.'),
-      },
-    },
-    console: {
-      detail: {
-        title: t('Dashboard'),
-        description: t('Aggregated usage metrics and trend charts.'),
-      },
-      token: {
-        title: t('Token management'),
+    models: {
+      keys: {
+        title: t('API Keys'),
         description: t('Create, revoke, and audit API tokens.'),
       },
-      log: {
-        title: t('Usage logs'),
-        description: t('Detailed request logs for investigations.'),
+      pricing: {
+        title: t('模型广场'),
+        description: t('Browse and compare available AI models.'),
       },
-      midjourney: {
-        title: t('Drawing logs'),
-        description: t('History of Midjourney-style image tasks.'),
-      },
-      task: {
-        title: t('Task logs'),
-        description: t('Background job tracker for queued work.'),
+      dashboard: {
+        title: t('数据看板'),
+        description: t('Aggregated usage metrics and trend charts.'),
       },
     },
-    personal: {
-      topup: {
+    billing: {
+      wallet: {
         title: t('Wallet'),
         description: t('Top up balance and view billing history.'),
       },
-      personal: {
+      detail: {
+        title: t('费用明细'),
+        description: t('Detailed consumption records and cost breakdown.'),
+      },
+      invoice: {
+        title: t('发票开具'),
+        description: t('Request and download invoices.'),
+      },
+    },
+    account: {
+      profile: {
         title: t('Profile'),
         description: t('Personal settings and profile management.'),
+      },
+      logs: {
+        title: t('使用日志'),
+        description: t('Detailed request logs for investigations.'),
+      },
+      tasks: {
+        title: t('任务日志'),
+        description: t('Background job tracker for queued work.'),
+      },
+    },
+    activity: {
+      referral: {
+        title: t('推荐计划'),
+        description: t('Invite friends and earn rewards.'),
+      },
+      invites: {
+        title: t('邀请记录'),
+        description: t('View invitation history and reward details.'),
+      },
+    },
+    docs: {
+      docs: {
+        title: t('文档中心'),
+        description: t('Quick access to platform documentation.'),
+      },
+    },
+    tickets: {
+      tickets: {
+        title: t('工单反馈'),
+        description: t('Submit and track support tickets.'),
       },
     },
     admin: {
