@@ -139,6 +139,54 @@ For commercial licensing, please contact support@quantumnous.com
   --skeleton-highlight: oklch(0.985 0 0);
 }
 
+/* ── aiburj sidebar active indicator ── */
+[data-sidebar="menu-button"][data-active="true"] {
+  position: relative;
+}
+[data-sidebar="menu-button"][data-active="true"]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  border-radius: 0 2px 2px 0;
+  background: var(--sidebar-primary);
+}
+/* ── aiburj card tag system ── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+.tag-blue {
+  background: rgba(0, 128, 192, 0.08);
+  color: #0080C0;
+}
+.tag-green {
+  background: rgba(16, 185, 129, 0.08);
+  color: #10b981;
+}
+.tag-purple {
+  background: rgba(139, 92, 246, 0.08);
+  color: #8b5cf6;
+}
+.tag-orange {
+  background: rgba(249, 115, 22, 0.08);
+  color: #f97316;
+}
+.tag-amber {
+  background: rgba(245, 158, 11, 0.08);
+  color: #f59e0b;
+}
+
 .dark {
   /* OpenAI-like dark mode: nearly black chrome, readable raised surfaces. */
   --background: oklch(0.185 0 0);
