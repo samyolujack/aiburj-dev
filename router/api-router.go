@@ -135,9 +135,12 @@ func SetApiRouter(router *gin.Engine) {
 				selfRoute.GET("/verification", controller.GetVerificationStatus)
 
 				// Alipay OAuth — authorize requires login, callback is public
-				selfRoute.GET("/oauth/alipay/authorize", controller.AlipayAuthorize)
-				// 方案B: 身份验证产品（刷脸）
-				selfRoute.POST("/oauth/alipay/certify", controller.AlipayCertifyInitiate)
+						selfRoute.GET("/oauth/alipay/authorize", controller.AlipayAuthorize)
+						// 方案B: 身份验证产品（刷脸）
+						selfRoute.POST("/oauth/alipay/certify", controller.AlipayCertifyInitiate)
+
+						// Model marketplace
+						selfRoute.GET("/marketplace/models", controller.MarketplaceListModels)
 
 				// Custom OAuth bindings
 				selfRoute.GET("/oauth/bindings", controller.GetUserOAuthBindings)

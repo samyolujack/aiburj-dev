@@ -362,3 +362,32 @@ func RetrieveModel(c *gin.Context, modelType int) {
 		})
 	}
 }
+
+// MarketplaceListModels returns rich model data for the model marketplace page
+func MarketplaceListModels(c *gin.Context) {
+	type ModelInfo struct {
+		Id          string `json:"id"`
+		ChannelId   int    `json:"channel_id"`
+		ChannelName string `json:"channel_name"`
+		Enabled     bool   `json:"enabled"`
+	}
+
+	var result []ModelInfo
+	for _, ability := range model.GetAllEnableAbilities() {
+		channel, _ := model.GetChannelById(ability.ChannelId, false)
+		channelName := "Unknown"
+		if channel != nil {
+			channelName = channel.Name
+		}
+		result = append(result, ModelInfo{
+			Id:          ability.Model,
+			ChannelId:   ability.ChannelId,
+			ChannelName: channelName,
+			Enabled:     ability.Enabled,
+		})
+	}
+	c.JSON(200, gin.H{
+		"success": true,
+		"data":    result,
+	})
+}
