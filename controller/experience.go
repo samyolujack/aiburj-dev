@@ -71,8 +71,8 @@ func ExperienceImage(c *gin.Context) {
 func ExperienceAudio(c *gin.Context) {
 	userId := c.GetInt("id")
 
-	// Parse request body as GeneralOpenAIRequest (TTS uses the same format)
-	var audioReq dto.GeneralOpenAIRequest
+	// Parse request body as AudioRequest
+	var audioReq dto.AudioRequest
 	if err := c.ShouldBindJSON(&audioReq); err != nil {
 		c.JSON(400, gin.H{
 			"error": types.NewError(err, types.ErrorCodeInvalidRequest).ToOpenAIError(),
