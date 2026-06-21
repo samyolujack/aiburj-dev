@@ -149,7 +149,42 @@ function VerificationPage() {
 
         {/* Submission form */}
         {(status === -1 || status === 2) && (
-          <form onSubmit={handleSubmit} className="rounded-xl border bg-card p-5 space-y-4">
+          <>
+            {/* Alipay OAuth — recommended */}
+            <div className="rounded-xl border border-[#1677FF]/20 bg-gradient-to-br from-[#1677FF]/[0.04] to-[#1677FF]/[0.01] p-5">
+              <div className="flex items-start gap-3">
+                <div className="mt-0.5 shrink-0 rounded-lg bg-[#1677FF] px-2 py-0.5 text-[10px] font-medium text-white">
+                  {t('推荐')}
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-medium text-sm">
+                    {t('支付宝一键认证')}
+                  </h3>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {t('通过支付宝授权自动获取实名信息，无需手动填写，即时通过')}
+                  </p>
+                </div>
+              </div>
+              <a
+                href="/api/user/oauth/alipay/authorize"
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-[#1677FF] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#1677FF]/90 no-underline"
+              >
+                <svg className="size-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.5 15.5v-5h-2.25c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h3c.41 0 .75.34.75.75s-.34.75-.75.75H12v5c0 .41-.34.75-.75.75s-.75-.34-.75-.75zm4.5-4.75c0 .41-.34.75-.75.75s-.75-.34-.75-.75v-1.5c0-.41.34-.75.75-.75s.75.34.75.75v1.5z"/>
+                </svg>
+                {t('支付宝认证')}
+              </a>
+            </div>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3">
+              <div className="h-px flex-1 bg-border" />
+              <span className="text-xs text-muted-foreground">{t('或手动填写')}</span>
+              <div className="h-px flex-1 bg-border" />
+            </div>
+
+            {/* Manual form */}
+            <form onSubmit={handleSubmit} className="rounded-xl border bg-card p-5 space-y-4">
             <div className="space-y-2">
               <Label>{t('真实姓名')} *</Label>
               <Input
@@ -183,6 +218,7 @@ function VerificationPage() {
               {submitting ? t('提交中...') : t('提交认证')}
             </Button>
           </form>
+          </>
         )}
       </div>
     </Main>
