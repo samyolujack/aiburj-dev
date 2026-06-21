@@ -297,6 +297,11 @@ func migrateDB() error {
 				return err
 			}
 		}
+		if !DB.Migrator().HasTable("user_verifications") {
+			if err := DB.Migrator().CreateTable(&UserVerification{}); err != nil {
+				return err
+			}
+		}
 	}
 	if common.UsingSQLite {
 		if err := ensureSubscriptionPlanTableSQLite(); err != nil {

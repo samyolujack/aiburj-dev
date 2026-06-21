@@ -126,6 +126,10 @@ func SetApiRouter(router *gin.Engine) {
 				selfRoute.POST("/invoice", controller.SubmitInvoice)
 				selfRoute.GET("/invoice", controller.GetMyInvoices)
 
+				// Verification routes
+				selfRoute.POST("/verification", controller.SubmitVerification)
+				selfRoute.GET("/verification", controller.GetVerificationStatus)
+
 				// Custom OAuth bindings
 				selfRoute.GET("/oauth/bindings", controller.GetUserOAuthBindings)
 				selfRoute.DELETE("/oauth/bindings/:provider_id", controller.UnbindCustomOAuth)

@@ -160,6 +160,10 @@ export function SidebarModulesSection({
         title: t('Profile'),
         description: t('Personal settings and profile management.'),
       },
+      verification: {
+        title: t('实名认证'),
+        description: t('Real-name verification for API key access.'),
+      },
       logs: {
         title: t('使用日志'),
         description: t('Detailed request logs for investigations.'),

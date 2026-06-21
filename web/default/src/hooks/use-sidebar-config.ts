@@ -62,6 +62,7 @@ const DEFAULT_SIDEBAR_MODULES: SidebarModulesAdminConfig = {
   account: {
     enabled: true,
     profile: true,
+    verification: true,
     logs: true,
     tasks: true,
   },
@@ -132,6 +133,7 @@ const URL_TO_CONFIG_MAP: Record<string, { section: string; module: string }> = {
   '/billing': { section: 'billing', module: 'detail' },
   '/invoice': { section: 'billing', module: 'invoice' },
   '/profile': { section: 'account', module: 'profile' },
+  '/verification': { section: 'account', module: 'verification' },
   '/usage-logs': { section: 'account', module: 'logs' },
   '/usage-logs/common': { section: 'account', module: 'logs' },
   '/usage-logs/drawing': { section: 'account', module: 'tasks' },

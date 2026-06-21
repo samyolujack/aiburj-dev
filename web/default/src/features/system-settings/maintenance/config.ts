@@ -80,6 +80,7 @@ export const SIDEBAR_MODULES_DEFAULT: SidebarModulesAdminConfig = {
   account: {
     enabled: true,
     profile: true,
+    verification: true,
     logs: true,
     tasks: true,
   },

@@ -34,6 +34,7 @@ import {
   ReceiptText,
   ScrollText,
   Settings,
+  ShieldCheck,
   Store,
   Ticket,
   User,
@@ -146,6 +147,11 @@ export function useSidebarData(): SidebarData {
             title: t('Profile'),
             url: '/profile',
             icon: User,
+          },
+          {
+            title: t('实名认证'),
+            url: '/verification',
+            icon: ShieldCheck,
           },
           {
             title: t('使用日志'),

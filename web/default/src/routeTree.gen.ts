@@ -49,6 +49,7 @@ import { Route as AuthenticatedSystemSettingsRouteRouteImport } from './routes/_
 import { Route as PricingModelIdIndexRouteImport } from './routes/pricing/$modelId/index'
 import { Route as AuthenticatedWalletIndexRouteImport } from './routes/_authenticated/wallet/index'
 import { Route as AuthenticatedVideoGenIndexRouteImport } from './routes/_authenticated/video-gen/index'
+import { Route as AuthenticatedVerificationIndexRouteImport } from './routes/_authenticated/verification/index'
 import { Route as AuthenticatedUsersIndexRouteImport } from './routes/_authenticated/users/index'
 import { Route as AuthenticatedUsageLogsIndexRouteImport } from './routes/_authenticated/usage-logs/index'
 import { Route as AuthenticatedTtsIndexRouteImport } from './routes/_authenticated/tts/index'
@@ -286,6 +287,12 @@ const AuthenticatedVideoGenIndexRoute =
   AuthenticatedVideoGenIndexRouteImport.update({
     id: '/video-gen/',
     path: '/video-gen/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedVerificationIndexRoute =
+  AuthenticatedVerificationIndexRouteImport.update({
+    id: '/verification/',
+    path: '/verification/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedUsersIndexRoute = AuthenticatedUsersIndexRouteImport.update({
@@ -565,6 +572,7 @@ export interface FileRoutesByFullPath {
   '/tts/': typeof AuthenticatedTtsIndexRoute
   '/usage-logs/': typeof AuthenticatedUsageLogsIndexRoute
   '/users/': typeof AuthenticatedUsersIndexRoute
+  '/verification/': typeof AuthenticatedVerificationIndexRoute
   '/video-gen/': typeof AuthenticatedVideoGenIndexRoute
   '/wallet/': typeof AuthenticatedWalletIndexRoute
   '/pricing/$modelId/': typeof PricingModelIdIndexRoute
@@ -641,6 +649,7 @@ export interface FileRoutesByTo {
   '/tts': typeof AuthenticatedTtsIndexRoute
   '/usage-logs': typeof AuthenticatedUsageLogsIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/verification': typeof AuthenticatedVerificationIndexRoute
   '/video-gen': typeof AuthenticatedVideoGenIndexRoute
   '/wallet': typeof AuthenticatedWalletIndexRoute
   '/pricing/$modelId': typeof PricingModelIdIndexRoute
@@ -721,6 +730,7 @@ export interface FileRoutesById {
   '/_authenticated/tts/': typeof AuthenticatedTtsIndexRoute
   '/_authenticated/usage-logs/': typeof AuthenticatedUsageLogsIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
+  '/_authenticated/verification/': typeof AuthenticatedVerificationIndexRoute
   '/_authenticated/video-gen/': typeof AuthenticatedVideoGenIndexRoute
   '/_authenticated/wallet/': typeof AuthenticatedWalletIndexRoute
   '/pricing/$modelId/': typeof PricingModelIdIndexRoute
@@ -800,6 +810,7 @@ export interface FileRouteTypes {
     | '/tts/'
     | '/usage-logs/'
     | '/users/'
+    | '/verification/'
     | '/video-gen/'
     | '/wallet/'
     | '/pricing/$modelId/'
@@ -876,6 +887,7 @@ export interface FileRouteTypes {
     | '/tts'
     | '/usage-logs'
     | '/users'
+    | '/verification'
     | '/video-gen'
     | '/wallet'
     | '/pricing/$modelId'
@@ -955,6 +967,7 @@ export interface FileRouteTypes {
     | '/_authenticated/tts/'
     | '/_authenticated/usage-logs/'
     | '/_authenticated/users/'
+    | '/_authenticated/verification/'
     | '/_authenticated/video-gen/'
     | '/_authenticated/wallet/'
     | '/pricing/$modelId/'
@@ -1286,6 +1299,13 @@ declare module '@tanstack/react-router' {
       path: '/video-gen'
       fullPath: '/video-gen/'
       preLoaderRoute: typeof AuthenticatedVideoGenIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/verification/': {
+      id: '/_authenticated/verification/'
+      path: '/verification'
+      fullPath: '/verification/'
+      preLoaderRoute: typeof AuthenticatedVerificationIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/users/': {
@@ -1657,6 +1677,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedTtsIndexRoute: typeof AuthenticatedTtsIndexRoute
   AuthenticatedUsageLogsIndexRoute: typeof AuthenticatedUsageLogsIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
+  AuthenticatedVerificationIndexRoute: typeof AuthenticatedVerificationIndexRoute
   AuthenticatedVideoGenIndexRoute: typeof AuthenticatedVideoGenIndexRoute
   AuthenticatedWalletIndexRoute: typeof AuthenticatedWalletIndexRoute
 }
@@ -1687,6 +1708,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedTtsIndexRoute: AuthenticatedTtsIndexRoute,
   AuthenticatedUsageLogsIndexRoute: AuthenticatedUsageLogsIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
+  AuthenticatedVerificationIndexRoute: AuthenticatedVerificationIndexRoute,
   AuthenticatedVideoGenIndexRoute: AuthenticatedVideoGenIndexRoute,
   AuthenticatedWalletIndexRoute: AuthenticatedWalletIndexRoute,
 }

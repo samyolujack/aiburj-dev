@@ -438,6 +438,17 @@ func GetSelf(c *gin.Context) {
 		"permissions":       permissions,                // 新增权限字段
 	}
 
+	// Check verification status
+	verification, _ := model.GetVerificationByUserId(user.Id)
+	verified := false
+	verificationStatus := -1
+	if verification != nil {
+		verificationStatus = verification.Status
+		verified = verification.Status == 1
+	}
+	responseData["verified"] = verified
+	responseData["verification_status"] = verificationStatus
+
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
 		"message": "",
