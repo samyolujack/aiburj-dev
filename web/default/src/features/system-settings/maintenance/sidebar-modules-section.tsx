@@ -172,6 +172,10 @@ export function SidebarModulesSection({
         title: t('任务日志'),
         description: t('Background job tracker for queued work.'),
       },
+      tickets: {
+        title: t('工单反馈'),
+        description: t('Submit tickets and track support status.'),
+      },
     },
     activity: {
       referral: {
@@ -182,17 +186,9 @@ export function SidebarModulesSection({
         title: t('邀请记录'),
         description: t('View invitation history and reward details.'),
       },
-    },
-    docs: {
       docs: {
         title: t('文档中心'),
-        description: t('Quick access to platform documentation.'),
-      },
-    },
-    tickets: {
-      tickets: {
-        title: t('工单反馈'),
-        description: t('Submit and track support tickets.'),
+        description: t('Product documentation and API guides.'),
       },
     },
     admin: {

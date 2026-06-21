@@ -89,8 +89,9 @@ function VerificationPage() {
     <Main>
       <div className="mx-auto flex max-w-lg flex-col gap-6 p-6 md:p-8">
         <div>
-          <h2 className="text-2xl font-semibold tracking-tight">
-            🛡️ {t('实名认证')}
+          <h2 className="text-2xl font-semibold tracking-tight flex items-center gap-2">
+            <ShieldCheck className="size-6" />
+            {t('实名认证')}
           </h2>
           <p className="text-muted-foreground mt-1 text-sm">
             {t('完成实名认证后即可申请 API 密钥')}
@@ -231,7 +232,6 @@ function VerificationPage() {
               <Input
                 value={realName}
                 onChange={(e) => setRealName(e.target.value)}
-                placeholder={t('请输入您的真实姓名')}
                 required
               />
             </div>
@@ -241,7 +241,6 @@ function VerificationPage() {
               <Input
                 value={idNumber}
                 onChange={(e) => setIdNumber(e.target.value)}
-                placeholder={t('请输入您的身份证号码')}
                 maxLength={18}
                 required
               />

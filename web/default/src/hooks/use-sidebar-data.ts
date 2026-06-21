@@ -165,6 +165,11 @@ export function useSidebarData(): SidebarData {
             configUrls: ['/usage-logs/drawing', '/usage-logs/task'],
             icon: ListTodo,
           },
+          {
+            title: t('工单反馈'),
+            url: '/tickets',
+            icon: MessageCircle,
+          },
         ],
       },
       {
@@ -181,27 +186,10 @@ export function useSidebarData(): SidebarData {
             url: '/activity/invites',
             icon: Users,
           },
-        ],
-      },
-      {
-        id: 'docs',
-        title: t('文档中心'),
-        items: [
           {
             title: t('文档中心'),
             url: '/docs',
             icon: BookOpen,
-          },
-        ],
-      },
-      {
-        id: 'tickets',
-        title: t('工单反馈'),
-        items: [
-          {
-            title: t('工单反馈'),
-            url: '/tickets',
-            icon: MessageCircle,
           },
         ],
       },

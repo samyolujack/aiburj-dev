@@ -86,16 +86,9 @@ export const SIDEBAR_MODULES_DEFAULT: SidebarModulesAdminConfig = {
   },
   activity: {
     enabled: true,
-    referral: true,
+    referrals: true,
     invites: true,
-  },
-  docs: {
-    enabled: true,
     docs: true,
-  },
-  tickets: {
-    enabled: true,
-    tickets: true,
   },
   admin: {
     enabled: true,
