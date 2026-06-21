@@ -30,6 +30,8 @@ func SetApiRouter(router *gin.Engine) {
 		apiRouter.GET("/about", controller.GetAbout)
 		// Alipay OAuth callback (has session cookie after redirect)
 		apiRouter.GET("/oauth/alipay/callback", middleware.UserAuth(), controller.AlipayCallback)
+		// Alipay certify callback (方案B, public)
+		apiRouter.GET("/oauth/alipay/certify-callback", middleware.UserAuth(), controller.AlipayCertifyCallback)
 		//apiRouter.GET("/midjourney", controller.GetMidjourney)
 		apiRouter.GET("/home_page_content", controller.GetHomePageContent)
 		apiRouter.GET("/pricing", middleware.HeaderNavModuleAuth("pricing"), controller.GetPricing)
@@ -134,6 +136,8 @@ func SetApiRouter(router *gin.Engine) {
 
 				// Alipay OAuth — authorize requires login, callback is public
 				selfRoute.GET("/oauth/alipay/authorize", controller.AlipayAuthorize)
+				// 方案B: 身份验证产品（刷脸）
+				selfRoute.POST("/oauth/alipay/certify", controller.AlipayCertifyInitiate)
 
 				// Custom OAuth bindings
 				selfRoute.GET("/oauth/bindings", controller.GetUserOAuthBindings)

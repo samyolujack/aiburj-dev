@@ -32,7 +32,7 @@ func getAlipayConfig() (appId, privateKey, publicKey, gateway string) {
 		"https://openapi.alipay.com/gateway.do"
 }
 
-// ── Authorize: 跳转支付宝授权页 ─────────────────────────────────────────────
+// ── 方案A: 获取会员信息（免费，已实现）──────────────────────────────────────
 
 // AlipayAuthorize redirects user to Alipay OAuth authorization page
 func AlipayAuthorize(c *gin.Context) {
@@ -46,7 +46,7 @@ func AlipayAuthorize(c *gin.Context) {
 	}
 
 	state := fmt.Sprintf("%x", time.Now().UnixNano())
-	redirectUri := getAlipayRedirectUri(c)
+	redirectUri := getAlipayRedirectUri(c, "callback")
 
 	authUrl := fmt.Sprintf(
 		"https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=%s&scope=auth_user&redirect_uri=%s&state=%s",
@@ -58,142 +58,207 @@ func AlipayAuthorize(c *gin.Context) {
 	c.Redirect(http.StatusTemporaryRedirect, authUrl)
 }
 
-func getAlipayRedirectUri(c *gin.Context) string {
+func getAlipayRedirectUri(c *gin.Context, path string) string {
 	scheme := "http"
 	if c.Request.TLS != nil || c.GetHeader("X-Forwarded-Proto") == "https" {
 		scheme = "https"
 	}
-	return fmt.Sprintf("%s://%s/api/oauth/alipay/callback", scheme, c.Request.Host)
+	return fmt.Sprintf("%s://%s/api/oauth/alipay/%s", scheme, c.Request.Host, path)
 }
 
-// ── Callback: 处理支付宝回调 ────────────────────────────────────────────────
-
-// AlipayCallback handles the OAuth callback from Alipay
+// AlipayCallback handles the OAuth callback from Alipay (方案A)
 func AlipayCallback(c *gin.Context) {
 	appId, privateKeyPem, _, gateway := getAlipayConfig()
 	if appId == "" {
-		c.JSON(http.StatusServiceUnavailable, gin.H{
-			"success": false,
-			"message": "支付宝认证暂未配置",
-		})
+		c.JSON(http.StatusServiceUnavailable, gin.H{"success": false, "message": "支付宝认证暂未配置"})
 		return
 	}
 
 	authCode := c.Query("auth_code")
 	if authCode == "" {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"success": false,
-			"message": "授权失败，未获取到授权码",
-		})
+		c.JSON(http.StatusBadRequest, gin.H{"success": false, "message": "授权失败"})
 		return
 	}
 
-	// Step 1: 用 auth_code 换取 access_token
-	accessToken, userId, err := alipayGetAccessToken(appId, privateKeyPem, gateway, authCode)
+	accessToken, _, err := alipayGetAccessToken(appId, privateKeyPem, gateway, authCode)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"success": false,
-			"message": "换取token失败: " + err.Error(),
-		})
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "换取token失败: " + err.Error()})
 		return
 	}
 
-	// Step 2: 用 access_token 获取用户实名信息
 	realName, certNo, err := alipayGetUserInfo(appId, privateKeyPem, gateway, accessToken)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"success": false,
-			"message": "获取用户信息失败: " + err.Error(),
-		})
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "获取用户信息失败: " + err.Error()})
 		return
 	}
 
-	// Step 3: 保存认证信息（自动审核通过）
-	aiburjUserId := c.GetInt("id")
-	existing, _ := model.GetVerificationByUserId(aiburjUserId)
-
-	if existing != nil {
-		// 更新已有记录
-		existing.RealName = realName
-		existing.IdNumber = certNo
-		existing.Status = 1 // 自动通过
-		model.DB.Save(existing)
-	} else {
-		// 新建认证记录
-		v := &model.UserVerification{
-			UserId:      aiburjUserId,
-			RealName:    realName,
-			IdNumber:    certNo,
-			Status:      1, // 自动通过
-		}
-		model.CreateVerification(v)
-	}
-
-	// 关联支付宝userId
-	_ = userId // 可用于后续业务
-
+	saveVerification(c.GetInt("id"), realName, certNo)
 	c.Redirect(http.StatusTemporaryRedirect, "/verification?alipay=success")
 }
 
-// ── 支付宝API调用 ──────────────────────────────────────────────────────────
+// ── 方案B: 身份验证产品（刷脸，收费）─────────────────────────────────────────
 
-func alipayGetAccessToken(appId, privateKeyPem, gateway, authCode string) (accessToken, userId string, err error) {
-	bizContent := map[string]string{
-		"grant_type":  "authorization_code",
-		"code":        authCode,
+// AlipayCertifyInitiate starts the identity certification process (方案B)
+func AlipayCertifyInitiate(c *gin.Context) {
+	appId, privateKeyPem, _, gateway := getAlipayConfig()
+	if appId == "" {
+		c.JSON(http.StatusServiceUnavailable, gin.H{"success": false, "message": "支付宝认证暂未配置"})
+		return
 	}
-	body, _ := json.Marshal(bizContent)
 
-	params := alipayBuildParams(appId, "alipay.system.oauth.token", string(body))
+	userId := c.GetInt("id")
+
+	// Generate unique certify ID
+	outBizNo := fmt.Sprintf("verify_%d_%d", userId, time.Now().UnixNano())
+	returnUrl := getAlipayRedirectUri(c, "certify-callback")
+
+	bizContent, _ := json.Marshal(map[string]string{
+		"out_biz_no":   outBizNo,
+		"biz_code":     "FACE",
+		"return_url":   returnUrl,
+	})
+
+	params := alipayBuildParams(appId, "alipay.user.certify.open.initialize", string(bizContent))
+	resp, err := alipayDoRequest(gateway, appId, privateKeyPem, params)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "发起认证失败: " + err.Error()})
+		return
+	}
+
+	var result struct {
+		AlipayUserCertifyOpenInitializeResponse struct {
+			CertifyId string `json:"certify_id"`
+			CertifyUrl string `json:"certify_url"`
+			Code       string `json:"code"`
+			Msg        string `json:"msg"`
+		} `json:"alipay_user_certify_open_initialize_response"`
+	}
+	if err := json.Unmarshal(resp, &result); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "解析响应失败"})
+		return
+	}
+
+	r := result.AlipayUserCertifyOpenInitializeResponse
+	if r.Code != "10000" {
+		c.JSON(http.StatusBadRequest, gin.H{"success": false, "message": r.Msg})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"success":    true,
+		"certify_url": r.CertifyUrl,
+		"certify_id":  r.CertifyId,
+	})
+}
+
+// AlipayCertifyCallback handles the return from Alipay certification (方案B)
+func AlipayCertifyCallback(c *gin.Context) {
+	appId, privateKeyPem, _, gateway := getAlipayConfig()
+	if appId == "" {
+		c.Redirect(http.StatusTemporaryRedirect, "/verification?alipay=error")
+		return
+	}
+
+	certifyId := c.Query("certify_id")
+	if certifyId == "" {
+		c.Redirect(http.StatusTemporaryRedirect, "/verification?alipay=error")
+		return
+	}
+
+	// Query certification result
+	bizContent, _ := json.Marshal(map[string]string{"certify_id": certifyId})
+	params := alipayBuildParams(appId, "alipay.user.certify.open.query", string(bizContent))
+	resp, err := alipayDoRequest(gateway, appId, privateKeyPem, params)
+	if err != nil {
+		c.Redirect(http.StatusTemporaryRedirect, "/verification?alipay=error")
+		return
+	}
+
+	var result struct {
+		AlipayUserCertifyOpenQueryResponse struct {
+			Passed     string `json:"passed"`
+			IdentityInfo string `json:"identity_info"`
+			Code       string `json:"code"`
+		} `json:"alipay_user_certify_open_query_response"`
+	}
+	json.Unmarshal(resp, &result)
+	r := result.AlipayUserCertifyOpenQueryResponse
+
+	if r.Passed != "T" {
+		c.Redirect(http.StatusTemporaryRedirect, "/verification?alipay=fail")
+		return
+	}
+
+	// Parse identity info to get real_name and cert_no
+	var identity struct {
+		RealName string `json:"cert_name"`
+		CertNo   string `json:"cert_no"`
+	}
+	json.Unmarshal([]byte(r.IdentityInfo), &identity)
+
+	saveVerification(c.GetInt("id"), identity.RealName, identity.CertNo)
+	c.Redirect(http.StatusTemporaryRedirect, "/verification?alipay=success")
+}
+
+// ── 方案A API调用 ──────────────────────────────────────────────────────────
+
+func alipayGetAccessToken(appId, privateKeyPem, gateway, authCode string) (string, string, error) {
+	bizContent, _ := json.Marshal(map[string]string{
+		"grant_type": "authorization_code",
+		"code":       authCode,
+	})
+	params := alipayBuildParams(appId, "alipay.system.oauth.token", string(bizContent))
 	resp, err := alipayDoRequest(gateway, appId, privateKeyPem, params)
 	if err != nil {
 		return "", "", err
 	}
-
 	var result struct {
 		AlipaySystemOauthTokenResponse struct {
 			AccessToken string `json:"access_token"`
 			UserId      string `json:"user_id"`
 		} `json:"alipay_system_oauth_token_response"`
 	}
-	if err := json.Unmarshal(resp, &result); err != nil {
-		return "", "", fmt.Errorf("解析token响应失败: %w", err)
-	}
-
+	json.Unmarshal(resp, &result)
 	return result.AlipaySystemOauthTokenResponse.AccessToken,
-		result.AlipaySystemOauthTokenResponse.UserId,
-		nil
+		result.AlipaySystemOauthTokenResponse.UserId, nil
 }
 
-func alipayGetUserInfo(appId, privateKeyPem, gateway, accessToken string) (realName, certNo string, err error) {
-	bizContent := map[string]string{}
-	body, _ := json.Marshal(bizContent)
-
-	params := alipayBuildParams(appId, "alipay.user.info.share", string(body))
+func alipayGetUserInfo(appId, privateKeyPem, gateway, accessToken string) (string, string, error) {
+	params := alipayBuildParams(appId, "alipay.user.info.share", "{}")
 	params["auth_token"] = accessToken
-
 	resp, err := alipayDoRequest(gateway, appId, privateKeyPem, params)
 	if err != nil {
 		return "", "", err
 	}
-
 	var result struct {
 		AlipayUserInfoShareResponse struct {
 			RealName string `json:"real_name"`
 			CertNo   string `json:"cert_no"`
-			UserId   string `json:"user_id"`
 		} `json:"alipay_user_info_share_response"`
 	}
-	if err := json.Unmarshal(resp, &result); err != nil {
-		return "", "", fmt.Errorf("解析用户信息响应失败: %w", err)
-	}
-
+	json.Unmarshal(resp, &result)
 	return result.AlipayUserInfoShareResponse.RealName,
-		result.AlipayUserInfoShareResponse.CertNo,
-		nil
+		result.AlipayUserInfoShareResponse.CertNo, nil
 }
 
-// ── 签名和请求工具 ──────────────────────────────────────────────────────────
+// ── 共享工具函数 ─────────────────────────────────────────────────────────
+
+func saveVerification(userId int, realName, certNo string) {
+	existing, _ := model.GetVerificationByUserId(userId)
+	if existing != nil {
+		existing.RealName = realName
+		existing.IdNumber = certNo
+		existing.Status = 1
+		model.DB.Save(existing)
+	} else {
+		model.CreateVerification(&model.UserVerification{
+			UserId:   userId,
+			RealName: realName,
+			IdNumber: certNo,
+			Status:   1,
+		})
+	}
+}
 
 func alipayBuildParams(appId, method, bizContent string) map[string]string {
 	return map[string]string{
@@ -209,7 +274,6 @@ func alipayBuildParams(appId, method, bizContent string) map[string]string {
 }
 
 func alipayDoRequest(gateway, appId, privateKeyPem string, params map[string]string) ([]byte, error) {
-	// Sort keys
 	keys := make([]string, 0, len(params))
 	for k := range params {
 		if k != "sign" {
@@ -218,7 +282,6 @@ func alipayDoRequest(gateway, appId, privateKeyPem string, params map[string]str
 	}
 	sort.Strings(keys)
 
-	// Build sign string
 	var signBuilder strings.Builder
 	for i, k := range keys {
 		if i > 0 {
@@ -229,7 +292,6 @@ func alipayDoRequest(gateway, appId, privateKeyPem string, params map[string]str
 		signBuilder.WriteString(params[k])
 	}
 
-	// Sign
 	privateKey, err := parsePrivateKey(privateKeyPem)
 	if err != nil {
 		return nil, fmt.Errorf("解析私钥失败: %w", err)
@@ -241,7 +303,6 @@ func alipayDoRequest(gateway, appId, privateKeyPem string, params map[string]str
 	}
 	params["sign"] = base64.StdEncoding.EncodeToString(signature)
 
-	// Build form body
 	form := url.Values{}
 	for k, v := range params {
 		form.Set(k, v)
@@ -252,7 +313,6 @@ func alipayDoRequest(gateway, appId, privateKeyPem string, params map[string]str
 		return nil, fmt.Errorf("请求支付宝失败: %w", err)
 	}
 	defer resp.Body.Close()
-
 	return io.ReadAll(resp.Body)
 }
 
@@ -261,5 +321,13 @@ func parsePrivateKey(pemStr string) (*rsa.PrivateKey, error) {
 	if block == nil {
 		return nil, fmt.Errorf("无法解析PEM私钥")
 	}
-	return x509.ParsePKCS1PrivateKey(block.Bytes)
+	key, err := x509.ParsePKCS8PrivateKey(block.Bytes)
+	if err != nil {
+		return x509.ParsePKCS1PrivateKey(block.Bytes)
+	}
+	rsaKey, ok := key.(*rsa.PrivateKey)
+	if !ok {
+		return nil, fmt.Errorf("非RSA私钥")
+	}
+	return rsaKey, nil
 }

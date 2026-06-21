@@ -150,30 +150,71 @@ function VerificationPage() {
         {/* Submission form */}
         {(status === -1 || status === 2) && (
           <>
-            {/* Alipay OAuth — recommended */}
-            <div className="rounded-xl border border-[#1677FF]/20 bg-gradient-to-br from-[#1677FF]/[0.04] to-[#1677FF]/[0.01] p-5">
-              <div className="flex items-start gap-3">
-                <div className="mt-0.5 shrink-0 rounded-lg bg-[#1677FF] px-2 py-0.5 text-[10px] font-medium text-white">
-                  {t('推荐')}
+            {/* Two Alipay options side by side */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              {/* Option A: 一键授权（免费） */}
+              <div className="rounded-xl border border-[#1677FF]/20 bg-gradient-to-br from-[#1677FF]/[0.04] to-[#1677FF]/[0.01] p-5">
+                <div className="mb-2">
+                  <span className="inline-flex rounded-md bg-green-100 px-2 py-0.5 text-[10px] font-medium text-green-700">
+                    {t('免费')}
+                  </span>
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-medium text-sm">
-                    {t('支付宝一键认证')}
-                  </h3>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {t('通过支付宝授权自动获取实名信息，无需手动填写，即时通过')}
-                  </p>
-                </div>
+                <h3 className="font-medium text-sm">
+                  {t('支付宝授权认证')}
+                </h3>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {t('一键授权，获取已认证的实名信息，即时通过')}
+                </p>
+                <a
+                  href="/api/user/oauth/alipay/authorize"
+                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-[#1677FF] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#1677FF]/90 no-underline"
+                >
+                  {t('授权认证')}
+                </a>
               </div>
-              <a
-                href="/api/user/oauth/alipay/authorize"
-                className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-[#1677FF] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#1677FF]/90 no-underline"
-              >
-                <svg className="size-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.5 15.5v-5h-2.25c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h3c.41 0 .75.34.75.75s-.34.75-.75.75H12v5c0 .41-.34.75-.75.75s-.75-.34-.75-.75zm4.5-4.75c0 .41-.34.75-.75.75s-.75-.34-.75-.75v-1.5c0-.41.34-.75.75-.75s.75.34.75.75v1.5z"/>
-                </svg>
-                {t('支付宝认证')}
-              </a>
+
+              {/* Option B: 刷脸认证（付费，金融级） */}
+              <div className="rounded-xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white p-5">
+                <div className="mb-2 flex items-center gap-1.5">
+                  <span className="inline-flex rounded-md bg-amber-100 px-2 py-0.5 text-[10px] font-medium text-amber-700">
+                    {t('付费')}
+                  </span>
+                  <span className="inline-flex rounded-md bg-blue-100 px-2 py-0.5 text-[10px] font-medium text-blue-700">
+                    {t('金融级')}
+                  </span>
+                </div>
+                <h3 className="font-medium text-sm">
+                  {t('支付宝刷脸认证')}
+                </h3>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {t('实时人脸核验，每次约¥0.5，权威性更高')}
+                </p>
+                <Button
+                  onClick={async () => {
+                    setSubmitting(true)
+                    try {
+                      const res = await api.post('/api/user/oauth/alipay/certify')
+                      if (res.data?.certify_url) {
+                        window.location.href = res.data.certify_url
+                      } else {
+                        toast.error(res.data?.message || t('发起认证失败'))
+                      }
+                    } catch {
+                      toast.error(t('发起认证失败'))
+                    } finally {
+                      setSubmitting(false)
+                    }
+                  }}
+                  disabled={submitting}
+                  className="mt-4 w-full gap-2"
+                  variant="outline"
+                >
+                  {submitting ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : null}
+                  {t('刷脸认证')}
+                </Button>
+              </div>
             </div>
 
             {/* Divider */}
