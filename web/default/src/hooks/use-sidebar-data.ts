@@ -108,7 +108,7 @@ export function useSidebarData(): SidebarData {
           },
           {
             title: t('模型广场'),
-            url: '/pricing',
+            url: '/models',
             icon: Store,
           },
           {
