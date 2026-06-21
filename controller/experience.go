@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"errors"
 	"fmt"
 
+	"github.com/QuantumNous/new-api/dto"
 	"github.com/QuantumNous/new-api/middleware"
 	"github.com/QuantumNous/new-api/model"
 	relaycommon "github.com/QuantumNous/new-api/relay/common"
@@ -13,31 +13,40 @@ import (
 )
 
 // ExperienceImage handles image generation requests from the experience center.
-// Follows the same pattern as Playground: creates a temp token and relays
-// through the standard pipeline with RelayFormatOpenAIImage.
+// Directly parses the request body as ImageRequest and passes it through
+// GenRelayInfo → relayHandler pipeline (which dispatches to ImageHelper).
 func ExperienceImage(c *gin.Context) {
-	var newAPIError *types.NewAPIError
-
-	defer func() {
-		if newAPIError != nil {
-			c.JSON(newAPIError.StatusCode, gin.H{
-				"error": newAPIError.ToOpenAIError(),
-			})
-		}
-	}()
-
 	userId := c.GetInt("id")
 
+	// Parse request body as ImageRequest
+	var imageReq dto.ImageRequest
+	if err := c.ShouldBindJSON(&imageReq); err != nil {
+		c.JSON(400, gin.H{
+			"error": types.NewError(err, types.ErrorCodeInvalidRequest).ToOpenAIError(),
+		})
+		return
+	}
+
+	// Set up user context for pricing/ratio checks
 	userCache, err := model.GetUserCache(userId)
 	if err != nil {
-		newAPIError = types.NewError(err, types.ErrorCodeQueryDataError, types.ErrOptionWithSkipRetry())
+		c.JSON(500, gin.H{
+			"error": types.NewError(err, types.ErrorCodeQueryDataError).ToOpenAIError(),
+		})
 		return
 	}
 	userCache.WriteContext(c)
 
-	relayInfo, err := relaycommon.GenRelayInfo(c, types.RelayFormatOpenAIImage, nil, nil)
+	// Set relay_mode so GenRelayInfo knows this is an image request
+	// (Path2RelayMode only recognizes /v1/ prefix, not /pg/)
+	c.Set("relay_mode", 5) // relayconstant.RelayModeImagesGenerations
+
+	// GenRelayInfo with the actual parsed request
+	relayInfo, err := relaycommon.GenRelayInfo(c, types.RelayFormatOpenAIImage, &imageReq, nil)
 	if err != nil {
-		newAPIError = types.NewError(err, types.ErrorCodeInvalidRequest, types.ErrOptionWithSkipRetry())
+		c.JSON(400, gin.H{
+			"error": types.NewError(err, types.ErrorCodeGenRelayInfoFailed).ToOpenAIError(),
+		})
 		return
 	}
 
@@ -48,39 +57,46 @@ func ExperienceImage(c *gin.Context) {
 	}
 	_ = middleware.SetupContextForToken(c, tempToken)
 
-	Relay(c, types.RelayFormatOpenAIImage)
+	// Use relayHandler directly (same path as main Relay function but with parsed request)
+	newAPIError := relayHandler(c, relayInfo)
+	if newAPIError != nil {
+		c.JSON(newAPIError.StatusCode, gin.H{
+			"error": newAPIError.ToOpenAIError(),
+		})
+		return
+	}
 }
 
 // ExperienceAudio handles TTS/audio generation requests from the experience center.
 func ExperienceAudio(c *gin.Context) {
-	var newAPIError *types.NewAPIError
+	userId := c.GetInt("id")
 
-	defer func() {
-		if newAPIError != nil {
-			c.JSON(newAPIError.StatusCode, gin.H{
-				"error": newAPIError.ToOpenAIError(),
-			})
-		}
-	}()
-
-	useAccessToken := c.GetBool("use_access_token")
-	if useAccessToken {
-		newAPIError = types.NewError(errors.New("暂不支持使用 access token"), types.ErrorCodeAccessDenied, types.ErrOptionWithSkipRetry())
+	// Parse request body as GeneralOpenAIRequest (TTS uses the same format)
+	var audioReq dto.GeneralOpenAIRequest
+	if err := c.ShouldBindJSON(&audioReq); err != nil {
+		c.JSON(400, gin.H{
+			"error": types.NewError(err, types.ErrorCodeInvalidRequest).ToOpenAIError(),
+		})
 		return
 	}
 
-	userId := c.GetInt("id")
-
 	userCache, err := model.GetUserCache(userId)
 	if err != nil {
-		newAPIError = types.NewError(err, types.ErrorCodeQueryDataError, types.ErrOptionWithSkipRetry())
+		c.JSON(500, gin.H{
+			"error": types.NewError(err, types.ErrorCodeQueryDataError).ToOpenAIError(),
+		})
 		return
 	}
 	userCache.WriteContext(c)
 
-	relayInfo, err := relaycommon.GenRelayInfo(c, types.RelayFormatOpenAIAudio, nil, nil)
+	// Set relay_mode so GenRelayInfo knows this is an audio request
+	c.Set("relay_mode", 24) // relayconstant.RelayModeAudioSpeech
+
+	relayInfo, err := relaycommon.GenRelayInfo(c, types.RelayFormatOpenAIAudio, &audioReq, nil)
 	if err != nil {
-		newAPIError = types.NewError(err, types.ErrorCodeInvalidRequest, types.ErrOptionWithSkipRetry())
+		c.JSON(400, gin.H{
+			"error": types.NewError(err, types.ErrorCodeGenRelayInfoFailed).ToOpenAIError(),
+		})
 		return
 	}
 
@@ -91,5 +107,11 @@ func ExperienceAudio(c *gin.Context) {
 	}
 	_ = middleware.SetupContextForToken(c, tempToken)
 
-	Relay(c, types.RelayFormatOpenAIAudio)
+	newAPIError := relayHandler(c, relayInfo)
+	if newAPIError != nil {
+		c.JSON(newAPIError.StatusCode, gin.H{
+			"error": newAPIError.ToOpenAIError(),
+		})
+		return
+	}
 }
