@@ -7,6 +7,7 @@ import (
 	"github.com/QuantumNous/new-api/middleware"
 	"github.com/QuantumNous/new-api/model"
 	relaycommon "github.com/QuantumNous/new-api/relay/common"
+	"github.com/QuantumNous/new-api/relay/constant"
 	"github.com/QuantumNous/new-api/types"
 
 	"github.com/gin-gonic/gin"
@@ -103,6 +104,53 @@ func ExperienceAudio(c *gin.Context) {
 	tempToken := &model.Token{
 		UserId: userId,
 		Name:   fmt.Sprintf("exp-audio-%s", relayInfo.UsingGroup),
+		Group:  relayInfo.UsingGroup,
+	}
+	_ = middleware.SetupContextForToken(c, tempToken)
+
+	newAPIError := relayHandler(c, relayInfo)
+	if newAPIError != nil {
+		c.JSON(newAPIError.StatusCode, gin.H{
+			"error": newAPIError.ToOpenAIError(),
+		})
+		return
+	}
+}
+
+// ExperienceVideo handles video generation requests from the experience center.
+func ExperienceVideo(c *gin.Context) {
+	userId := c.GetInt("id")
+
+	var videoReq dto.GeneralOpenAIRequest
+	if err := c.ShouldBindJSON(&videoReq); err != nil {
+		c.JSON(400, gin.H{
+			"error": types.NewError(err, types.ErrorCodeInvalidRequest).ToOpenAIError(),
+		})
+		return
+	}
+
+	userCache, err := model.GetUserCache(userId)
+	if err != nil {
+		c.JSON(500, gin.H{
+			"error": types.NewError(err, types.ErrorCodeQueryDataError).ToOpenAIError(),
+		})
+		return
+	}
+	userCache.WriteContext(c)
+
+	c.Set("relay_mode", constant.RelayModeVideoSubmit)
+
+	relayInfo, err := relaycommon.GenRelayInfo(c, types.RelayFormatOpenAI, &videoReq, nil)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": types.NewError(err, types.ErrorCodeGenRelayInfoFailed).ToOpenAIError(),
+		})
+		return
+	}
+
+	tempToken := &model.Token{
+		UserId: userId,
+		Name:   fmt.Sprintf("exp-video-%s", relayInfo.UsingGroup),
 		Group:  relayInfo.UsingGroup,
 	}
 	_ = middleware.SetupContextForToken(c, tempToken)
