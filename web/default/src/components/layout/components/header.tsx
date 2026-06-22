@@ -29,10 +29,10 @@ export function Header({ className, children, ...props }: HeaderProps) {
         className
       )}
       style={{
-        background: 'rgba(255,255,255,0.72)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        boxShadow: '0 8px 30px rgba(15,23,42,0.06)',
+        background: 'rgba(255,255,255,0.15)',
+        backdropFilter: 'blur(20px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+        boxShadow: '0 1px 0 rgba(0,0,0,0.04)',
         padding: '0 32px',
       }}
       {...props}
