@@ -39,29 +39,9 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible={collapsible} variant={variant}>
-      {/* Branded logo header with gradient background */}
-      <SidebarHeader className="border-sidebar-border border-b bg-linear-to-b from-[#004A8F] via-[#003878] to-[#002060] p-3">
-        <div className="flex items-center gap-2.5">
-          <img
-            src="/logo.png"
-            alt="aiburj"
-            className="size-8 rounded object-contain"
-            style={{ filter: 'brightness(0) invert(1)' }}
-          />
-          <div className="flex flex-col leading-tight">
-            <span className="text-[15px] font-bold text-white tracking-tight">
-              aiburj
-            </span>
-            <span className="text-[10px] text-white/60 tracking-wide">
-              控制台
-            </span>
-          </div>
-        </div>
-      </SidebarHeader>
-
       {view && <SidebarViewHeader view={view} />}
 
-      <SidebarContent className="py-2">
+      <SidebarContent className="py-2 pt-4">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={key}
