@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 
 	"github.com/QuantumNous/new-api/dto"
 	"github.com/QuantumNous/new-api/relay/channel"
@@ -43,6 +44,14 @@ func (a *Adaptor) Init(info *relaycommon.RelayInfo) {
 }
 
 func (a *Adaptor) GetRequestURL(info *relaycommon.RelayInfo) (string, error) {
+	// Use v4 API for glm-4.x / glm-5.x models, v3 for legacy chatglm_pro/turbo etc.
+	model := info.UpstreamModelName
+	isV4 := strings.HasPrefix(model, "glm-4") || strings.HasPrefix(model, "glm-4.") || 
+	        strings.HasPrefix(model, "glm-5") || strings.HasPrefix(model, "glm-5.") ||
+	        strings.HasPrefix(model, "cogview")
+	if isV4 {
+		return fmt.Sprintf("%s/chat/completions", info.ChannelBaseUrl), nil
+	}
 	method := "invoke"
 	if info.IsStream {
 		method = "sse-invoke"
@@ -50,21 +59,29 @@ func (a *Adaptor) GetRequestURL(info *relaycommon.RelayInfo) (string, error) {
 	return fmt.Sprintf("%s/api/paas/v3/model-api/%s/%s", info.ChannelBaseUrl, info.UpstreamModelName, method), nil
 }
 
-func (a *Adaptor) SetupRequestHeader(c *gin.Context, req *http.Header, info *relaycommon.RelayInfo) error {
-	channel.SetupApiRequestHeader(info, c, req)
-	token := getZhipuToken(info.ApiKey)
-	req.Set("Authorization", token)
-	return nil
-}
-
 func (a *Adaptor) ConvertOpenAIRequest(c *gin.Context, info *relaycommon.RelayInfo, request *dto.GeneralOpenAIRequest) (any, error) {
 	if request == nil {
 		return nil, errors.New("request is nil")
+	}
+	// v4 models use standard OpenAI format — don't convert
+	model := info.UpstreamModelName
+	isV4 := strings.HasPrefix(model, "glm-4") || strings.HasPrefix(model, "glm-4.") || 
+	        strings.HasPrefix(model, "glm-5") || strings.HasPrefix(model, "glm-5.") ||
+	        strings.HasPrefix(model, "cogview")
+	if isV4 {
+		return request, nil
 	}
 	if lo.FromPtrOr(request.TopP, 0) >= 1 {
 		request.TopP = lo.ToPtr(0.99)
 	}
 	return requestOpenAI2Zhipu(*request), nil
+}
+
+func (a *Adaptor) SetupRequestHeader(c *gin.Context, req *http.Header, info *relaycommon.RelayInfo) error {
+	channel.SetupApiRequestHeader(info, c, req)
+	token := getZhipuToken(info.ApiKey)
+	req.Set("Authorization", token)
+	return nil
 }
 
 func (a *Adaptor) ConvertRerankRequest(c *gin.Context, relayMode int, request dto.RerankRequest) (any, error) {

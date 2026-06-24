@@ -209,6 +209,15 @@ var defaultModelRatio = map[string]float64{
 	"glm-4v-plus":                               0.01 * RMB,
 	"qwen-turbo":                                0.8572, // ￥0.012 / 1k tokens
 	"qwen-plus":                                 10,     // ￥0.14 / 1k tokens
+	"qwen-max":                                  10,     // ￥0.14 / 1k tokens
+	"qwen-vl-plus":                              1.0,
+	"qwen-vl-max":                               1.0,
+	"qwen3-235b-a22b":                           0.6,
+	"qwen3.5-35b-a3b":                           0.5,
+	"qwen3.5-122b-a10b":                         0.5,
+	"qwen3.5-397b-a17b":                         0.8,
+	"qwen3.6-27b":                               0.5,
+	"qwen3.6-35b-a3b":                           0.5,
 	"text-embedding-v1":                         0.05,   // ￥0.0007 / 1k tokens
 	"SparkDesk-v1.1":                            1.2858, // ￥0.018 / 1k tokens
 	"SparkDesk-v2.1":                            1.2858, // ￥0.018 / 1k tokens
@@ -223,7 +232,11 @@ var defaultModelRatio = map[string]float64{
 	"embedding-bert-512-v1":                     0.0715, // ¥0.001 / 1k tokens
 	"embedding_s1_v1":                           0.0715, // ¥0.001 / 1k tokens
 	"semantic_similarity_s1_v1":                 0.0715, // ¥0.001 / 1k tokens
-	"hunyuan":                                   7.143,  // ¥0.1 / 1k tokens  // https://cloud.tencent.com/document/product/1729/97731#e0e6be58-60c8-469f-bdeb-6c264ce3b4d0
+	"hunyuan-turbo":    10,
+"hunyuan-pro":      30,
+"hunyuan-standard": 3,
+"hunyuan-lite":     1,
+"ep-20260623100331-4qsqh": 0.5,
 	// https://platform.lingyiwanwu.com/docs#-计费单元
 	// 已经按照 7.2 来换算美元价格
 	"yi-34b-chat-0205":       0.18,
@@ -235,6 +248,10 @@ var defaultModelRatio = map[string]float64{
 	"yi-medium-200k":         12.0 / 1000 * RMB,
 	"yi-spark":               1.0 / 1000 * RMB,
 	"yi-large-rag":           25.0 / 1000 * RMB,
+	"step-3.5-flash":         0.5,
+	"step-2-16k":             0.5,
+	"step-1-8k":              0.3,
+	"step-1-32k":             0.6,
 	"yi-large-turbo":         12.0 / 1000 * RMB,
 	"yi-large-preview":       20.0 / 1000 * RMB,
 	"yi-large-rag-preview":   25.0 / 1000 * RMB,
@@ -252,7 +269,12 @@ var defaultModelRatio = map[string]float64{
 	"deepseek-v4-pro":        0.27,
 	"deepseek-v4-flash":      0.14,
 	"deepseek-r1":            0.55,
-	// Perplexity online 模型对搜索额外收费，有需要应自行调整，此处不计入搜索费用
+	"moonshot-v1-8k":         6,
+	"moonshot-v1-32k":        12,
+	"moonshot-v1-128k":       30,
+	"moonshot-v1-auto":       6,
+	"kimi-k2.7-code":         6,
+	// Perplexity online
 	"llama-3-sonar-small-32k-chat":   0.2 / 1000 * USD,
 	"llama-3-sonar-small-32k-online": 0.2 / 1000 * USD,
 	"llama-3-sonar-large-32k-chat":   1 / 1000 * USD,
@@ -265,7 +287,10 @@ var defaultModelRatio = map[string]float64{
 	"grok-beta":             2.5,
 	"grok-vision-beta":      2.5,
 	"grok-3-fast-beta":      2.5,
-	"grok-3-mini-fast-beta": 0.3,
+	"MiniMax-M2.5":          1.0,
+"MiniMax-M2":            0.8,
+"abab6.5s-chat":         0.5,
+"MiniMax-Text-01":       0.3,
 	// submodel
 	"NousResearch/Hermes-4-405B-FP8":          0.8,
 	"Qwen/Qwen3-235B-A22B-Thinking-2507":      0.6,
