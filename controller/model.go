@@ -366,28 +366,133 @@ func RetrieveModel(c *gin.Context, modelType int) {
 // MarketplaceListModels returns rich model data for the model marketplace page
 func MarketplaceListModels(c *gin.Context) {
 	type ModelInfo struct {
-		Id          string `json:"id"`
-		ChannelId   int    `json:"channel_id"`
-		ChannelName string `json:"channel_name"`
-		Enabled     bool   `json:"enabled"`
+		Id          string   `json:"id"`
+		ChannelId   int      `json:"channel_id"`
+		ChannelName string   `json:"channel_name"`
+		Vendor      string   `json:"vendor"`
+		Enabled     bool     `json:"enabled"`
+		ModelTypes  []string `json:"model_types"`
+		Tags        []string `json:"tags"`
+		InputPrice  string   `json:"input_price"`
+		OutputPrice string   `json:"output_price"`
+		CreatedAt   string   `json:"created_at"`
 	}
 
 	var result []ModelInfo
-	for _, ability := range model.GetAllEnableAbilities() {
+	// Preload all abilities with channels
+	abilitiesWithCh, _ := model.GetAllEnableAbilityWithChannels()
+
+	// Build pricing lookup for fast access
+	pricingMap := make(map[string]model.Pricing)
+	for _, p := range model.GetPricing() {
+		pricingMap[p.ModelName] = p
+	}
+
+	for _, ability := range abilitiesWithCh {
 		channel, _ := model.GetChannelById(ability.ChannelId, false)
 		channelName := "Unknown"
 		if channel != nil {
 			channelName = channel.Name
 		}
+
+		// Extract vendor from model ID (e.g. "deepseek-ai/DeepSeek-V4-Pro" -> "deepseek-ai")
+		vendor := ""
+		if idx := strings.Index(ability.Model, "/"); idx > 0 {
+			vendor = ability.Model[:idx]
+		} else {
+			vendor = channelName
+		}
+
+		// Get model types from supported endpoint types
+		modelTypes := make([]string, 0)
+		if p, ok := pricingMap[ability.Model]; ok {
+			for _, et := range p.SupportedEndpointTypes {
+				switch et {
+				case "openai", "openai-response", "openai-response-compact", "anthropic", "gemini":
+					if !contains(modelTypes, "对话") {
+						modelTypes = append(modelTypes, "对话")
+					}
+				case "image-generation":
+					if !contains(modelTypes, "生图") {
+						modelTypes = append(modelTypes, "生图")
+					}
+				case "embeddings":
+					if !contains(modelTypes, "嵌入") {
+						modelTypes = append(modelTypes, "嵌入")
+					}
+				case "jina-rerank":
+					if !contains(modelTypes, "重排序") {
+						modelTypes = append(modelTypes, "重排序")
+					}
+				case "openai-video":
+					if !contains(modelTypes, "视频") {
+						modelTypes = append(modelTypes, "视频")
+					}
+				}
+			}
+		}
+		if len(modelTypes) == 0 {
+			modelTypes = append(modelTypes, "对话")
+		}
+
+		// Tags from pricing
+		tags := make([]string, 0)
+		if p, ok := pricingMap[ability.Model]; ok {
+			if p.Tags != "" {
+				tags = append(tags, strings.Split(p.Tags, ",")...)
+			}
+			for i, t := range tags {
+				tags[i] = strings.TrimSpace(t)
+			}
+		}
+
+		// Calculate price from model_ratio
+		inputPrice := ""
+		outputPrice := ""
+		if p, ok := pricingMap[ability.Model]; ok {
+			// model_ratio: 1 = $0.002/1k tokens, converted to RMB per 1M tokens
+			// input = model_ratio * 0.002 * 1000 / 7.3 (approximately)
+			if p.ModelRatio > 0 {
+				usdPer1M := p.ModelRatio * 2.0 // 0.002 * 1000
+				rmbPer1M := usdPer1M / 7.3
+				inputPrice = fmt.Sprintf("￥%.0f", rmbPer1M)
+				if p.CompletionRatio > 0 {
+					outputRmb := rmbPer1M * p.CompletionRatio
+					outputPrice = fmt.Sprintf("￥%.0f", outputRmb)
+				} else {
+					outputPrice = inputPrice
+				}
+			}
+		}
+		if inputPrice == "" {
+			inputPrice = "暂无"
+			outputPrice = "暂无"
+		}
+
 		result = append(result, ModelInfo{
 			Id:          ability.Model,
 			ChannelId:   ability.ChannelId,
 			ChannelName: channelName,
+			Vendor:      vendor,
 			Enabled:     ability.Enabled,
+			ModelTypes:  modelTypes,
+			Tags:        tags,
+			InputPrice:  inputPrice,
+			OutputPrice: outputPrice,
+			CreatedAt:   "", // TODO: add when available
 		})
 	}
 	c.JSON(200, gin.H{
 		"success": true,
 		"data":    result,
 	})
+}
+
+func contains(slice []string, item string) bool {
+	for _, s := range slice {
+		if s == item {
+			return true
+		}
+	}
+	return false
 }

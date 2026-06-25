@@ -93,9 +93,27 @@ export function filterByEndpointType(
   endpointType: string
 ): PricingModel[] {
   if (endpointType === ENDPOINT_TYPES.ALL) return models
-  return models.filter((m) =>
+  // First try exact match on supported_endpoint_types
+  const exact = models.filter((m) =>
     m.supported_endpoint_types?.includes(endpointType)
   )
+  if (exact.length > 0) return exact
+  // Fallback: match against model_type or detect from model name
+  return models.filter((m) => {
+    const mt = m.model_type || ''
+    if (mt === endpointType) return true
+    // Auto-detect from model name
+    const name = (m.model_name || '').toLowerCase()
+    const map: Record<string, string> = {
+      '对话': 'chat', '生图': 'image', '嵌入': 'embed',
+      '重排序': 'rerank', '语音': 'speech', '视频': 'video',
+    }
+    const kw = map[endpointType]
+    if (!kw) return false
+    if (name.includes(kw)) return true
+    if (kw === 'chat' && !name.includes('image') && !name.includes('embed') && !name.includes('rerank') && !name.includes('speech') && !name.includes('video')) return true
+    return false
+  })
 }
 
 /**
@@ -196,9 +214,29 @@ export function filterByTag(
   if (tag === FILTER_ALL) return models
 
   const tagLower = tag.toLowerCase()
-  return models.filter((m) => {
+  // First try exact match on backend tags string
+  const exact = models.filter((m) => {
     if (!m.tags) return false
     const modelTags = parseTags(m.tags).map((t) => t.toLowerCase())
     return modelTags.includes(tagLower)
+  })
+  if (exact.length > 0) return exact
+  // Fallback: detect from model name
+  return models.filter((m) => {
+    const name = (m.model_name || '').toLowerCase()
+    const sceneMap: Record<string, string[]> = {
+      '旗舰全能': ['pro'],
+      'vibe coding': ['coder', 'code'],
+      'rag': ['rag'],
+      '长文本': ['long', '32k', '128k', '200k', '1m'],
+      '快速响应': ['flash', 'turbo', 'air', 'lite'],
+      '多模态': ['vl', 'vision', 'video', 'image'],
+      '语音交互': ['speech', 'audio', 'voice', 'cosyvoice'],
+      '图像生成': ['kolors', 'image'],
+      '视频生成': ['wan', 'cogvideo', 'video'],
+    }
+    const kws = sceneMap[tagLower]
+    if (!kws) return false
+    return kws.some(kw => name.includes(kw))
   })
 }

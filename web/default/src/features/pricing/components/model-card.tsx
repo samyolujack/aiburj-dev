@@ -16,7 +16,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 import { ChevronRight,Copy, Zap } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { getLobeIcon } from '@/lib/lobe-icon'
@@ -29,6 +29,21 @@ import { isTokenBasedModel } from '../lib/model-helpers'
 import { formatPrice, formatRequestPrice } from '../lib/price'
 import type { PricingModel, TokenUnit } from '../types'
 import { ModelPerfBadge, type ModelPerfBadgeData } from './model-perf-badge'
+
+// ── Fallback: detect model type from name if backend field is empty ───────
+const MODEL_TYPE_MAP: Record<string, string> = {
+  kolors: '生图', image: '生图', video: '视频',
+  cosyvoice: '语音', speech: '语音', audio: '语音', voice: '语音',
+  vl: '对话', vision: '对话', embed: '嵌入', rerank: '重排序',
+}
+
+function detectModelType(name: string): string {
+  const lower = name.toLowerCase()
+  for (const [key, label] of Object.entries(MODEL_TYPE_MAP)) {
+    if (lower.includes(key)) return label
+  }
+  return ''
+}
 
 export interface ModelCardProps {
   model: PricingModel
@@ -50,7 +65,7 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
   const showRechargePrice = props.showRechargePrice ?? false
   const isTokenBased = isTokenBasedModel(props.model)
   const tags = parseTags(props.model.tags)
-  const endpoints = props.model.supported_endpoint_types || []
+  const modelTypeVal = props.model.model_type || detectModelType(props.model.model_name || '') || '对话'
 
   const identity = resolveModelIdentity(props.model.model_name || '')
   const vendorIcon = props.model.vendor_icon
@@ -71,15 +86,18 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
     copyToClipboard(props.model.model_name || '')
   }
 
+
   const cardRef = (el: HTMLDivElement | null) => {
     if (!el) return
     const onEnter = () => {
       el.style.transform = 'translateY(-2px)'
-      el.style.boxShadow = '0 8px 30px rgba(124,58,237,0.08), 0 0 0 1px rgba(99,102,241,0.12)'
+      el.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'
+      el.style.borderColor = '#CBD5E1'
     }
     const onLeave = () => {
       el.style.transform = 'translateY(0)'
-      el.style.boxShadow = '0 1px 3px rgba(0,0,0,0.04)'
+      el.style.boxShadow = 'none'
+      el.style.borderColor = '#E2E8F0'
     }
     el.addEventListener('mouseenter', onEnter)
     el.addEventListener('mouseleave', onLeave)
@@ -91,72 +109,86 @@ export const ModelCard = memo(function ModelCard(props: ModelCardProps) {
       ref={cardRef}
       onClick={props.onClick}
       className={cn(
-        'group relative flex flex-col rounded-xl border bg-card p-4 cursor-pointer',
-        'transition-all duration-300',
-        'shadow-[0_1px_3px_rgba(0,0,0,0.04)]',
+        'group relative flex flex-col rounded-lg border border-[#E2E8F0] bg-[#EBF2FF] p-6 cursor-pointer',
+        'transition-all duration-200',
       )}
-      style={{ transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)' }}
+      style={{ transition: 'all 0.2s ease' }}
     >
-      {/* Top accent bar — purple gradient */}
-      <div className='absolute top-0 left-3 right-3 h-[3px] rounded-b-sm opacity-60'
-        style={{ background: 'linear-gradient(90deg, #7C3AED, #6366F1, #3B82F6)' }} />
-
-      {/* Row 1: Icon + vendor & type + model name */}
-      <div className='flex items-center gap-3 mt-1.5'>
-        <div className='bg-gradient-to-br from-[#F5F0FF] to-[#EDE9FE] dark:from-[#1E1740] dark:to-[#181430] flex size-8 shrink-0 items-center justify-center rounded-lg'>
-          {vendorIcon || <span className='text-muted-foreground text-xs font-bold'>{initial}</span>}
-        </div>
-        <div className='min-w-0 flex-1'>
-          {vendorName && (
-            <span className='text-muted-foreground/55 text-[10px] font-medium block truncate'>{vendorName}</span>
+      {/* Row 1: Logo + vendor name | Type tag */}
+      <div className='flex items-center justify-between mb-4'>
+        <div className='flex items-center gap-2'>
+          {vendorIcon ? (
+            <div className='shrink-0'>{vendorIcon}</div>
+          ) : (
+            <span className='text-[#64748B] text-xs font-bold'>{initial}</span>
           )}
-          <h3 className='text-foreground truncate text-[13px] font-bold leading-tight'>{displayName}</h3>
+          <span className='text-[14px] text-[#94A3B8] truncate max-w-[120px]'>{vendorName}</span>
         </div>
+        <span className='inline-flex items-center rounded border border-[#91CAFF] bg-[#E6F4FF] px-1.5 py-0 text-[12px] text-[#0958D9] shrink-0'>
+          {modelTypeVal}
+        </span>
+      </div>
+
+      {/* Row 2: Model name + full id */}
+      <div className='mb-4'>
+        <h3 className='text-[16px] font-semibold text-[#1E293B] truncate mb-1'>{displayName}</h3>
+        <p className='text-[12px] text-[#94A3B8] truncate'>{props.model.model_name}</p>
+      </div>
+
+      {/* Row 3: Scene tags */}
+      {tags.length > 0 && (
+        <div className='flex flex-wrap gap-1.5 mb-4'>
+          {tags.map(tag => (
+            <span
+              key={tag}
+              className='inline-flex items-center rounded border border-[#D3ADF7] bg-[#F9F0FF] px-1.5 py-0 text-[12px] font-medium text-[#531DAB]'
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Row 4: Price — with copy button on the right */}
+      <div className='flex items-center gap-3 pt-3 border-t border-[#F1F5F9] text-[12px]'>
+        {isTokenBased ? (
+          <div className='flex items-center gap-2 flex-1 min-w-0'>
+            <span className='text-[#531DAB] shrink-0'>
+              {t('输入')}: <span className='font-medium'>{formatPrice(props.model, 'input', tokenUnit, showRechargePrice, priceRate, usdExchangeRate)}</span>
+            </span>
+            <span className='text-[#531DAB] shrink-0'>
+              {t('输出')}: <span className='font-medium'>{formatPrice(props.model, 'output', tokenUnit, showRechargePrice, priceRate, usdExchangeRate)}</span>
+            </span>
+            {hasCachedPrice && (
+              <>
+                <span className='text-[#531DAB] shrink-0 flex items-center gap-0.5'>
+                  <Zap className='size-3' />
+                  {t('缓存')}: <span className='font-medium'>{formatPrice(props.model, 'cache', tokenUnit, showRechargePrice, priceRate, usdExchangeRate)}</span>
+                </span>
+              </>
+            )}
+            <span className='text-[#94A3B8] shrink-0 ml-auto flex items-center gap-0.5 group-hover:text-[#6366F1] transition-colors'>
+              {t('详情')}<ChevronRight className='size-3' />
+            </span>
+          </div>
+        ) : (
+          <div className='flex items-center gap-2 flex-1 min-w-0'>
+            <span className='text-[#531DAB] shrink-0'>
+              {t('按请求')}: <span className='font-medium'>{formatRequestPrice(props.model, showRechargePrice, priceRate, usdExchangeRate)}</span>
+            </span>
+            <span className='text-[#94A3B8] shrink-0 ml-auto flex items-center gap-0.5 group-hover:text-[#6366F1] transition-colors'>
+              {t('详情')}<ChevronRight className='size-3' />
+            </span>
+          </div>
+        )}
         <button
           type='button'
           onClick={handleCopy}
-          className='text-muted-foreground/40 hover:text-foreground opacity-0 group-hover:opacity-100 rounded-md p-1 transition-all'
+          className='text-[#94A3B8]/40 hover:text-[#64748B] opacity-0 group-hover:opacity-100 rounded p-0.5 transition-all shrink-0'
           title={t('复制')}
         >
           <Copy className='size-3' />
         </button>
-      </div>
-
-      {/* Row 2: Price — compact */}
-      <div className='mt-2.5 pt-2.5 border-t border-border/30 flex items-center gap-3 text-xs'>
-        {isTokenBased ? (
-          <>
-            <span className='text-muted-foreground/60 text-[10px]'>{t('输入')}</span>
-            <span className='text-foreground font-mono font-semibold'>
-              {formatPrice(props.model, 'input', tokenUnit, showRechargePrice, priceRate, usdExchangeRate)}
-            </span>
-            <span className='text-muted-foreground/30 text-[10px]'>/</span>
-            <span className='text-muted-foreground/60 text-[10px]'>{t('输出')}</span>
-            <span className='text-foreground font-mono font-semibold'>
-              {formatPrice(props.model, 'output', tokenUnit, showRechargePrice, priceRate, usdExchangeRate)}
-            </span>
-            {hasCachedPrice && (
-              <>
-                <span className='text-muted-foreground/30 text-[10px]'>|</span>
-                <Zap className='size-3 text-amber-500' />
-                <span className='text-muted-foreground/60 text-[10px]'>{t('缓存')}</span>
-                <span className='text-foreground font-mono font-semibold'>
-                  {formatPrice(props.model, 'cache', tokenUnit, showRechargePrice, priceRate, usdExchangeRate)}
-                </span>
-              </>
-            )}
-          </>
-        ) : (
-          <>
-            <span className='text-muted-foreground/60 text-[10px]'>{t('按请求')}</span>
-            <span className='text-foreground font-mono font-semibold'>
-              {formatRequestPrice(props.model, showRechargePrice, priceRate, usdExchangeRate)}
-            </span>
-          </>
-        )}
-        <span className='text-muted-foreground/60 ml-auto text-[10px] flex items-center gap-0.5 group-hover:text-[#6366F1] transition-colors'>
-          {t('详情')}<ChevronRight className='size-3' />
-        </span>
       </div>
     </div>
   )
