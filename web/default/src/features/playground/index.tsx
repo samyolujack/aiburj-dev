@@ -25,6 +25,9 @@ import { PlaygroundChat } from './components/playground-chat'
 import { PlaygroundInput } from './components/playground-input'
 import { usePlaygroundState, useChatHandler } from './hooks'
 import { createUserMessage, createLoadingAssistantMessage } from './lib'
+import { CostNotice } from '@/components/cost-notice'
+import { ModelDetailsDrawer } from '@/features/pricing/components/model-details'
+import { usePricingData } from '@/features/pricing/hooks/use-pricing-data'
 import type { Message as MessageType } from './types'
 
 export function Playground() {
@@ -40,6 +43,10 @@ export function Playground() {
     setGroups,
     updateConfig,
   } = usePlaygroundState()
+
+  const { models: pricingModels, groupRatio, usableGroup, endpointMap, autoGroups, priceRate, usdExchangeRate } = usePricingData()
+  const [showModelDetail, setShowModelDetail] = useState(false)
+  const selectedModelData = pricingModels?.find(m => m.model_name === config.model) || null
 
   const { sendChat, stopGeneration, isGenerating } = useChatHandler({
     config,
@@ -198,6 +205,12 @@ export function Playground() {
 
   return (
     <div className='relative flex size-full flex-col overflow-hidden'>
+      <div className='px-4 pt-3'>
+        <CostNotice
+          modelName={config.model?.split('/').pop()}
+          onDetailClick={() => setShowModelDetail(true)}
+        />
+      </div>
       {/* Full-width scroll container: scrolling works even over side whitespace */}
       <div className='flex flex-1 flex-col overflow-hidden'>
         <PlaygroundChat
@@ -230,6 +243,20 @@ export function Playground() {
           onSubmit={handleSendMessage}
         />
       </div>
+      {showModelDetail && selectedModelData && (
+        <ModelDetailsDrawer
+          open={showModelDetail}
+          onOpenChange={setShowModelDetail}
+          model={selectedModelData}
+          groupRatio={groupRatio || {}}
+          usableGroup={usableGroup || {}}
+          endpointMap={endpointMap || {}}
+          autoGroups={autoGroups || []}
+          priceRate={priceRate || 1}
+          usdExchangeRate={usdExchangeRate || 7.2}
+          tokenUnit='M'
+        />
+      )}
     </div>
   )
 }

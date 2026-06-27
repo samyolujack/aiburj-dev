@@ -6,6 +6,9 @@ import { toast } from 'sonner'
 import { api } from '@/lib/api'
 import { isSidebarModuleEnabled } from '@/lib/nav-modules'
 import { Main } from '@/components/layout'
+import { CostNotice } from '@/components/cost-notice'
+import { ModelDetailsDrawer } from '@/features/pricing/components/model-details'
+import { usePricingData } from '@/features/pricing/hooks/use-pricing-data'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -42,11 +45,15 @@ const RESOLUTIONS = [
 
 function VideoGenPage() {
   const { t } = useTranslation()
+  const { models, groupRatio, usableGroup, endpointMap, autoGroups, priceRate, usdExchangeRate } = usePricingData()
   const [prompt, setPrompt] = useState('')
   const [negativePrompt, setNegativePrompt] = useState('')
   const [model, setModel] = useState(VIDEO_MODELS[0].value)
   const [duration, setDuration] = useState(DURATIONS[0].value)
   const [resolution, setResolution] = useState(RESOLUTIONS[1].value)
+  const [showModelDetail, setShowModelDetail] = useState(false)
+
+  const selectedModelData = models?.find(m => m.model_name === model) || null
   const [generating, setGenerating] = useState(false)
   const [videoUrl, setVideoUrl] = useState('')
   const [taskId, setTaskId] = useState('')
@@ -151,6 +158,10 @@ function VideoGenPage() {
       <div className="flex h-full flex-col gap-6 p-6 md:flex-row md:p-8">
         {/* Left config panel */}
         <div className="flex w-full shrink-0 flex-col gap-4 md:w-[360px]">
+          <CostNotice
+            modelName={model.split('/').pop()}
+            onDetailClick={() => setShowModelDetail(true)}
+          />
           <div>
             <h1 className="text-2xl font-bold tracking-tight">{t('视频生成')}</h1>
             <p className="mt-1 text-sm text-muted-foreground">{t('输入提示词，生成视频')}</p>
@@ -268,6 +279,20 @@ function VideoGenPage() {
           )}
         </div>
       </div>
+      {showModelDetail && selectedModelData && (
+        <ModelDetailsDrawer
+          open={showModelDetail}
+          onOpenChange={setShowModelDetail}
+          model={selectedModelData}
+          groupRatio={groupRatio || {}}
+          usableGroup={usableGroup || {}}
+          endpointMap={endpointMap || {}}
+          autoGroups={autoGroups || []}
+          priceRate={priceRate || 1}
+          usdExchangeRate={usdExchangeRate || 7.2}
+          tokenUnit='M'
+        />
+      )}
     </Main>
   )
 }

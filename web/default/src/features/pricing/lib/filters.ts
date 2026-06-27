@@ -111,6 +111,9 @@ export function filterByEndpointType(
     const kw = map[endpointType]
     if (!kw) return false
     if (name.includes(kw)) return true
+    // Extra keywords for speech/video
+    if (endpointType === '语音' && (name.includes('cosyvoice') || name.includes('tts') || name.includes('audio'))) return true
+    if (endpointType === '视频' && (name.includes('wan') || name.includes('cogvideo'))) return true
     if (kw === 'chat' && !name.includes('image') && !name.includes('embed') && !name.includes('rerank') && !name.includes('speech') && !name.includes('video')) return true
     return false
   })

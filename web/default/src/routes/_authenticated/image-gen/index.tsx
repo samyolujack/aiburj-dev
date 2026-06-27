@@ -6,6 +6,9 @@ import { toast } from 'sonner'
 import { api } from '@/lib/api'
 import { isSidebarModuleEnabled } from '@/lib/nav-modules'
 import { Main } from '@/components/layout'
+import { CostNotice } from '@/components/cost-notice'
+import { ModelDetailsDrawer } from '@/features/pricing/components/model-details'
+import { usePricingData } from '@/features/pricing/hooks/use-pricing-data'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -48,10 +51,14 @@ type GeneratedImage = {
 
 function ImageGenPage() {
   const { t } = useTranslation()
+  const { models, groupRatio, usableGroup, endpointMap, autoGroups, priceRate, usdExchangeRate } = usePricingData()
   const [prompt, setPrompt] = useState('')
   const [model, setModel] = useState(IMAGE_MODELS[0].value)
   const [size, setSize] = useState(IMAGE_SIZES[0].value)
   const [seed, setSeed] = useState('')
+  const [showModelDetail, setShowModelDetail] = useState(false)
+
+  const selectedModelData = models?.find(m => m.model_name === model) || null
   const [generating, setGenerating] = useState(false)
   const [images, setImages] = useState<GeneratedImage[]>([])
   const [error, setError] = useState('')
@@ -114,6 +121,10 @@ function ImageGenPage() {
       <div className="flex h-full flex-col lg:flex-row">
         {/* Left: Config panel */}
         <div className="flex shrink-0 flex-col gap-5 border-r p-6 lg:w-[360px]">
+          <CostNotice
+            modelName={model.split('/').pop()}
+            onDetailClick={() => setShowModelDetail(true)}
+          />
           <div>
             <h2 className="text-xl font-semibold tracking-tight">
               🖼️ {t('图像生成')}
@@ -249,6 +260,20 @@ function ImageGenPage() {
           )}
         </div>
       </div>
+      {showModelDetail && selectedModelData && (
+        <ModelDetailsDrawer
+          open={showModelDetail}
+          onOpenChange={setShowModelDetail}
+          model={selectedModelData}
+          groupRatio={groupRatio || {}}
+          usableGroup={usableGroup || {}}
+          endpointMap={endpointMap || {}}
+          autoGroups={autoGroups || []}
+          priceRate={priceRate || 1}
+          usdExchangeRate={usdExchangeRate || 7.2}
+          tokenUnit='M'
+        />
+      )}
     </Main>
   )
 }

@@ -6,6 +6,9 @@ import { toast } from 'sonner'
 import { api } from '@/lib/api'
 import { isSidebarModuleEnabled } from '@/lib/nav-modules'
 import { Main } from '@/components/layout'
+import { CostNotice } from '@/components/cost-notice'
+import { ModelDetailsDrawer } from '@/features/pricing/components/model-details'
+import { usePricingData } from '@/features/pricing/hooks/use-pricing-data'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -47,6 +50,7 @@ const QUICK_TEXTS = [
 
 function TTSPage() {
   const { t } = useTranslation()
+  const { models, groupRatio, usableGroup, endpointMap, autoGroups, priceRate, usdExchangeRate } = usePricingData()
   const [text, setText] = useState('')
   const [model, setModel] = useState(TTS_MODELS[0].value)
   const [voice, setVoice] = useState(VOICES[0].value)
@@ -55,6 +59,9 @@ function TTSPage() {
   const [generating, setGenerating] = useState(false)
   const [audioUrl, setAudioUrl] = useState('')
   const [error, setError] = useState('')
+  const [showModelDetail, setShowModelDetail] = useState(false)
+
+  const selectedModelData = models?.find(m => m.model_name === model) || null
   const audioRef = useRef<HTMLAudioElement>(null)
 
   const handleGenerate = async () => {
@@ -124,6 +131,10 @@ function TTSPage() {
       <div className="flex h-full flex-col lg:flex-row">
         {/* Left: Config panel */}
         <div className="flex shrink-0 flex-col gap-5 border-r p-6 lg:w-[360px]">
+          <CostNotice
+            modelName={model.split('/').pop()}
+            onDetailClick={() => setShowModelDetail(true)}
+          />
           <div>
             <h2 className="text-xl font-semibold tracking-tight">
               🎙️ {t('语音合成')}
@@ -302,6 +313,20 @@ function TTSPage() {
           )}
         </div>
       </div>
+      {showModelDetail && selectedModelData && (
+        <ModelDetailsDrawer
+          open={showModelDetail}
+          onOpenChange={setShowModelDetail}
+          model={selectedModelData}
+          groupRatio={groupRatio || {}}
+          usableGroup={usableGroup || {}}
+          endpointMap={endpointMap || {}}
+          autoGroups={autoGroups || []}
+          priceRate={priceRate || 1}
+          usdExchangeRate={usdExchangeRate || 7.2}
+          tokenUnit='M'
+        />
+      )}
     </Main>
   )
 }

@@ -32,8 +32,8 @@ import { ModelPerfBadge, type ModelPerfBadgeData } from './model-perf-badge'
 
 // ── Fallback: detect model type from name if backend field is empty ───────
 const MODEL_TYPE_MAP: Record<string, string> = {
-  kolors: '生图', image: '生图', video: '视频',
-  cosyvoice: '语音', speech: '语音', audio: '语音', voice: '语音',
+  kolors: '生图', image: '生图', video: '视频', wan: '视频', cogvideo: '视频',
+  cosyvoice: '语音', speech: '语音', audio: '语音', voice: '语音', tts: '语音',
   vl: '对话', vision: '对话', embed: '嵌入', rerank: '重排序',
 }
 

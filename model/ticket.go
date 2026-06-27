@@ -37,3 +37,37 @@ func GetUserTickets(userId int, page, size int) ([]Ticket, int64, error) {
 		Find(&tickets).Error
 	return tickets, total, err
 }
+
+// GetAllTickets returns all tickets with pagination and optional filters
+func GetAllTickets(page, size int, status, ticketType string) ([]Ticket, int64, error) {
+	var tickets []Ticket
+	var total int64
+	q := DB.Model(&Ticket{})
+	if status != "" {
+		q = q.Where("status = ?", status)
+	}
+	if ticketType != "" {
+		q = q.Where("type = ?", ticketType)
+	}
+	if err := q.Count(&total).Error; err != nil {
+		return nil, 0, err
+	}
+	offset := (page - 1) * size
+	err := q.Order("created_at DESC").Offset(offset).Limit(size).Find(&tickets).Error
+	return tickets, total, err
+}
+
+// UpdateTicketStatus updates a ticket's status
+func UpdateTicketStatus(id int, status string) error {
+	return DB.Model(&Ticket{}).Where("id = ?", id).Update("status", status).Error
+}
+
+// GetTicketByID returns a single ticket
+func GetTicketByID(id int) (*Ticket, error) {
+	var ticket Ticket
+	err := DB.Where("id = ?", id).First(&ticket).Error
+	if err != nil {
+		return nil, err
+	}
+	return &ticket, nil
+}
