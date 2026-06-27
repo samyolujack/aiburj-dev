@@ -20,6 +20,7 @@ import { type TFunction } from 'i18next'
 import {
   Box,
   CreditCard,
+  FileText,
   MessageSquare,
   Settings,
   Shield,
@@ -74,6 +75,11 @@ function getSystemSettingsNavGroups(t: TFunction): NavGroup[] {
           title: t('Ticketing'),
           icon: MessageSquare,
           url: '/system-settings/tickets',
+        },
+        {
+          title: t('Invoicing'),
+          icon: FileText,
+          url: '/system-settings/invoices',
         },
       ],
     },

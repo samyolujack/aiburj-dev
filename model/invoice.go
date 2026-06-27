@@ -39,3 +39,24 @@ func GetUserInvoices(userId int, page, size int) ([]Invoice, int64, error) {
 		Find(&invoices).Error
 	return invoices, total, err
 }
+
+// GetAllInvoices returns all invoices with pagination and optional filters
+func GetAllInvoices(page, size int, status string) ([]Invoice, int64, error) {
+	var invoices []Invoice
+	var total int64
+	q := DB.Model(&Invoice{})
+	if status != "" {
+		q = q.Where("status = ?", status)
+	}
+	if err := q.Count(&total).Error; err != nil {
+		return nil, 0, err
+	}
+	offset := (page - 1) * size
+	err := q.Order("created_at DESC").Offset(offset).Limit(size).Find(&invoices).Error
+	return invoices, total, err
+}
+
+// UpdateInvoiceStatus updates an invoice's status
+func UpdateInvoiceStatus(id int, status string) error {
+	return DB.Model(&Invoice{}).Where("id = ?", id).Update("status", status).Error
+}

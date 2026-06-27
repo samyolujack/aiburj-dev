@@ -95,3 +95,55 @@ func GetMyInvoices(c *gin.Context) {
 		"total":   total,
 	})
 }
+
+// ── Admin invoice management ─────────────────────────────────────────────
+
+// AdminListInvoices returns all invoices with filters
+func AdminListInvoices(c *gin.Context) {
+	page := c.GetInt("page")
+	if page < 1 { page = 1 }
+	size := c.GetInt("size")
+	if size < 1 || size > 100 { size = 20 }
+	status := c.Query("status")
+
+	invoices, total, err := model.GetAllInvoices(page, size, status)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": err.Error()})
+		return
+	}
+
+	type invWithUser struct {
+		model.Invoice
+		Username string `json:"username"`
+	}
+	result := make([]invWithUser, len(invoices))
+	for i, inv := range invoices {
+		result[i] = invWithUser{Invoice: inv}
+		if user, err := model.GetUserById(inv.UserId, false); err == nil && user != nil {
+			result[i].Username = user.Username
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{"success": true, "data": result, "total": total})
+}
+
+// AdminUpdateInvoice updates invoice status
+func AdminUpdateInvoice(c *gin.Context) {
+	var req struct {
+		Id     int    `json:"id"`
+		Status string `json:"status"`
+	}
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"success": false, "message": "参数无效"})
+		return
+	}
+	if req.Status != "pending" && req.Status != "approved" && req.Status != "rejected" && req.Status != "issued" {
+		c.JSON(http.StatusBadRequest, gin.H{"success": false, "message": "无效的状态"})
+		return
+	}
+	if err := model.UpdateInvoiceStatus(req.Id, req.Status); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"success": true, "message": "状态已更新"})
+}
