@@ -175,6 +175,10 @@ func SetApiRouter(router *gin.Engine) {
 				// Admin invoice routes
 				adminRoute.GET("/invoices", controller.AdminListInvoices)
 				adminRoute.PUT("/invoices", controller.AdminUpdateInvoice)
+
+				// Admin verification routes
+				adminRoute.GET("/verifications", controller.AdminListVerifications)
+				adminRoute.PUT("/verifications", controller.AdminReviewVerification)
 				}
 		}
 

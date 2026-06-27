@@ -81,6 +81,11 @@ function getSystemSettingsNavGroups(t: TFunction): NavGroup[] {
           icon: FileText,
           url: '/system-settings/invoices',
         },
+        {
+          title: t('Verification Review'),
+          icon: ShieldAlert,
+          url: '/system-settings/verifications',
+        },
       ],
     },
   ]

@@ -73,6 +73,7 @@ import { Route as AuthenticatedDashboardSectionRouteImport } from './routes/_aut
 import { Route as AuthenticatedChatChatIdRouteImport } from './routes/_authenticated/chat/$chatId'
 import { Route as AuthenticatedActivityInvitesRouteImport } from './routes/_authenticated/activity/invites'
 import { Route as authUserResetRouteImport } from './routes/(auth)/user/reset'
+import { Route as AuthenticatedSystemSettingsVerificationsIndexRouteImport } from './routes/_authenticated/system-settings/verifications/index'
 import { Route as AuthenticatedSystemSettingsTicketsIndexRouteImport } from './routes/_authenticated/system-settings/tickets/index'
 import { Route as AuthenticatedSystemSettingsSiteIndexRouteImport } from './routes/_authenticated/system-settings/site/index'
 import { Route as AuthenticatedSystemSettingsSecurityIndexRouteImport } from './routes/_authenticated/system-settings/security/index'
@@ -430,6 +431,12 @@ const authUserResetRoute = authUserResetRouteImport.update({
   path: '/user/reset',
   getParentRoute: () => authRouteRoute,
 } as any)
+const AuthenticatedSystemSettingsVerificationsIndexRoute =
+  AuthenticatedSystemSettingsVerificationsIndexRouteImport.update({
+    id: '/verifications/',
+    path: '/verifications/',
+    getParentRoute: () => AuthenticatedSystemSettingsRouteRoute,
+  } as any)
 const AuthenticatedSystemSettingsTicketsIndexRoute =
   AuthenticatedSystemSettingsTicketsIndexRouteImport.update({
     id: '/tickets/',
@@ -606,6 +613,7 @@ export interface FileRoutesByFullPath {
   '/system-settings/security/': typeof AuthenticatedSystemSettingsSecurityIndexRoute
   '/system-settings/site/': typeof AuthenticatedSystemSettingsSiteIndexRoute
   '/system-settings/tickets/': typeof AuthenticatedSystemSettingsTicketsIndexRoute
+  '/system-settings/verifications/': typeof AuthenticatedSystemSettingsVerificationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -685,6 +693,7 @@ export interface FileRoutesByTo {
   '/system-settings/security': typeof AuthenticatedSystemSettingsSecurityIndexRoute
   '/system-settings/site': typeof AuthenticatedSystemSettingsSiteIndexRoute
   '/system-settings/tickets': typeof AuthenticatedSystemSettingsTicketsIndexRoute
+  '/system-settings/verifications': typeof AuthenticatedSystemSettingsVerificationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -768,6 +777,7 @@ export interface FileRoutesById {
   '/_authenticated/system-settings/security/': typeof AuthenticatedSystemSettingsSecurityIndexRoute
   '/_authenticated/system-settings/site/': typeof AuthenticatedSystemSettingsSiteIndexRoute
   '/_authenticated/system-settings/tickets/': typeof AuthenticatedSystemSettingsTicketsIndexRoute
+  '/_authenticated/system-settings/verifications/': typeof AuthenticatedSystemSettingsVerificationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -850,6 +860,7 @@ export interface FileRouteTypes {
     | '/system-settings/security/'
     | '/system-settings/site/'
     | '/system-settings/tickets/'
+    | '/system-settings/verifications/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -929,6 +940,7 @@ export interface FileRouteTypes {
     | '/system-settings/security'
     | '/system-settings/site'
     | '/system-settings/tickets'
+    | '/system-settings/verifications'
   id:
     | '__root__'
     | '/'
@@ -1011,6 +1023,7 @@ export interface FileRouteTypes {
     | '/_authenticated/system-settings/security/'
     | '/_authenticated/system-settings/site/'
     | '/_authenticated/system-settings/tickets/'
+    | '/_authenticated/system-settings/verifications/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1495,6 +1508,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authUserResetRouteImport
       parentRoute: typeof authRouteRoute
     }
+    '/_authenticated/system-settings/verifications/': {
+      id: '/_authenticated/system-settings/verifications/'
+      path: '/verifications'
+      fullPath: '/system-settings/verifications/'
+      preLoaderRoute: typeof AuthenticatedSystemSettingsVerificationsIndexRouteImport
+      parentRoute: typeof AuthenticatedSystemSettingsRouteRoute
+    }
     '/_authenticated/system-settings/tickets/': {
       id: '/_authenticated/system-settings/tickets/'
       path: '/tickets'
@@ -1654,6 +1674,7 @@ interface AuthenticatedSystemSettingsRouteRouteChildren {
   AuthenticatedSystemSettingsSecurityIndexRoute: typeof AuthenticatedSystemSettingsSecurityIndexRoute
   AuthenticatedSystemSettingsSiteIndexRoute: typeof AuthenticatedSystemSettingsSiteIndexRoute
   AuthenticatedSystemSettingsTicketsIndexRoute: typeof AuthenticatedSystemSettingsTicketsIndexRoute
+  AuthenticatedSystemSettingsVerificationsIndexRoute: typeof AuthenticatedSystemSettingsVerificationsIndexRoute
 }
 
 const AuthenticatedSystemSettingsRouteRouteChildren: AuthenticatedSystemSettingsRouteRouteChildren =
@@ -1692,6 +1713,8 @@ const AuthenticatedSystemSettingsRouteRouteChildren: AuthenticatedSystemSettings
       AuthenticatedSystemSettingsSiteIndexRoute,
     AuthenticatedSystemSettingsTicketsIndexRoute:
       AuthenticatedSystemSettingsTicketsIndexRoute,
+    AuthenticatedSystemSettingsVerificationsIndexRoute:
+      AuthenticatedSystemSettingsVerificationsIndexRoute,
   }
 
 const AuthenticatedSystemSettingsRouteRouteWithChildren =

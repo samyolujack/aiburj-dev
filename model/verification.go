@@ -41,3 +41,19 @@ func UpdateVerificationStatus(id int, status int, reviewMsg string) error {
 		"review_msg": reviewMsg,
 	}).Error
 }
+
+// GetAllVerifications returns all verifications with pagination and optional status filter
+func GetAllVerifications(page, size int, status *int) ([]UserVerification, int64, error) {
+	var list []UserVerification
+	var total int64
+	q := DB.Model(&UserVerification{})
+	if status != nil {
+		q = q.Where("status = ?", *status)
+	}
+	if err := q.Count(&total).Error; err != nil {
+		return nil, 0, err
+	}
+	offset := (page - 1) * size
+	err := q.Order("created_at DESC").Offset(offset).Limit(size).Find(&list).Error
+	return list, total, err
+}
