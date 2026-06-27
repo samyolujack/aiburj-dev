@@ -20,6 +20,7 @@ import { type TFunction } from 'i18next'
 import {
   Box,
   CreditCard,
+  MessageSquare,
   Settings,
   Shield,
   ShieldAlert,
@@ -68,6 +69,11 @@ function getSystemSettingsNavGroups(t: TFunction): NavGroup[] {
           title: t('Security & Limits'),
           icon: ShieldAlert,
           items: getSecuritySectionNavItems(t),
+        },
+        {
+          title: t('Ticketing'),
+          icon: MessageSquare,
+          url: '/system-settings/tickets',
         },
       ],
     },
