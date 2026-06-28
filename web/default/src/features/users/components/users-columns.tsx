@@ -42,7 +42,7 @@ function getQuotaProgressColor(percentage: number): string {
   return '[&_[data-slot=progress-indicator]]:bg-emerald-500'
 }
 
-export function useUsersColumns(): ColumnDef<User>[] {
+export function useUsersColumns(onUsernameClick?: (userId: number) => void): ColumnDef<User>[] {
   const { t } = useTranslation()
   return [
     {
@@ -93,9 +93,14 @@ export function useUsersColumns(): ColumnDef<User>[] {
         return (
           <div className='flex min-w-[160px] flex-col gap-1'>
             <div className='flex items-center gap-2'>
-              <LongText className='max-w-[140px] font-medium'>
-                {username}
-              </LongText>
+              <button
+                onClick={(e) => { e.stopPropagation(); onUsernameClick?.(row.original.id) }}
+                className='text-left hover:text-[#004A8F] hover:underline transition-colors cursor-pointer'
+              >
+                <LongText className='max-w-[140px] font-medium'>
+                  {username}
+                </LongText>
+              </button>
               {remark && (
                 <Tooltip>
                   <TooltipTrigger

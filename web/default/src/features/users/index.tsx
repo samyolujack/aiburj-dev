@@ -17,16 +17,19 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import { useTranslation } from 'react-i18next'
+import { useState } from 'react'
 import { SectionPageLayout } from '@/components/layout'
 import { UsersDeleteDialog } from './components/users-delete-dialog'
 import { UsersMutateDrawer } from './components/users-mutate-drawer'
 import { UsersPrimaryButtons } from './components/users-primary-buttons'
 import { UsersProvider, useUsers } from './components/users-provider'
 import { UsersTable } from './components/users-table'
+import { UserDetailDrawer } from './components/user-detail-drawer'
 
 function UsersContent() {
   const { t } = useTranslation()
   const { open, setOpen, currentRow } = useUsers()
+  const [detailUserId, setDetailUserId] = useState<number | null>(null)
 
   return (
     <>
@@ -36,7 +39,7 @@ function UsersContent() {
           <UsersPrimaryButtons />
         </SectionPageLayout.Actions>
         <SectionPageLayout.Content>
-          <UsersTable />
+          <UsersTable onUsernameClick={setDetailUserId} />
         </SectionPageLayout.Content>
       </SectionPageLayout>
 
@@ -46,6 +49,7 @@ function UsersContent() {
         currentRow={open === 'update' ? currentRow || undefined : undefined}
       />
       <UsersDeleteDialog />
+      <UserDetailDrawer userId={detailUserId} onClose={() => setDetailUserId(null)} />
     </>
   )
 }

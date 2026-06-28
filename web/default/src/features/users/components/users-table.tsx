@@ -57,9 +57,9 @@ function isDisabledUserRow(user: User) {
   return isUserDeleted(user) || user.status === USER_STATUS.DISABLED
 }
 
-export function UsersTable() {
+export function UsersTable({ onUsernameClick }: { onUsernameClick?: (userId: number) => void }) {
   const { t } = useTranslation()
-  const columns = useUsersColumns()
+  const columns = useUsersColumns(onUsernameClick)
   const { refreshTrigger } = useUsers()
   const isMobile = useMediaQuery('(max-width: 640px)')
   const [rowSelection, setRowSelection] = useState({})

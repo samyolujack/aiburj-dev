@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/QuantumNous/new-api/common"
 	"github.com/QuantumNous/new-api/dto"
@@ -302,6 +303,69 @@ func GetUser(c *gin.Context) {
 		"data":    user,
 	})
 	return
+}
+
+// AdminGetUserDetail returns comprehensive user info for admin panel
+func AdminGetUserDetail(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"success": false, "message": "无效的用户ID"})
+		return
+	}
+	user, err := model.GetUserById(id, false)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"success": false, "message": "用户不存在"})
+		return
+	}
+
+	// Verification
+	verification, _ := model.GetVerificationByUserId(user.Id)
+	verified := false
+	if verification != nil && verification.Status == 1 {
+		verified = true
+	}
+
+	// Count tickets
+	var ticketCount int64
+	model.DB.Model(&model.Ticket{}).Where("user_id = ?", user.Id).Count(&ticketCount)
+	var openTicketCount int64
+	model.DB.Model(&model.Ticket{}).Where("user_id = ? AND status = 'open'", user.Id).Count(&openTicketCount)
+
+	// Count invoices
+	var invoiceCount int64
+	model.DB.Model(&model.Invoice{}).Where("user_id = ?", user.Id).Count(&invoiceCount)
+	var pendingInvoiceCount int64
+	model.DB.Model(&model.Invoice{}).Where("user_id = ? AND status = 'pending'", user.Id).Count(&pendingInvoiceCount)
+
+	// Count API keys
+	var keyCount int64
+	model.DB.Model(&model.Token{}).Where("user_id = ?", user.Id).Count(&keyCount)
+
+	// Recent consumption (last 30 days)
+	var recentConsumption float64
+	model.DB.Model(&model.Log{}).Where("user_id = ? AND created_at > ?", user.Id, time.Now().AddDate(0, 0, -30).Unix()).
+		Select("COALESCE(SUM(quota), 0)").Scan(&recentConsumption)
+
+	// Total consumption
+	var totalConsumption float64
+	model.DB.Model(&model.Log{}).Where("user_id = ?", user.Id).
+		Select("COALESCE(SUM(quota), 0)").Scan(&totalConsumption)
+
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"data": gin.H{
+			"user":             user,
+			"verified":         verified,
+			"verification":     verification,
+			"ticket_total":     ticketCount,
+			"ticket_open":      openTicketCount,
+			"invoice_total":    invoiceCount,
+			"invoice_pending":  pendingInvoiceCount,
+			"key_count":        keyCount,
+			"recent_consumption": recentConsumption,
+			"total_consumption":  totalConsumption,
+		},
+	})
 }
 
 func GenerateAccessToken(c *gin.Context) {
