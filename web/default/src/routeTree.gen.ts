@@ -80,6 +80,7 @@ import { Route as AuthenticatedSystemSettingsSecurityIndexRouteImport } from './
 import { Route as AuthenticatedSystemSettingsOperationsIndexRouteImport } from './routes/_authenticated/system-settings/operations/index'
 import { Route as AuthenticatedSystemSettingsModelsIndexRouteImport } from './routes/_authenticated/system-settings/models/index'
 import { Route as AuthenticatedSystemSettingsInvoicesIndexRouteImport } from './routes/_authenticated/system-settings/invoices/index'
+import { Route as AuthenticatedSystemSettingsDashboardIndexRouteImport } from './routes/_authenticated/system-settings/dashboard/index'
 import { Route as AuthenticatedSystemSettingsContentIndexRouteImport } from './routes/_authenticated/system-settings/content/index'
 import { Route as AuthenticatedSystemSettingsBillingIndexRouteImport } from './routes/_authenticated/system-settings/billing/index'
 import { Route as AuthenticatedSystemSettingsAuthIndexRouteImport } from './routes/_authenticated/system-settings/auth/index'
@@ -473,6 +474,12 @@ const AuthenticatedSystemSettingsInvoicesIndexRoute =
     path: '/invoices/',
     getParentRoute: () => AuthenticatedSystemSettingsRouteRoute,
   } as any)
+const AuthenticatedSystemSettingsDashboardIndexRoute =
+  AuthenticatedSystemSettingsDashboardIndexRouteImport.update({
+    id: '/dashboard/',
+    path: '/dashboard/',
+    getParentRoute: () => AuthenticatedSystemSettingsRouteRoute,
+  } as any)
 const AuthenticatedSystemSettingsContentIndexRoute =
   AuthenticatedSystemSettingsContentIndexRouteImport.update({
     id: '/content/',
@@ -607,6 +614,7 @@ export interface FileRoutesByFullPath {
   '/system-settings/auth/': typeof AuthenticatedSystemSettingsAuthIndexRoute
   '/system-settings/billing/': typeof AuthenticatedSystemSettingsBillingIndexRoute
   '/system-settings/content/': typeof AuthenticatedSystemSettingsContentIndexRoute
+  '/system-settings/dashboard/': typeof AuthenticatedSystemSettingsDashboardIndexRoute
   '/system-settings/invoices/': typeof AuthenticatedSystemSettingsInvoicesIndexRoute
   '/system-settings/models/': typeof AuthenticatedSystemSettingsModelsIndexRoute
   '/system-settings/operations/': typeof AuthenticatedSystemSettingsOperationsIndexRoute
@@ -687,6 +695,7 @@ export interface FileRoutesByTo {
   '/system-settings/auth': typeof AuthenticatedSystemSettingsAuthIndexRoute
   '/system-settings/billing': typeof AuthenticatedSystemSettingsBillingIndexRoute
   '/system-settings/content': typeof AuthenticatedSystemSettingsContentIndexRoute
+  '/system-settings/dashboard': typeof AuthenticatedSystemSettingsDashboardIndexRoute
   '/system-settings/invoices': typeof AuthenticatedSystemSettingsInvoicesIndexRoute
   '/system-settings/models': typeof AuthenticatedSystemSettingsModelsIndexRoute
   '/system-settings/operations': typeof AuthenticatedSystemSettingsOperationsIndexRoute
@@ -771,6 +780,7 @@ export interface FileRoutesById {
   '/_authenticated/system-settings/auth/': typeof AuthenticatedSystemSettingsAuthIndexRoute
   '/_authenticated/system-settings/billing/': typeof AuthenticatedSystemSettingsBillingIndexRoute
   '/_authenticated/system-settings/content/': typeof AuthenticatedSystemSettingsContentIndexRoute
+  '/_authenticated/system-settings/dashboard/': typeof AuthenticatedSystemSettingsDashboardIndexRoute
   '/_authenticated/system-settings/invoices/': typeof AuthenticatedSystemSettingsInvoicesIndexRoute
   '/_authenticated/system-settings/models/': typeof AuthenticatedSystemSettingsModelsIndexRoute
   '/_authenticated/system-settings/operations/': typeof AuthenticatedSystemSettingsOperationsIndexRoute
@@ -854,6 +864,7 @@ export interface FileRouteTypes {
     | '/system-settings/auth/'
     | '/system-settings/billing/'
     | '/system-settings/content/'
+    | '/system-settings/dashboard/'
     | '/system-settings/invoices/'
     | '/system-settings/models/'
     | '/system-settings/operations/'
@@ -934,6 +945,7 @@ export interface FileRouteTypes {
     | '/system-settings/auth'
     | '/system-settings/billing'
     | '/system-settings/content'
+    | '/system-settings/dashboard'
     | '/system-settings/invoices'
     | '/system-settings/models'
     | '/system-settings/operations'
@@ -1017,6 +1029,7 @@ export interface FileRouteTypes {
     | '/_authenticated/system-settings/auth/'
     | '/_authenticated/system-settings/billing/'
     | '/_authenticated/system-settings/content/'
+    | '/_authenticated/system-settings/dashboard/'
     | '/_authenticated/system-settings/invoices/'
     | '/_authenticated/system-settings/models/'
     | '/_authenticated/system-settings/operations/'
@@ -1557,6 +1570,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSystemSettingsInvoicesIndexRouteImport
       parentRoute: typeof AuthenticatedSystemSettingsRouteRoute
     }
+    '/_authenticated/system-settings/dashboard/': {
+      id: '/_authenticated/system-settings/dashboard/'
+      path: '/dashboard'
+      fullPath: '/system-settings/dashboard/'
+      preLoaderRoute: typeof AuthenticatedSystemSettingsDashboardIndexRouteImport
+      parentRoute: typeof AuthenticatedSystemSettingsRouteRoute
+    }
     '/_authenticated/system-settings/content/': {
       id: '/_authenticated/system-settings/content/'
       path: '/content'
@@ -1668,6 +1688,7 @@ interface AuthenticatedSystemSettingsRouteRouteChildren {
   AuthenticatedSystemSettingsAuthIndexRoute: typeof AuthenticatedSystemSettingsAuthIndexRoute
   AuthenticatedSystemSettingsBillingIndexRoute: typeof AuthenticatedSystemSettingsBillingIndexRoute
   AuthenticatedSystemSettingsContentIndexRoute: typeof AuthenticatedSystemSettingsContentIndexRoute
+  AuthenticatedSystemSettingsDashboardIndexRoute: typeof AuthenticatedSystemSettingsDashboardIndexRoute
   AuthenticatedSystemSettingsInvoicesIndexRoute: typeof AuthenticatedSystemSettingsInvoicesIndexRoute
   AuthenticatedSystemSettingsModelsIndexRoute: typeof AuthenticatedSystemSettingsModelsIndexRoute
   AuthenticatedSystemSettingsOperationsIndexRoute: typeof AuthenticatedSystemSettingsOperationsIndexRoute
@@ -1701,6 +1722,8 @@ const AuthenticatedSystemSettingsRouteRouteChildren: AuthenticatedSystemSettings
       AuthenticatedSystemSettingsBillingIndexRoute,
     AuthenticatedSystemSettingsContentIndexRoute:
       AuthenticatedSystemSettingsContentIndexRoute,
+    AuthenticatedSystemSettingsDashboardIndexRoute:
+      AuthenticatedSystemSettingsDashboardIndexRoute,
     AuthenticatedSystemSettingsInvoicesIndexRoute:
       AuthenticatedSystemSettingsInvoicesIndexRoute,
     AuthenticatedSystemSettingsModelsIndexRoute:

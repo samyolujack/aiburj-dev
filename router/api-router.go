@@ -180,6 +180,9 @@ func SetApiRouter(router *gin.Engine) {
 				// Admin verification routes
 				adminRoute.GET("/verifications", controller.AdminListVerifications)
 				adminRoute.PUT("/verifications", controller.AdminReviewVerification)
+
+				// Admin stats
+				adminRoute.GET("/stats", controller.AdminStats)
 				}
 		}
 

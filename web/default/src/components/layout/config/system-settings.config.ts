@@ -18,6 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import { type TFunction } from 'i18next'
 import {
+  BarChart3,
   Box,
   CreditCard,
   FileText,
@@ -46,6 +47,11 @@ function getSystemSettingsNavGroups(t: TFunction): NavGroup[] {
       id: 'system-administration',
       title: t('System Administration'),
       items: [
+        {
+          title: t('Operational Dashboard'),
+          icon: BarChart3,
+          url: '/system-settings/dashboard',
+        },
         {
           title: t('Site & Branding'),
           icon: Settings,
