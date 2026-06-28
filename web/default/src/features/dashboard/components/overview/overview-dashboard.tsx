@@ -445,6 +445,15 @@ function CompactQuickAction(props: { action: QuickAction }) {
   )
 }
 
+function AdminLink({ to, label, desc }: { to: string; label: string; desc: string }) {
+  return (
+    <Link to={to} className='bg-muted/40 hover:bg-muted/70 rounded-xl p-3 text-left transition-colors no-underline'>
+      <p className='text-sm font-medium text-foreground'>{label}</p>
+      <p className='text-xs text-muted-foreground mt-0.5'>{desc}</p>
+    </Link>
+  )
+}
+
 export function OverviewDashboard() {
   const { t } = useTranslation()
   const user = useAuthStore((state) => state.auth.user)
@@ -726,6 +735,25 @@ export function OverviewDashboard() {
       )}
 
       <SummaryCards />
+
+      {/* Admin quick links */}
+      {isAdmin && (
+        <CardStaggerContainer>
+          <CardStaggerItem>
+            <div className='bg-card rounded-2xl border p-5 shadow-xs'>
+              <h3 className='text-sm font-semibold mb-4 flex items-center gap-2'>
+                <Settings className='size-4' /> 管理后台快捷入口
+              </h3>
+              <div className='grid grid-cols-2 md:grid-cols-4 gap-3'>
+                <AdminLink to='/system-settings/dashboard' label='运营看板' desc='核心数据一览' />
+                <AdminLink to='/system-settings/tickets' label='工单管理' desc='用户反馈处理' />
+                <AdminLink to='/system-settings/invoices' label='发票管理' desc='审核与开具' />
+                <AdminLink to='/system-settings/marketplace-models' label='模型配置' desc='类型与标签' />
+              </div>
+            </div>
+          </CardStaggerItem>
+        </CardStaggerContainer>
+      )}
 
       {showAnnouncementsPanel && (
         <CardStaggerContainer>
