@@ -127,7 +127,7 @@ function ImageGenPage() {
           />
           <div>
             <h2 className="text-xl font-semibold tracking-tight">
-              🖼️ {t('图像生成')}
+              {t('图像生成')}
             </h2>
             <p className="text-muted-foreground mt-1 text-xs">
               {t('输入描述文字，AI 为你生成图像')}

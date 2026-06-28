@@ -137,7 +137,7 @@ function TTSPage() {
           />
           <div>
             <h2 className="text-xl font-semibold tracking-tight">
-              🎙️ {t('语音合成')}
+              {t('语音合成')}
             </h2>
             <p className="text-muted-foreground mt-1 text-xs">
               {t('输入文字，AI 为你朗读')}
