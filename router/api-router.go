@@ -183,6 +183,10 @@ func SetApiRouter(router *gin.Engine) {
 
 				// Admin stats
 				adminRoute.GET("/stats", controller.AdminStats)
+
+				// Admin marketplace model management
+				adminRoute.GET("/marketplace-models", controller.AdminMarketplaceModels)
+				adminRoute.PUT("/marketplace-models", controller.AdminUpdateMarketplaceModel)
 				}
 		}
 

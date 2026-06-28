@@ -79,6 +79,7 @@ import { Route as AuthenticatedSystemSettingsSiteIndexRouteImport } from './rout
 import { Route as AuthenticatedSystemSettingsSecurityIndexRouteImport } from './routes/_authenticated/system-settings/security/index'
 import { Route as AuthenticatedSystemSettingsOperationsIndexRouteImport } from './routes/_authenticated/system-settings/operations/index'
 import { Route as AuthenticatedSystemSettingsModelsIndexRouteImport } from './routes/_authenticated/system-settings/models/index'
+import { Route as AuthenticatedSystemSettingsMarketplaceModelsIndexRouteImport } from './routes/_authenticated/system-settings/marketplace-models/index'
 import { Route as AuthenticatedSystemSettingsInvoicesIndexRouteImport } from './routes/_authenticated/system-settings/invoices/index'
 import { Route as AuthenticatedSystemSettingsDashboardIndexRouteImport } from './routes/_authenticated/system-settings/dashboard/index'
 import { Route as AuthenticatedSystemSettingsContentIndexRouteImport } from './routes/_authenticated/system-settings/content/index'
@@ -468,6 +469,12 @@ const AuthenticatedSystemSettingsModelsIndexRoute =
     path: '/models/',
     getParentRoute: () => AuthenticatedSystemSettingsRouteRoute,
   } as any)
+const AuthenticatedSystemSettingsMarketplaceModelsIndexRoute =
+  AuthenticatedSystemSettingsMarketplaceModelsIndexRouteImport.update({
+    id: '/marketplace-models/',
+    path: '/marketplace-models/',
+    getParentRoute: () => AuthenticatedSystemSettingsRouteRoute,
+  } as any)
 const AuthenticatedSystemSettingsInvoicesIndexRoute =
   AuthenticatedSystemSettingsInvoicesIndexRouteImport.update({
     id: '/invoices/',
@@ -616,6 +623,7 @@ export interface FileRoutesByFullPath {
   '/system-settings/content/': typeof AuthenticatedSystemSettingsContentIndexRoute
   '/system-settings/dashboard/': typeof AuthenticatedSystemSettingsDashboardIndexRoute
   '/system-settings/invoices/': typeof AuthenticatedSystemSettingsInvoicesIndexRoute
+  '/system-settings/marketplace-models/': typeof AuthenticatedSystemSettingsMarketplaceModelsIndexRoute
   '/system-settings/models/': typeof AuthenticatedSystemSettingsModelsIndexRoute
   '/system-settings/operations/': typeof AuthenticatedSystemSettingsOperationsIndexRoute
   '/system-settings/security/': typeof AuthenticatedSystemSettingsSecurityIndexRoute
@@ -697,6 +705,7 @@ export interface FileRoutesByTo {
   '/system-settings/content': typeof AuthenticatedSystemSettingsContentIndexRoute
   '/system-settings/dashboard': typeof AuthenticatedSystemSettingsDashboardIndexRoute
   '/system-settings/invoices': typeof AuthenticatedSystemSettingsInvoicesIndexRoute
+  '/system-settings/marketplace-models': typeof AuthenticatedSystemSettingsMarketplaceModelsIndexRoute
   '/system-settings/models': typeof AuthenticatedSystemSettingsModelsIndexRoute
   '/system-settings/operations': typeof AuthenticatedSystemSettingsOperationsIndexRoute
   '/system-settings/security': typeof AuthenticatedSystemSettingsSecurityIndexRoute
@@ -782,6 +791,7 @@ export interface FileRoutesById {
   '/_authenticated/system-settings/content/': typeof AuthenticatedSystemSettingsContentIndexRoute
   '/_authenticated/system-settings/dashboard/': typeof AuthenticatedSystemSettingsDashboardIndexRoute
   '/_authenticated/system-settings/invoices/': typeof AuthenticatedSystemSettingsInvoicesIndexRoute
+  '/_authenticated/system-settings/marketplace-models/': typeof AuthenticatedSystemSettingsMarketplaceModelsIndexRoute
   '/_authenticated/system-settings/models/': typeof AuthenticatedSystemSettingsModelsIndexRoute
   '/_authenticated/system-settings/operations/': typeof AuthenticatedSystemSettingsOperationsIndexRoute
   '/_authenticated/system-settings/security/': typeof AuthenticatedSystemSettingsSecurityIndexRoute
@@ -866,6 +876,7 @@ export interface FileRouteTypes {
     | '/system-settings/content/'
     | '/system-settings/dashboard/'
     | '/system-settings/invoices/'
+    | '/system-settings/marketplace-models/'
     | '/system-settings/models/'
     | '/system-settings/operations/'
     | '/system-settings/security/'
@@ -947,6 +958,7 @@ export interface FileRouteTypes {
     | '/system-settings/content'
     | '/system-settings/dashboard'
     | '/system-settings/invoices'
+    | '/system-settings/marketplace-models'
     | '/system-settings/models'
     | '/system-settings/operations'
     | '/system-settings/security'
@@ -1031,6 +1043,7 @@ export interface FileRouteTypes {
     | '/_authenticated/system-settings/content/'
     | '/_authenticated/system-settings/dashboard/'
     | '/_authenticated/system-settings/invoices/'
+    | '/_authenticated/system-settings/marketplace-models/'
     | '/_authenticated/system-settings/models/'
     | '/_authenticated/system-settings/operations/'
     | '/_authenticated/system-settings/security/'
@@ -1563,6 +1576,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSystemSettingsModelsIndexRouteImport
       parentRoute: typeof AuthenticatedSystemSettingsRouteRoute
     }
+    '/_authenticated/system-settings/marketplace-models/': {
+      id: '/_authenticated/system-settings/marketplace-models/'
+      path: '/marketplace-models'
+      fullPath: '/system-settings/marketplace-models/'
+      preLoaderRoute: typeof AuthenticatedSystemSettingsMarketplaceModelsIndexRouteImport
+      parentRoute: typeof AuthenticatedSystemSettingsRouteRoute
+    }
     '/_authenticated/system-settings/invoices/': {
       id: '/_authenticated/system-settings/invoices/'
       path: '/invoices'
@@ -1690,6 +1710,7 @@ interface AuthenticatedSystemSettingsRouteRouteChildren {
   AuthenticatedSystemSettingsContentIndexRoute: typeof AuthenticatedSystemSettingsContentIndexRoute
   AuthenticatedSystemSettingsDashboardIndexRoute: typeof AuthenticatedSystemSettingsDashboardIndexRoute
   AuthenticatedSystemSettingsInvoicesIndexRoute: typeof AuthenticatedSystemSettingsInvoicesIndexRoute
+  AuthenticatedSystemSettingsMarketplaceModelsIndexRoute: typeof AuthenticatedSystemSettingsMarketplaceModelsIndexRoute
   AuthenticatedSystemSettingsModelsIndexRoute: typeof AuthenticatedSystemSettingsModelsIndexRoute
   AuthenticatedSystemSettingsOperationsIndexRoute: typeof AuthenticatedSystemSettingsOperationsIndexRoute
   AuthenticatedSystemSettingsSecurityIndexRoute: typeof AuthenticatedSystemSettingsSecurityIndexRoute
@@ -1726,6 +1747,8 @@ const AuthenticatedSystemSettingsRouteRouteChildren: AuthenticatedSystemSettings
       AuthenticatedSystemSettingsDashboardIndexRoute,
     AuthenticatedSystemSettingsInvoicesIndexRoute:
       AuthenticatedSystemSettingsInvoicesIndexRoute,
+    AuthenticatedSystemSettingsMarketplaceModelsIndexRoute:
+      AuthenticatedSystemSettingsMarketplaceModelsIndexRoute,
     AuthenticatedSystemSettingsModelsIndexRoute:
       AuthenticatedSystemSettingsModelsIndexRoute,
     AuthenticatedSystemSettingsOperationsIndexRoute:

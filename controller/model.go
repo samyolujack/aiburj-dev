@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -495,4 +496,84 @@ func contains(slice []string, item string) bool {
 		}
 	}
 	return false
+}
+
+// ── Marketplace Model Management (Admin) ─────────────────────────────────
+
+// AdminMarketplaceModels returns all models with marketplace config
+func AdminMarketplaceModels(c *gin.Context) {
+	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+	size, _ := strconv.Atoi(c.DefaultQuery("size", "50"))
+	search := c.Query("search")
+
+	var models []model.Model
+	var total int64
+	q := model.DB.Model(&model.Model{})
+	if search != "" {
+		q = q.Where("model_name LIKE ? OR tags LIKE ?", "%"+search+"%", "%"+search+"%")
+	}
+	q.Count(&total)
+	offset := (page - 1) * size
+	q.Order("id DESC").Offset(offset).Limit(size).Find(&models)
+
+	// Enrich with vendor name
+	type richModel struct {
+		model.Model
+		VendorName string `json:"vendor_name"`
+	}
+	result := make([]richModel, len(models))
+	for i, m := range models {
+		result[i] = richModel{Model: m}
+		if m.VendorID > 0 {
+			if vendor, err := model.GetVendorByID(m.VendorID); err == nil && vendor != nil {
+				result[i].VendorName = vendor.Name
+			}
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"data":    result,
+		"total":   total,
+	})
+}
+
+// AdminUpdateMarketplaceModel updates model_type and tags
+func AdminUpdateMarketplaceModel(c *gin.Context) {
+	var req struct {
+		Id        int    `json:"id"`
+		ModelType string `json:"model_type"`
+		Tags      string `json:"tags"`
+	}
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"success": false, "message": "参数无效"})
+		return
+	}
+	if req.Id <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"success": false, "message": "无效的模型ID"})
+		return
+	}
+
+	updates := map[string]interface{}{}
+	if req.ModelType != "" {
+		validTypes := map[string]bool{"对话": true, "生图": true, "嵌入": true, "重排序": true, "语音": true, "视频": true}
+		if !validTypes[req.ModelType] {
+			c.JSON(http.StatusBadRequest, gin.H{"success": false, "message": "无效的模型类型: " + req.ModelType})
+			return
+		}
+		updates["model_type"] = req.ModelType
+	}
+	if req.Tags != "" {
+		updates["tags"] = req.Tags
+	}
+	if len(updates) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"success": false, "message": "没有可更新的字段"})
+		return
+	}
+
+	if err := model.DB.Model(&model.Model{}).Where("id = ?", req.Id).Updates(updates).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"success": true, "message": "更新成功"})
 }

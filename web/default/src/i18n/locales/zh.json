@@ -2246,6 +2246,7 @@
     "Map request model names to actual provider model names (JSON format)": "将请求模型名称映射到实际提供商模型名称 (JSON 格式)",
     "Map response status codes (JSON format)": "映射响应状态码（JSON 格式）",
     "Map upstream status codes to different codes": "将上游状态码映射到不同的代码",
+    "Marketplace Config": "市场模型配置",
     "Market Share": "市场份额",
     "Marketing": "市场营销",
     "Match All (AND)": "必须全部满足（AND）",

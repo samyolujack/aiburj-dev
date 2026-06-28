@@ -87,6 +87,11 @@ function getSystemSettingsNavGroups(t: TFunction): NavGroup[] {
           icon: FileText,
           url: '/system-settings/invoices',
         },
+        {
+          title: t('Marketplace Config'),
+          icon: Box,
+          url: '/system-settings/marketplace-models',
+        },
       ],
     },
   ]
