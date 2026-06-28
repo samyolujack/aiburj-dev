@@ -18,11 +18,9 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import {
   BarChart3,
-  BookOpen,
   Box,
   CreditCard,
   FileText,
-  Gift,
   Image,
   Key,
   LayoutDashboard,
@@ -173,30 +171,14 @@ export function useSidebarData(): SidebarData {
         ],
       },
       {
-        id: 'activity',
-        title: t('活动运营'),
-        items: [
-          {
-            title: t('推荐计划'),
-            url: '/wallet',
-            icon: Gift,
-          },
-          {
-            title: t('邀请记录'),
-            url: '/activity/invites',
-            icon: Users,
-          },
-          {
-            title: t('文档中心'),
-            url: '/docs',
-            icon: BookOpen,
-          },
-        ],
-      },
-      {
         id: 'admin',
         title: t('系统管理'),
         items: [
+          {
+            title: t('运营看板'),
+            url: '/system-settings/dashboard',
+            icon: BarChart3,
+          },
           {
             title: t('Channels'),
             url: '/channels',
