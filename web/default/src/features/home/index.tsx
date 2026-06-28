@@ -17,7 +17,7 @@ import { SyntaxHighlight } from './components/syntax-highlight'
 /* ── Hero 轮播数据 ── */
 const slides = [
   { title: '国产大模型的灯塔', title2: '一站汇聚，照亮 AI 之路', desc: 'OpenAI 兼容格式，统一 API 调用 DeepSeek、通义千问、GLM 等国产大模型，按量计费，快速集成', bg: '/banner-1.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.2) 0%, rgba(220,235,248,0.3) 50%, rgba(255,255,255,0.45) 100%)', textColor: '#252736', badge: 'AI 之塔', isDark: false, bgPos: 'right center', bgSize: 'cover' },
-  { title: '覆盖 8 大国产厂商', title2: '16 款主流模型', desc: 'DeepSeek V4、Qwen3、GLM-5.1、Kimi-K2 等最新旗舰模型，一次接入全部调用', bg: '/banner-2.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.2) 0%, rgba(220,235,248,0.3) 50%, rgba(255,255,255,0.45) 100%)', textColor: '#252736', badge: '模型生态', isDark: false, bgPos: 'center', bgSize: 'cover' },
+  { title: '覆盖 7 大国产厂商', title2: '50+ 款主流模型', desc: 'DeepSeek V4、Qwen3、GLM-5.1、Kimi-K2 等最新旗舰模型，一次接入全部调用', bg: '/banner-2.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.2) 0%, rgba(220,235,248,0.3) 50%, rgba(255,255,255,0.45) 100%)', textColor: '#252736', badge: '模型生态', isDark: false, bgPos: 'center', bgSize: 'cover' },
   { title: '比官方更优的价格', title2: '按量计费无门槛', desc: '新人注册即享体验额度，支持高速推理通道，99.9% 服务可用性保障', bg: '/banner-3.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.2) 0%, rgba(220,235,248,0.3) 50%, rgba(255,255,255,0.45) 100%)', textColor: '#252736', badge: '高性价比', isDark: false, bgPos: 'center', bgSize: 'cover' },
   { title: '三步接入零门槛', title2: '一行代码调用大模型', desc: '获取 API Key → 选择模型 → 复制代码，OpenAI SDK 直接兼容，5 分钟完成集成', bg: '/banner-4.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.2) 0%, rgba(220,235,248,0.3) 50%, rgba(255,255,255,0.45) 100%)', textColor: '#252736', badge: '极速接入', isDark: false, bgPos: 'center', bgSize: 'cover' },
   { title: '企业级安全合规', title2: '数据隐私全面保障', desc: '支持私有化部署，计算隔离/网络隔离/存储隔离，符合行业安全标准与合规要求', bg: '/banner-5.png', overlay: 'linear-gradient(180deg, rgba(230,240,250,0.2) 0%, rgba(220,235,248,0.3) 50%, rgba(255,255,255,0.45) 100%)', textColor: '#252736', badge: '安全可靠', isDark: false, bgPos: 'center', bgSize: 'cover' },
@@ -121,18 +121,13 @@ const smallCards = [
 
 /* ── 模型生态数据 ── */
 const modelsData = [
-  { logo: '/logo-deepseek.svg', name: 'DeepSeek', models: 'V4-Pro, V4-Flash, V3.2', desc: '国产大模型标杆，旗舰推理能力' },
-  { logo: '/logo-tongyi.svg', name: '通义千问', models: 'Qwen3-235B, Qwen-VL', desc: '阿里云自研，多尺寸覆盖全场景' },
-  { logo: '/logo-bytedance.svg', name: '字节豆包', models: 'Doubao-1.5-pro', desc: '字节跳动自研，多模态能力强' },
-  { logo: '/logo-zhipu.svg', name: '智谱 AI', models: 'GLM-5.1, GLM-5, GLM-4.7', desc: '全模态大模型先驱，学术商业并重' },
-  { logo: '/logo-kimi.png', name: '月之暗面', models: 'Kimi-K2.6, K2.5', desc: '超长上下文，深度理解与推理' },
-  { logo: '/logo-baidu.svg', name: '百度文心', models: 'ERNIE-4.5, ERNIE-Image', desc: '百度自研，知识增强型大模型' },
-  { logo: '/logo-hunyuan.svg', name: '腾讯混元', models: 'Hunyuan-Large', desc: '腾讯全链路自研大语言模型' },
-  { logo: '/logo-minimax.svg', name: 'MiniMax', models: 'MiniMax-M2.5', desc: '轻量高效，高性价比之选' },
-  { logo: '/logo-stepfun.svg', name: '阶跃星辰', models: 'Step-2-16K', desc: '新一代推理模型，性能卓越' },
-  { logo: '/logo-lingyi.png', name: '零一万物', models: 'Yi-Lightning, Yi-Large', desc: '李开复创立，高速推理引擎' },
-  { logo: '/logo-baichuan.svg', name: '百川智能', models: 'Baichuan4, Baichuan-M1', desc: '王小川创立，医疗领域领先' },
-  { logo: '/logo-baai.svg', name: '智源研究院', models: 'Aquila, BGE, FlagEmbedding', desc: '非营利研究机构，开源模型先驱' },
+  { logo: '/logo-deepseek.svg', name: 'DeepSeek', models: 'V4-Pro, V4-Flash, V3.2, R1', desc: '国产大模型标杆，旗舰推理能力' },
+  { logo: '/logo-tongyi.svg', name: '通义千问', models: 'Qwen3-235B, Qwen-VL, Qwen-Image', desc: '阿里云自研，多尺寸覆盖全场景' },
+  { logo: '/logo-zhipu.svg', name: '智谱 AI', models: 'GLM-5.1, GLM-5.2, CogView-4', desc: '全模态大模型先驱，学术商业并重' },
+  { logo: '/logo-kimi.png', name: '月之暗面', models: 'Kimi-K2.7, Moonshot-V1', desc: '超长上下文，深度理解与推理' },
+  { logo: '/logo-hunyuan.svg', name: '腾讯混元', models: 'Hunyuan-Pro, Hunyuan-Turbo', desc: '腾讯全链路自研大语言模型' },
+  { logo: '/logo-minimax.svg', name: 'MiniMax', models: 'MiniMax-M2.5, M2, Text-01', desc: '轻量高效，高性价比之选' },
+  { logo: '/logo-stepfun.svg', name: '阶跃星辰', models: 'Step-2-16K, Step-3.5-Flash', desc: '新一代推理模型，性能卓越' },
 ]
 
 /* ── 行业方案 ── */
