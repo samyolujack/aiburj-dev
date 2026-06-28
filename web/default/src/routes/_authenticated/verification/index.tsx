@@ -1,77 +1,53 @@
 import { useState, useEffect } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
-import { ShieldCheck, ShieldAlert, Clock, Check, X, Loader2, Send } from 'lucide-react'
+import { ShieldCheck, ShieldAlert, Clock, X, Loader2, ArrowRight } from 'lucide-react'
 import { toast } from 'sonner'
 import { api } from '@/lib/api'
 import { Main } from '@/components/layout'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 
 export const Route = createFileRoute('/_authenticated/verification/')({
   component: VerificationPage,
 })
 
 type VerificationData = {
-  id?: number
-  user_id?: number
-  real_name?: string
+  id?: number; real_name?: string
   status: number // -1=未提交, 0=待审核, 1=已通过, 2=已拒绝
   review_msg?: string
-  created_at?: number
 }
 
 function VerificationPage() {
   const { t } = useTranslation()
-  const [realName, setRealName] = useState('')
-  const [idNumber, setIdNumber] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [loading, setLoading] = useState(true)
   const [verification, setVerification] = useState<VerificationData | null>(null)
+  const [alipayConfigured, setAlipayConfigured] = useState(true)
 
-  useEffect(() => {
-    loadStatus()
-  }, [])
+  useEffect(() => { loadStatus() }, [])
 
   const loadStatus = async () => {
     setLoading(true)
     try {
       const res = await api.get('/api/user/verification')
       setVerification(res.data.data || null)
-    } catch {
-      // ignore
-    } finally {
-      setLoading(false)
-    }
+    } catch { } finally { setLoading(false) }
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!realName.trim() || !idNumber.trim()) {
-      toast.error(t('请填写完整的认证信息'))
-      return
+  // Check URL for alipay callback status
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const alipayResult = params.get('alipay')
+    if (alipayResult === 'success') {
+      toast.success('支付宝实名认证成功！您现在可以使用 API 密钥了')
+      loadStatus()
+      // Clean URL
+      window.history.replaceState({}, '', '/verification')
+    } else if (alipayResult === 'fail' || alipayResult === 'error') {
+      toast.error('支付宝认证失败，请重试')
+      window.history.replaceState({}, '', '/verification')
     }
-    setSubmitting(true)
-    try {
-      const res = await api.post('/api/user/verification', {
-        real_name: realName.trim(),
-        id_number: idNumber.trim(),
-      })
-      if (res.data.success) {
-        toast.success(t('实名认证申请已提交'))
-        setVerification(res.data.data)
-        setRealName('')
-        setIdNumber('')
-      } else {
-        toast.error(res.data.message || t('提交失败'))
-      }
-    } catch {
-      toast.error(t('提交失败，请稍后重试'))
-    } finally {
-      setSubmitting(false)
-    }
-  }
+  }, [])
 
   if (loading) {
     return (
@@ -91,173 +67,125 @@ function VerificationPage() {
         <div>
           <h2 className="text-2xl font-semibold tracking-tight flex items-center gap-2">
             <ShieldCheck className="size-6" />
-            {t('实名认证')}
+            实名认证
           </h2>
           <p className="text-muted-foreground mt-1 text-sm">
-            {t('完成实名认证后即可申请 API 密钥')}
+            完成实名认证后即可申请 API 密钥，调用平台所有模型
           </p>
         </div>
 
-        {/* Status display */}
+        {/* Status: Verified */}
         {status === 1 && (
-          <div className="rounded-xl border border-green-200 bg-green-50 p-5">
-            <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-full bg-green-100">
-                <ShieldCheck className="size-5 text-green-600" />
+          <div className="rounded-xl border border-green-200 bg-green-50 p-6">
+            <div className="flex items-center gap-4">
+              <div className="flex size-12 items-center justify-center rounded-full bg-green-100">
+                <ShieldCheck className="size-6 text-green-600" />
               </div>
-              <div>
-                <p className="font-medium text-green-800">{t('实名认证已通过')}</p>
-                <p className="text-sm text-green-600">
-                  {verification?.real_name} · {t('已认证')}
+              <div className="flex-1">
+                <p className="font-semibold text-green-800 text-lg">实名认证已通过</p>
+                <p className="text-sm text-green-600 mt-0.5">
+                  {verification?.real_name} · 已通过支付宝实名认证
                 </p>
               </div>
+            </div>
+            <div className="mt-5 pt-4 border-t border-green-200">
+              <a
+                href="/keys"
+                className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 no-underline transition-colors"
+              >
+                前往申请 API 密钥 <ArrowRight className="size-4" />
+              </a>
             </div>
           </div>
         )}
 
+        {/* Status: Pending review (legacy, shouldn't happen with Alipay) */}
         {status === 0 && (
           <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
             <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-full bg-amber-100">
-                <Clock className="size-5 text-amber-600" />
-              </div>
+              <Clock className="size-8 text-amber-600" />
               <div>
-                <p className="font-medium text-amber-800">{t('审核中')}</p>
-                <p className="text-sm text-amber-600">
-                  {t('您的实名认证正在审核中，请耐心等待')}
-                </p>
+                <p className="font-semibold text-amber-800">审核中</p>
+                <p className="text-sm text-amber-600">您的实名认证正在审核中，请耐心等待</p>
               </div>
             </div>
           </div>
         )}
 
+        {/* Status: Rejected */}
         {status === 2 && (
           <div className="rounded-xl border border-red-200 bg-red-50 p-5">
-            <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-full bg-red-100">
-                <X className="size-5 text-red-600" />
-              </div>
+            <div className="flex items-center gap-3 mb-3">
+              <X className="size-8 text-red-600" />
               <div>
-                <p className="font-medium text-red-800">{t('认证未通过')}</p>
+                <p className="font-semibold text-red-800">认证未通过</p>
                 {verification?.review_msg && (
                   <p className="text-sm text-red-600">{verification.review_msg}</p>
                 )}
               </div>
             </div>
-            <p className="mt-3 text-sm text-red-500">{t('请重新提交认证信息')}</p>
+            <p className="text-sm text-red-500">请使用下方支付宝认证重新验证</p>
           </div>
         )}
 
-        {/* Submission form */}
+        {/* Not submitted or rejected: show Alipay options */}
         {(status === -1 || status === 2) && (
           <>
-            {/* Two Alipay options side by side */}
-            <div className="grid gap-4 sm:grid-cols-2">
-              {/* Option A: 一键授权（免费） */}
-              <div className="rounded-xl border border-[#1677FF]/20 bg-gradient-to-br from-[#1677FF]/[0.04] to-[#1677FF]/[0.01] p-5">
-                <div className="mb-2">
-                  <span className="inline-flex rounded-md bg-green-100 px-2 py-0.5 text-[10px] font-medium text-green-700">
-                    {t('免费')}
-                  </span>
+            <div className="rounded-xl border border-[#E2E8F0] bg-gradient-to-br from-[#F8FAFC] to-white p-6">
+              <div className="text-center mb-5">
+                <div className="inline-flex size-14 items-center justify-center rounded-2xl bg-[#1677FF]/10 mb-3">
+                  <img src="https://cdn.simpleicons.org/alipay/1677FF" alt="支付宝" className="size-8" />
                 </div>
-                <h3 className="font-medium text-sm">
-                  {t('支付宝授权认证')}
-                </h3>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {t('一键授权，获取已认证的实名信息，即时通过')}
+                <h3 className="text-lg font-semibold text-[#1E293B]">支付宝实名认证</h3>
+                <p className="text-sm text-[#64748B] mt-1">
+                  通过支付宝一键授权，即时完成实名认证，无需等待审核
                 </p>
-                <a
-                  href="/api/user/oauth/alipay/authorize"
-                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-[#1677FF] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#1677FF]/90 no-underline"
-                >
-                  {t('授权认证')}
-                </a>
               </div>
 
-              {/* Option B: 刷脸认证（付费，金融级） */}
-              <div className="rounded-xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white p-5">
-                <div className="mb-2 flex items-center gap-1.5">
-                  <span className="inline-flex rounded-md bg-amber-100 px-2 py-0.5 text-[10px] font-medium text-amber-700">
-                    {t('付费')}
-                  </span>
-                  <span className="inline-flex rounded-md bg-blue-100 px-2 py-0.5 text-[10px] font-medium text-blue-700">
-                    {t('金融级')}
-                  </span>
-                </div>
-                <h3 className="font-medium text-sm">
-                  {t('支付宝刷脸认证')}
-                </h3>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {t('实时人脸核验，每次约¥0.5，权威性更高')}
-                </p>
-                <Button
-                  onClick={async () => {
-                    setSubmitting(true)
-                    try {
-                      const res = await api.post('/api/user/oauth/alipay/certify')
-                      if (res.data?.certify_url) {
-                        window.location.href = res.data.certify_url
-                      } else {
-                        toast.error(res.data?.message || t('发起认证失败'))
-                      }
-                    } catch {
-                      toast.error(t('发起认证失败'))
-                    } finally {
-                      setSubmitting(false)
+              {/* Option A: Free OAuth */}
+              <a
+                href="/api/user/oauth/alipay/authorize"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#1677FF] px-4 py-3 text-sm font-medium text-white hover:bg-[#1677FF]/90 no-underline transition-colors mb-3"
+              >
+                支付宝授权认证（免费）
+              </a>
+
+              {/* Option B: Face verify */}
+              <Button
+                onClick={async () => {
+                  setSubmitting(true)
+                  try {
+                    const res = await api.post('/api/user/oauth/alipay/certify')
+                    if (res.data?.certify_url) {
+                      window.location.href = res.data.certify_url
+                    } else {
+                      toast.error(res.data?.message || '发起认证失败')
                     }
-                  }}
-                  disabled={submitting}
-                  className="mt-4 w-full gap-2"
-                  variant="outline"
-                >
-                  {submitting ? (
-                    <Loader2 className="size-4 animate-spin" />
-                  ) : null}
-                  {t('刷脸认证')}
-                </Button>
-              </div>
-            </div>
+                  } catch {
+                    toast.error('发起认证失败')
+                  } finally { setSubmitting(false) }
+                }}
+                disabled={submitting}
+                className="w-full gap-2"
+                variant="outline"
+              >
+                {submitting ? <Loader2 className="size-4 animate-spin" /> : null}
+                支付宝刷脸认证（付费 · 金融级）
+              </Button>
 
-            {/* Divider */}
-            <div className="flex items-center gap-3">
-              <div className="h-px flex-1 bg-border" />
-              <span className="text-xs text-muted-foreground">{t('或手动填写')}</span>
-              <div className="h-px flex-1 bg-border" />
-            </div>
-
-            {/* Manual form */}
-            <form onSubmit={handleSubmit} className="rounded-xl border bg-card p-5 space-y-4">
-            <div className="space-y-2">
-              <Label>{t('真实姓名')} *</Label>
-              <Input
-                value={realName}
-                onChange={(e) => setRealName(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label>{t('身份证号')} *</Label>
-              <Input
-                value={idNumber}
-                onChange={(e) => setIdNumber(e.target.value)}
-                maxLength={18}
-                required
-              />
-              <p className="text-xs text-muted-foreground">
-                {t('信息仅用于实名认证，加密存储，不会泄露')}
+              <p className="text-[11px] text-[#94A3B8] text-center mt-3">
+                认证信息仅用于实名校验，加密存储，不会泄露
               </p>
             </div>
 
-            <Button type="submit" disabled={submitting} className="gap-2">
-              {submitting ? (
-                <Loader2 className="size-4 animate-spin" />
-              ) : (
-                <Send className="size-4" />
-              )}
-              {submitting ? t('提交中...') : t('提交认证')}
-            </Button>
-          </form>
+            <div className="rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] p-5">
+              <h4 className="text-sm font-semibold text-[#1E293B] mb-2">认证后可以使用：</h4>
+              <ul className="space-y-1.5 text-[13px] text-[#64748B]">
+                <li className="flex items-center gap-2"><ShieldCheck className="size-3.5 text-green-500" /> 创建 API 密钥</li>
+                <li className="flex items-center gap-2"><ShieldCheck className="size-3.5 text-green-500" /> 调用所有平台模型</li>
+                <li className="flex items-center gap-2"><ShieldCheck className="size-3.5 text-green-500" /> 体验中心全部功能</li>
+              </ul>
+            </div>
           </>
         )}
       </div>
