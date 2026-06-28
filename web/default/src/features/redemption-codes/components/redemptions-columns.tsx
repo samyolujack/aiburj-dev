@@ -226,38 +226,16 @@ export function useRedemptionsColumns(): ColumnDef<Redemption>[] {
       ),
       cell: ({ row }) => {
         const userId = row.getValue('used_user_id') as number
-        const redemption = row.original
+        const username = row.original.username
 
         if (userId === 0) {
           return <span className='text-muted-foreground text-sm'>-</span>
         }
 
         return (
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <StatusBadge
-                  label={t('User {{id}}', { id: userId })}
-                  variant='neutral'
-                  copyable={false}
-                  className='cursor-help'
-                />
-              }
-            ></TooltipTrigger>
-            <TooltipContent>
-              <div className='space-y-1 text-xs'>
-                <div>
-                  {t('User ID:')} {userId}
-                </div>
-                {redemption.redeemed_time > 0 && (
-                  <div>
-                    {t('Redeemed:')}{' '}
-                    {formatTimestampToDate(redemption.redeemed_time)}
-                  </div>
-                )}
-              </div>
-            </TooltipContent>
-          </Tooltip>
+          <span className='text-[13px] text-[#475569] font-medium'>
+            {username || `用户#${userId}`}
+          </span>
         )
       },
     },

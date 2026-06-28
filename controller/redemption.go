@@ -20,9 +20,39 @@ func GetAllRedemptions(c *gin.Context) {
 		common.ApiError(c, err)
 		return
 	}
+
+	// Enrich with usernames
+	type richItem struct {
+		model.Redemption
+		Username string `json:"username"`
+	}
+	items := make([]richItem, len(redemptions))
+	for i, r := range redemptions {
+		items[i] = richItem{Redemption: *r}
+		if r.UsedUserId > 0 {
+			if user, err := model.GetUserById(r.UsedUserId, false); err == nil && user != nil {
+				items[i].Username = user.Username
+			}
+		}
+	}
+
+	// Stats
+	var redeemedCount, redeemedQuota int64
+	model.DB.Model(&model.Redemption{}).Where("status = ?", common.RedemptionCodeStatusUsed).
+		Select("COUNT(*), COALESCE(SUM(quota), 0)").Row().Scan(&redeemedCount, &redeemedQuota)
+
 	pageInfo.SetTotal(int(total))
-	pageInfo.SetItems(redemptions)
-	common.ApiSuccess(c, pageInfo)
+	pageInfo.SetItems(items)
+
+	// Add stats to response
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"data":    pageInfo,
+		"stats": gin.H{
+			"redeemed_count": redeemedCount,
+			"redeemed_quota": redeemedQuota,
+		},
+	})
 	return
 }
 
@@ -34,8 +64,23 @@ func SearchRedemptions(c *gin.Context) {
 		common.ApiError(c, err)
 		return
 	}
+
+	type richItem struct {
+		model.Redemption
+		Username string `json:"username"`
+	}
+	items := make([]richItem, len(redemptions))
+	for i, r := range redemptions {
+		items[i] = richItem{Redemption: *r}
+		if r.UsedUserId > 0 {
+			if user, err := model.GetUserById(r.UsedUserId, false); err == nil && user != nil {
+				items[i].Username = user.Username
+			}
+		}
+	}
+
 	pageInfo.SetTotal(int(total))
-	pageInfo.SetItems(redemptions)
+	pageInfo.SetItems(items)
 	common.ApiSuccess(c, pageInfo)
 	return
 }
